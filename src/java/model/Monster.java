@@ -1,12 +1,14 @@
 package model;
 
 public class Monster {
+    private final String name ;
     private int live ;
-    private int degats ;
-    private int speed ;
-    private int money ;
+    private final int degats ;
+    private final int speed ;
+    private final int money ;
 
-    public Monster (int live , int degats , int speed , int money ){
+    public Monster (String name , int live , int degats , int speed , int money ){
+        this.name = name ;
         this.live = live ;
         this.degats = degats ;
         this.speed = speed ;
@@ -16,6 +18,8 @@ public class Monster {
     public int getLive() {
         return live;
     }
+
+    public int getDegats() { return degats; }
 
     public int getSpeed() {
         return speed;
