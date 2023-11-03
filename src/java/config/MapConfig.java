@@ -10,14 +10,14 @@ public class MapConfig {
     public MapConfig (Cellule[][] grid){
         this.grid = grid ;
     }
-    public static int compteligne() throws Exception{
+    public static int compteligne(String s) throws Exception{
         String path = System.getProperty("user.dir") ;
         File file;
         try {
-            file =new File(path+"/src/main/resources/Maze.txt");
+            file =new File(path+"/src/resources/"+s);
         } catch (Exception e ){
             e.printStackTrace();
-            file =new File(path+"\\src\\main\\resources\\Maze.txt");
+            file =new File(path+"\\src\\resources\\"+s);
         }
         int nbligne =0 ;
         Scanner scanner = new Scanner( file ) ;
@@ -28,14 +28,14 @@ public class MapConfig {
         return nbligne;
     }
 
-    public static int comptelongeur() throws Exception {
+    public static int comptelongeur(String s) throws Exception {
         String path = System.getProperty("user.dir") ;
         File file;
         try {
-            file =new File(path+"/src/main/resources/Maze.txt");
+            file =new File(path+"/src/resources/"+s);
         } catch (Exception e ){
             e.printStackTrace();
-            file =new File(path+"\\src\\main\\resources\\Maze.txt");
+            file =new File(path+"\\src\\resources\\"+s);
         }
         int longueur =0 ;
         Scanner scanner = new Scanner( file ) ;
@@ -45,17 +45,17 @@ public class MapConfig {
         return longueur;
     }
 
-    public static Cellule[][] grid () throws Exception {
+    public static Cellule[][] grid(String s) throws Exception {
         String path = System.getProperty("user.dir") ;
         File file;
         try {
-            file =new File(path+"/src/main/resources/Maze.txt");
+            file =new File(path+"/src/resources/"+s);
         } catch (Exception e ){
             e.printStackTrace();
-            file =new File(path+"\\src\\main\\resources\\Maze.txt");
+            file =new File(path+"\\src\\resources\\"+s);
         }
         Scanner scanner = new Scanner( file ) ;
-        Cellule[][] maze = new Cellule[compteligne()][comptelongeur()] ;
+        Cellule[][] maze = new Cellule[compteligne(s)][comptelongeur(s)] ;
         int j = 0 ;
         String str  = scanner.nextLine();
         while (str != null){
