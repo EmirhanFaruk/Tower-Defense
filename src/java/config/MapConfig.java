@@ -2,6 +2,8 @@ package config;
 
 import javax.swing.event.CellEditorListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MapConfig {
@@ -11,47 +13,61 @@ public class MapConfig {
         this.grid = grid ;
     }
 
-    
-    public List<Cellule> getVoisin(int i, int j)
+
+    public List<ArrayList<Integer>> getVoisin(int i, int j)
     {
         /*
         Retourne une liste avec les cellules atour depuis les cordoonnées
          */
-        List<Cellule> res = new List<Cellule>();
+        List<ArrayList<Integer>> res = new ArrayList<>();
         if(i > 0) // HAUT
         {
-            res.add(grid[i - 1][j]);
+            res.add(new ArrayList<>(List.of(i - 1, j)));
         }
         if(j < grid.length - 1) // DROITE
         {
-            res.add(grid[i][j + 1]);
+            res.add(new ArrayList<>(List.of(i, j + 1)));
         }
         if(i < grid.length - 1) // BAS
         {
-            res.add(grid[i + 1][j]);
+            res.add(new ArrayList<>(List.of(i + 1, j)));
         }
         if(j > 0) // GAUCHE
         {
-            res.add(grid[i][j - 1]);
+            res.add(new ArrayList<>(List.of(i, j - 1)));
         }
 
         return res;
     }
 
-    public List<Cellule> getListeChemin(int i, int j)
+    public List<ArrayList<Integer>> getListeChemin(int i, int j)
     {
         /*
-        Returne une liste avec les coordonnées des cellules de chemin
+        Returne une liste avec les coordonnées des cellules de chemin depuis les coordonnées de début
          */
-        List<Cellule> res = new List<Cellule>();
+        List<ArrayList<Integer>> res = new ArrayList<>();
         while(true)
         {
-            List<Cellule> temp = getVoisin();
-            return res;
+            List<ArrayList<Integer>> temp = new ArrayList<>();
+            for(ArrayList<Integer> couple: getVoisin(i, j))
+            {
+                int ic = couple.get(0);
+                int jc = couple.get(1);
+                if(grid[ic][jc].isRoad())
+                {
+                    temp.add(new ArrayList<Integer>(List.of(ic, jc)));
+                    res.add(new ArrayList<Integer>(List.of(ic, jc)));
+                }
+            }
+
+            if(temp.isEmpty())
+            {
+                return res;
+            }
         }
     }
 
-    public static int compteligne() throws Exception{
+    public static int compteligne(String s) throws Exception{
         String path = System.getProperty("user.dir") ;
         File file;
         try {
