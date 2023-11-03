@@ -10,6 +10,8 @@ public class MapConfig {
     public MapConfig (Cellule[][] grid){
         this.grid = grid ;
     }
+
+    
     public List<Cellule> getVoisin(int i, int j)
     {
         /*
