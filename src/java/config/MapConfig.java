@@ -10,6 +10,46 @@ public class MapConfig {
     public MapConfig (Cellule[][] grid){
         this.grid = grid ;
     }
+
+    public List<Cellule> getVoisin(int i, int j)
+    {
+        /*
+        Retourne une liste avec les cellules atour depuis les cordoonnées
+         */
+        List<Cellule> res = new List<Cellule>();
+        if(i > 0) // HAUT
+        {
+            res.add(grid[i - 1][j]);
+        }
+        if(j < grid.length - 1) // DROITE
+        {
+            res.add(grid[i][j + 1]);
+        }
+        if(i < grid.length - 1) // BAS
+        {
+            res.add(grid[i + 1][j]);
+        }
+        if(j > 0) // GAUCHE
+        {
+            res.add(grid[i][j - 1]);
+        }
+
+        return res;
+    }
+
+    public List<Cellule> getListeChemin(int i, int j)
+    {
+        /*
+        Returne une liste avec les coordonnées des cellules de chemin
+         */
+        List<Cellule> res = new List<Cellule>();
+        while(true)
+        {
+            List<Cellule> temp = getVoisin();
+            return res;
+        }
+    }
+
     public static int compteligne() throws Exception{
         String path = System.getProperty("user.dir") ;
         File file;
