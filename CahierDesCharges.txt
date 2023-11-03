@@ -56,3 +56,10 @@ Un écran game over :
 11-Effet de son
 12-Graphisme et Animations 
 
+
+
+
+
+
+A ajouter s'il y a tu temps qui reste:
+-Un mechanique de sauvegarde
