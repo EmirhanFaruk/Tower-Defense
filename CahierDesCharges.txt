@@ -63,3 +63,6 @@ Un écran game over :
 
 A ajouter s'il y a tu temps qui reste:
 -Un mechanique de sauvegarde
+-Ameliorisation des tours
+-Debloquage des tours/monstres
+-Ajouter le niveu de difficulté
