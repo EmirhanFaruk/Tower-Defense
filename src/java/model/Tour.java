@@ -40,8 +40,7 @@ public class Tour {
         return coordinates;
     }
 
-    public void upgarde (Tour tour){
-        if ( this.level == tour.level) ;
+    public void upgrade (){
     }
 
     public void target (){
