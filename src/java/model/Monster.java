@@ -6,8 +6,12 @@ public class Monster {
     private final int degats ;
     private final int speed ;
     private final int money ;
+    private int x, y;
 
-    public Monster (String name , int live , int degats , int speed , int money ){
+
+    public Monster (String name , int live , int degats , int speed , int money , int x, int y){
+        this.x = x;
+        this.y = y;
         this.name = name ;
         this.live = live ;
         this.degats = degats ;
