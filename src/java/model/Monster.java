@@ -35,5 +35,9 @@ public class Monster {
         this.live = live;
     }
 
+    public boolean isDead (){
+        return this.live <=0 ;
+    }
+
 
 }
