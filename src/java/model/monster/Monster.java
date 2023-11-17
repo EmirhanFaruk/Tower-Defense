@@ -1,4 +1,4 @@
-package model;
+package model.monster;
 
 public class Monster {
     protected final String name ;

@@ -1,4 +1,4 @@
-package model;
+package model.tour;
 
 import gui.Coordinate;
 import static java.lang.Thread.sleep;

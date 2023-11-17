@@ -1,4 +1,4 @@
-package model;
+package model.monster;
 
 import java.util.Random;
 
