@@ -55,30 +55,15 @@ public class MonsN extends Monster
 
     public void monsterHurt(double degats, String type_degats)
     {
-        //System.out.println("Live before being hurt: " + live + ". Damage: " + degats + ", damage type: " + type_degats);
         if(type_degats.equals(resistance))
         {
             degats = degats - degats * resistance_pourcentage[niveau];
         }
         live -= degats;
-        //System.out.println("Live after being hurt: " + live + ". Damage: " + degats + ", damage type: " + type_degats);
     }
 
     public String toString()
     {
         return "\n\n>>>>>>>>>>\n\n" + name + "\nlive = " + live + "\nspeed = " + speed + "\nmoney = " + money + "\n(x, y) = (" + x + ", " + y + ")\nniveau = " + niveau + "\ntype = " + type + "\nresistance = " + resistance;
     }
-
-    /*
-    public static void main(String[] args)
-    {
-        MonsN monstre;
-        for(int i = 1; i <= 30; i++)
-        {
-            monstre = new MonsN("Bruh No " + i, 100, 5, i/5, 0, 0, i/10, i%3);
-            System.out.println(monstre);
-            monstre.monsterHurt((double)4.7 * i, res_list[i%4]);
-        }
-    }
-    */
 }
