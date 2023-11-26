@@ -5,14 +5,14 @@ import java.util.Random;
 public class MonsN extends Monster
 {
 
-    private static double[][][] mulp =
+    private final static double[][][] mulp =
             {
                     {{1, 1}, {1.5, 1.1}, {1.8, 1.3}, {2, 1.5}},
                     {{1, 0.9}, {1.5, 0.9}, {1.8, 0.85}, {2, 0.8}},
                     {{1, 1.6}, {1.5, 1.45}, {1.8, 1.3}, {2, 1.1}}
-            }; // live, speed. Exemples a chane
+            }; // live, speed. Exemples a changer
 
-    private static int[][] res_persentage_avoir =
+    private final static int[][] res_persentage_avoir =
             {
                     {100, 0, 0, 0},
                     {70, 10, 10, 10},
@@ -20,15 +20,16 @@ public class MonsN extends Monster
                     {10, 30, 30, 30}
             }; // NONE, BULLET, ARROW, FIRE. Pourcentage pour avoir une resistance.
 
-    private static double[] resistance_pourcentage =
+    private final static double[] resistance_pourcentage =
             { 0 , 0.1 ,0.3 ,0.5 } ;
-    private int type ; // 0 est lent ; 1 est normal ; 2 est rapide
-    private static String[] res_list = {"NONE", "BULLET", "ARROW", "FIRE"};
+    private final int type ; // 0 est lent ; 1 est normal ; 2 est rapide
+    private final static String[] res_list = {"NONE", "BULLET", "ARROW", "FIRE"};
 
     private String resistance = "";
 
-    public MonsN(String name , double live , double speed , int money , double x, double y, int niveau,int type)
+    public MonsN(String name, double live , double speed , int money , double x, double y, int niveau, int type)
     {
+        // niveau est entre 0-3
         super(name, live * mulp[type][niveau][0], speed * mulp[type][niveau][1], money, niveau, x, y);
         choixResistance();
         this.type = type ;
@@ -50,5 +51,19 @@ public class MonsN extends Monster
                 i = res_list.length; // Pour sortir du boucle
             }
         }
+    }
+
+    public void monsterHurt(double degats, String type_degats)
+    {
+        if(type_degats.equals(resistance))
+        {
+            degats = degats - degats * resistance_pourcentage[niveau];
+        }
+        live -= degats;
+    }
+
+    public String toString()
+    {
+        return "\n\n>>>>>>>>>>\n\n" + name + "\nlive = " + live + "\nspeed = " + speed + "\nmoney = " + money + "\n(x, y) = (" + x + ", " + y + ")\nniveau = " + niveau + "\ntype = " + type + "\nresistance = " + resistance;
     }
 }
