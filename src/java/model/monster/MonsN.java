@@ -1,5 +1,8 @@
 package model.monster;
 
+import config.Cellule;
+import model.Character ;
+
 import java.util.Random;
 
 public class MonsN extends Monster
@@ -27,9 +30,9 @@ public class MonsN extends Monster
 
     private String resistance = "";
 
-    public MonsN(String name , double live , double speed , int money , double x, double y, int niveau,int type)
+    public MonsN(String name , double live , double speed ,int degats, int money , double x, double y, int niveau,int type)
     {
-        super(name, live * mulp[type][niveau][0], speed * mulp[type][niveau][1], money, niveau, x, y);
+        super(name, live * mulp[type][niveau][0], speed * mulp[type][niveau][1],degats , money, niveau, x, y);
         choixResistance();
         this.type = type ;
     }
@@ -49,6 +52,16 @@ public class MonsN extends Monster
                 resistance = res_list[i]; // assigner la resistance
                 i = res_list.length; // Pour sortir du boucle
             }
+        }
+    }
+
+    // une fonction qui retourne un boolean si le montre est rentrer dans la base
+    public boolean entrerDansBase(Cellule[][] tab ){
+        if( tab[(int) x][(int)y].getType() == 4 ){ // regarde si les coordonnes du monstres est celui où la base
+            return true ; // renvoie true
+        }
+        else {
+            return false ; // renvoie false
         }
     }
 }

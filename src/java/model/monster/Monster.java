@@ -7,10 +7,12 @@ public class Monster {
     protected final int money ;
     protected final int niveau;
 
+    protected final int degats ;
+
     protected double x, y;
 
 
-    public Monster (String name , double live , double speed , int money , int niveau , double x, double y){
+    public Monster (String name , double live , double speed ,int degats , int money , int niveau , double x, double y){
         this.x = x;
         this.y = y;
         this.name = name ;
@@ -18,6 +20,7 @@ public class Monster {
         this.speed = speed ;
         this.niveau = niveau;
         this.money = money ;
+        this.degats = degats ;
     }
 
     public double getLive() {
