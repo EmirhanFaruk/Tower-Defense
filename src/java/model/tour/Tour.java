@@ -46,6 +46,7 @@ public class Tour {
     public void target (){
     }
 
+    // la fonction ne fonctionne pas je changerai plus tard ( il faut faire un lambda )
     public void cooldown() throws InterruptedException {
         sleep(cooldown * 1000L) ;
     }
