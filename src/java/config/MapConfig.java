@@ -127,4 +127,7 @@ public class MapConfig {
         return maze;
     }
 
+    public Cellule[][] getGrid() {
+        return grid;
+    }
 }
