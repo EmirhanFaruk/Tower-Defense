@@ -73,8 +73,6 @@ public class TerminalAffichage {
             } while (player.wantPlay());
             player.closeScanner();
         }
-
-
     }
 
     public static void main(String[] args) throws Exception {
