@@ -67,62 +67,55 @@ public class MapConfig {
         }
     }
 
-    public static int compteligne(String s) throws Exception{
-        String path = System.getProperty("user.dir") ;
-        File file;
-        try {
-            file =new File(path+"/src/resources/"+s);
-        } catch (Exception e ){
-            e.printStackTrace();
-            file =new File(path+"\\src\\resources\\"+s);
+    public static int compteLigne(String s, Scanner scanner) throws Exception {
+        int nombreLignes = 0;
+        // Utilise le scanner pour compter les lignes
+        while (scanner.hasNextLine()) {
+            scanner.nextLine();
+            nombreLignes++;
         }
-        int nbligne =0 ;
-        Scanner scanner = new Scanner( file ) ;
-        while (scanner.nextLine()!=null){
-            nbligne++;
-        }
-        scanner.close();
-        return nbligne;
+        return nombreLignes;
     }
 
-    public static int comptelongeur(String s) throws Exception {
-        String path = System.getProperty("user.dir") ;
-        File file;
-        try {
-            file =new File(path+"/src/resources/"+s);
-        } catch (Exception e ){
-            e.printStackTrace();
-            file =new File(path+"\\src\\resources\\"+s);
+    public static int compteLongeur(String s, Scanner scanner) throws Exception {
+        int longueur = 0;
+        // Utilise le scanner pour lire la ligne
+        if (scanner.hasNextLine()) {
+            String str = scanner.nextLine();
+            longueur = str.length();
         }
-        int longueur =0 ;
-        Scanner scanner = new Scanner( file ) ;
-        String str  = scanner.nextLine();
-        longueur = str.length() ;
-        scanner.close();
         return longueur;
     }
 
-    public static Cellule[][] grid(String s) throws Exception {
-        String path = System.getProperty("user.dir") ;
-        File file;
-        try {
-            file =new File(path+"/src/resources/"+s);
-        } catch (Exception e ){
-            e.printStackTrace();
-            file =new File(path+"\\src\\resources\\"+s);
-        }
-        Scanner scanner = new Scanner( file ) ;
-        Cellule[][] maze = new Cellule[compteligne(s)][comptelongeur(s)] ;
-        int j = 0 ;
-        String str  = scanner.nextLine();
-        while (str != null){
-            for ( int i = 0 ; i< str.length();i++){
-                if (str.charAt(i)=='0') maze[j][i]=  new Cellule(false,0) ;
-                if (str.charAt(i)=='1') maze[j][i]=  new Cellule(true,1) ;
-                if (str.charAt(i)=='2') maze[j][i]=  new Cellule(false,2) ;
-                if (str.charAt(i)=='3') maze[j][i]=  new Cellule(false,3) ;
+    public static Cellule[][] gridCellule(String s, Scanner scanner) throws Exception {
+        Cellule[][] maze = new Cellule[compteLigne(s, scanner)][compteLongeur(s, scanner)];
+        int j = 0;
+        // Utilise le scanner pour lire chaque ligne du fichier
+        while (scanner.hasNextLine()) {
+            String str = scanner.nextLine();
+            for (int i = 0; i < str.length(); i++) {
+                if (str.charAt(i) == '0') maze[j][i] = new Cellule(false, 0);
+                if (str.charAt(i) == '1') maze[j][i] = new Cellule(true, 1);
+                if (str.charAt(i) == '2') maze[j][i] = new Cellule(false, 2);
+                if (str.charAt(i) == '3') maze[j][i] = new Cellule(false, 3);
             }
-            j++ ;
+            j++;
+        }
+        return maze;
+    }
+    public static int[][] gridInteger(String s, Scanner scanner) throws Exception {
+        int[][] maze = new int[compteLigne(s, scanner)][compteLongeur(s, scanner)];
+        int j = 0;
+        // Utilise le scanner pour lire chaque ligne du fichier
+        while (scanner.hasNextLine()) {
+            String str = scanner.nextLine();
+            for (int i = 0; i < str.length(); i++) {
+                if (str.charAt(i) == '0') maze[j][i] = 0;
+                if (str.charAt(i) == '1') maze[j][i] = 1;
+                if (str.charAt(i) == '2') maze[j][i] = 2;
+                if (str.charAt(i) == '3') maze[j][i] = 3;
+            }
+            j++;
         }
         return maze;
     }
