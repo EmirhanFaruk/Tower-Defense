@@ -98,9 +98,7 @@ public class Monster {
     public double getLive() {
         return live;
     }
-    public double getSpeed() {
-        return speed;
-    }
+    public double getSpeed() {return speed;}
     public int getMoney() {
         return money;
     }
@@ -111,5 +109,11 @@ public class Monster {
         return this.live <=0 ;
     }
 
+    public List<ArrayList<Integer>> getPath() {return path;}
+    public void popPath() { if(!path.isEmpty()) path.remove(0);}
 
+    public String getDirection() {return direction;}
+    public void setDirection(String direction) {this.direction = direction;}
+
+    public double[] getPos() {return new double[]{i, j};}
 }

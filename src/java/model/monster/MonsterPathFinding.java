@@ -30,14 +30,57 @@ public class MonsterPathFinding
         return monster_path;
     }
 
+
     public static void setMonsterDirection(Monster mons)
     {
-        
+        if(!mons.getPath().isEmpty())
+        {
+            ArrayList<Integer> couple = mons.getPath().get(0);
+            double[] pos = mons.getPos();
+            // Si au meme position que path target, enleve le et reessaie
+            if(pos[0] == couple.get(0) && pos[1] == couple.get(1))
+            {
+                mons.popPath();
+                setMonsterDirection(mons);
+            }
+            else if(pos[0] == couple.get(0))
+            {
+                // Gerer j, EAST ou WEST
+                if(pos[1] < couple.get(1))
+                {
+                    mons.setDirection("EAST");
+                }
+                else
+                {
+                    mons.setDirection("WEST");
+                }
+            }
+            else
+            {
+                // Gerer i, NORTH ou SOUTH
+                if(pos[0] < couple.get(0))
+                {
+                    mons.setDirection("NORTH");
+                }
+                else
+                {
+                    mons.setDirection("SOUTH");
+                }
+            }
+        }
+        else
+        {
+            mons.setDirection("NONE");
+        }
     }
 
     public static void moveMonster(Monster mons)
     {
-
+        setMonsterDirection(mons);
+        if(!mons.getDirection().equals("NONE"))
+        {
+            
+        }
     }
 
 
