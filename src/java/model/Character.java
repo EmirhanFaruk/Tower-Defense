@@ -1,5 +1,6 @@
 package model;
 
+import model.monster.Monster;
 public class Character {
     private final String name ;
     private static int live ;
@@ -13,6 +14,14 @@ public class Character {
         this.money = 0 ;
     }
 
+    public void winMoneyWhenMonsterDead(Monster monster){
+        if ( monster.isDead()) setMoney(getMoney()+monster.getMoney());
+    }
+
+    public void whenMonsterEnterBase ( Monster monster){
+        if ( monster.entrerDansBase())  setLive(getLive() - monster.getLive()) ;
+    }
+
     public String getName() {
         return name;
     }
@@ -23,7 +32,7 @@ public class Character {
     public int getMoney() {
         return money;
     }
-    public void setLive(int live) {
+    public void setLive ( double live) {
         this.live = live;
     }
     public void setMoney(int money) {
