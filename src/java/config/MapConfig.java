@@ -15,59 +15,6 @@ public class MapConfig {
     }
 
 
-    public List<ArrayList<Integer>> getVoisin(int i, int j)
-    {
-        /*
-        Retourne une liste avec les cellules atour depuis les cordoonnées
-         */
-        List<ArrayList<Integer>> res = new ArrayList<>();
-        if(i > 0) // HAUT
-        {
-            res.add(new ArrayList<>(List.of(i - 1, j)));
-        }
-        if(j < grid.length - 1) // DROITE
-        {
-            res.add(new ArrayList<>(List.of(i, j + 1)));
-        }
-        if(i < grid.length - 1) // BAS
-        {
-            res.add(new ArrayList<>(List.of(i + 1, j)));
-        }
-        if(j > 0) // GAUCHE
-        {
-            res.add(new ArrayList<>(List.of(i, j - 1)));
-        }
-
-        return res;
-    }
-
-    public List<ArrayList<Integer>> getListeChemin(int i, int j)
-    {
-        /*
-        Returne une liste avec les coordonnées des cellules de chemin depuis les coordonnées de début
-         */
-        List<ArrayList<Integer>> res = new ArrayList<>();
-        while(true)
-        {
-            List<ArrayList<Integer>> temp = new ArrayList<>();
-            for(ArrayList<Integer> couple: getVoisin(i, j))
-            {
-                int ic = couple.get(0);
-                int jc = couple.get(1);
-                if(grid[ic][jc].isRoad())
-                {
-                    temp.add(new ArrayList<Integer>(List.of(ic, jc)));
-                    res.add(new ArrayList<Integer>(List.of(ic, jc)));
-                }
-            }
-
-            if(temp.isEmpty())
-            {
-                return res;
-            }
-        }
-    }
-
     public static int compteLigne(String s) throws FileNotFoundException {
         String path = System.getProperty("user.dir") ;
         File file;
@@ -114,8 +61,6 @@ public class MapConfig {
         int longueur = compteLongeur(s);
 
         Cellule[][] maze = new Cellule[lignes][longueur];
-        System.out.println("Lignes : " + lignes);
-        System.out.println("Longueur : " + longueur);
 
         int j = 0;
         Scanner scanner = new Scanner(file);
