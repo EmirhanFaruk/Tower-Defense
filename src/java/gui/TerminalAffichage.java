@@ -31,14 +31,7 @@ public class TerminalAffichage {
             System.out.print("Veuillez donner un niveau entre 1 et 4 : ");
             this.niveau = Integer.parseInt(scanner.nextLine().replaceAll("\\s", ""));
             String temp = "Map" + this.niveau + ".txt";
-            String path = System.getProperty("user.dir") ;
-            File file;
-            try {
-                file =new File(path+"/src/resources/"+temp);
-            } catch (Exception e ){
-                file =new File(path+"\\src\\resources\\"+temp);
-            }
-            this.tableau = MapConfig.grid(temp , new Scanner( new File(String.valueOf(file))));
+            this.tableau = MapConfig.grid(temp);
             this.width = tableau[0].length ;
             this.height = tableau.length ;
             this.player = player ;
@@ -61,32 +54,38 @@ public class TerminalAffichage {
 
         // une fonction qui affiche comment le jeu est à cette instance
         public void afficheCourant (){
-            System.out.println(player.getName());
             System.out.println(" Argent : " +character.getMoney());
             System.out.println(" Vie : " + Character.getLive());
             String colonne = "   ";
-            for (int i =0 ; i<=this.width;i++) colonne = colonne + " " + i + " ";
+            for (int i = 1; i<=this.width;i++){
+                if ( i < 10 ){
+                    colonne = colonne + " " + i + " " ;
+                } else {
+                    colonne = colonne  + i + " ";
+                }
+            }
             System.out.println(colonne);
             String ligne = "";
             for ( int i =0 ; i <=colonne.length() ; i++ ) ligne = ligne + "-";
             System.out.println(ligne);
-            for (int i =0; i <= this.width ;i++) {
+            for (int i =0; i < this.height ;i++) {
                 System.out.print((char) (65 + i) + " |");
-                for (int j = 0; j < this.height ; j++) {
+                for (int j = 0; j < this.width ; j++) {
                     if ( tableau[i][j].getType() == 0 ) {
-                        System.out.print("#"); // l'herbe
+                        System.out.print(" # "); // l'herbe
                     } else if (tableau[i][j].getType() == 1 ) {
-                        System.out.print("O"); // la route
+                        System.out.print(" O "); // la route
                     }  else if (tableau[i][j].getType() == 2 ) {
-                        System.out.print("~"); // l'eau
+                        System.out.print(" ~ "); // l'eau
                     }  else if (tableau[i][j].getType() == 3 ) {
-                        System.out.print("A"); // l'arbre
+                        System.out.print(" A "); // l'arbre
                     } else if (tableau[i][j].getType() == 4 )  {
-                        System.out.print("B"); // la base
+                        System.out.print(" B "); // la base
                     } else{
-                        System.out.print("T"); // une tour
+                        System.out.print(" T "); // une tour
                     }
                 }
+                System.out.print("\n");
             }
         }
 
