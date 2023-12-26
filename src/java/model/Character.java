@@ -19,7 +19,7 @@ public class Character {
     }
 
     public void whenMonsterEnterBase ( Monster monster){
-        if ( monster.entrerDansBase())  setLive(getLive() - monster.getLive()) ;
+        if ( monster.entrerDansBase())  setLive(getLive() - 1) ;
     }
 
     public String getName() {
@@ -32,7 +32,7 @@ public class Character {
     public int getMoney() {
         return money;
     }
-    public void setLive ( double live) {
+    public void setLive ( int live) {
         this.live = live;
     }
     public void setMoney(int money) {
