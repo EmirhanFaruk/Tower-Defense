@@ -13,9 +13,10 @@ public class Monster {
     protected final int money ;
     protected final int niveau;
     protected final int degats ;
-    protected double x, y;
+    protected double i, j;
     private final int type ; // 0 est lent ; 1 est normal ; 2 est rapide
-    private List<ArrayList<Integer>> path;
+    private final List<ArrayList<Integer>> path;
+    private String direction = "EAST";
 
     private final MapConfig mapConfig ;
     private final static double[][][] mulp =
@@ -25,7 +26,7 @@ public class Monster {
                     {{1, 1.6}, {1.5, 1.45}, {1.8, 1.3}, {2, 1.1}}
             }; // live, speed. Exemples a changer
 
-    private final static int[][] res_persentage_avoir =
+    private final static int[][] resistance_pourcentage_avoir =
             {
                     {100, 0, 0, 0},
                     {70, 10, 10, 10},
@@ -40,18 +41,20 @@ public class Monster {
 
     private String resistance = "";
 
-    public Monster (String name , double live , double speed ,int degats , int money , int niveau , double x, double y , int type , MapConfig mapConfig ){
-        this.x = x;
-        this.y = y;
-        this.name = name ;
+    public Monster(String name, double live, double speed, int degats, int money, int niveau, double i, double j, int type, MapConfig mapConfig)
+    {
+        this.i = i;
+        this.j = j;
+        this.name = name;
         this.live = live * mulp[type][niveau][0];
-        this.speed = speed * mulp[type][niveau][1] ;
-        this.niveau = niveau;      // niveau est entre 0-3
-        this.money = money ;
-        this.degats = degats ;
-        this.type  = type ;
+        this.speed = speed * mulp[type][niveau][1];
+        this.niveau = niveau; // niveau est entre 0-3
+        this.money = money;
+        this.degats = degats;
+        this.type  = type;
         choixResistance();
-        this.mapConfig = mapConfig ;
+        this.mapConfig = mapConfig;
+        path = MonsterPathFinding.makeMonster_path(mapConfig);
     }
 
     private void choixResistance()
@@ -62,7 +65,7 @@ public class Monster {
         for (int i = 0; i < res_list.length-1; i++) { // Parcourir les pourcentages des resistances
             int res_pour = 0; // Pourcentage de resistance
             for (int j = 0; j <= i; j++) {
-                res_pour += res_persentage_avoir[niveau][j];
+                res_pour += resistance_pourcentage_avoir[niveau][j];
             }
 
             if (choix_resistance < res_pour) {
@@ -84,12 +87,12 @@ public class Monster {
     // une fonction qui retourne un boolean si le montre est rentrer dans la base
     public boolean entrerDansBase(){
         // regarde si les coordonnes du monstres est celui où la base
-        return mapConfig.getGrid()[(int) x][(int) y].getType() == 4; // renvoie true
+        return mapConfig.getGrid()[(int) i][(int) j].getType() == 4; // renvoie true
     }
 
     public String toString()
     {
-        return "\n\n>>>>>>>>>>\n\n" + name + "\nlive = " + live + "\nspeed = " + speed + "\nmoney = " + money + "\n(x, y) = (" + x + ", " + y + ")\nniveau = " + niveau + "\ntype = " + type + "\nresistance = " + resistance;
+        return "\n\n>>>>>>>>>>\n\n" + name + "\nlive = " + live + "\nspeed = " + speed + "\nmoney = " + money + "\n(i, j) = (" + i + ", " + j + ")\nniveau = " + niveau + "\ntype = " + type + "\nresistance = " + resistance;
     }
 
     public double getLive() {

@@ -8,57 +8,45 @@ import java.util.List;
 
 public class MonsterPathFinding
 {
-    private Cellule[][] grid;
+    private static Cellule[][] grid;
     public static List<ArrayList<Integer>> monster_path;
 
-    public MonsterPathFinding(MapConfig map_config)
+
+    /**
+     * Returne monster_path, produit une s'il est null.
+     * @param map_config map_config
+     * @return monster_path
+     */
+    public static List<ArrayList<Integer>> makeMonster_path(MapConfig map_config)
     {
-        grid = map_config.getGrid();
-
-        int[] debut = findStart();
-
-        monster_path = getListeChemin(debut[0], debut[1]);
-    }
-
-    public void printChemin()
-    {
-        System.out.println("{");
-        for (ArrayList<Integer> couple : monster_path)
+        if(monster_path == null)
         {
-            System.out.println("{" + couple.get(0) + ", " + couple.get(1) + "}");
+            grid = map_config.getGrid();
+
+            int[] debut = findStart();
+
+            monster_path = getListeChemin(debut[0], debut[1]);
         }
-        System.out.println("}");
+        return monster_path;
     }
 
-    public static void printCellArray(Cellule[][] array) {
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[i].length; j++) {
-                System.out.print("(" + i + ", " + j + "): " + array[i][j] + " | ");
-            }
-            System.out.println();
-        }
-    }
-
-    public static void printIntCoupleArray(List<ArrayList<Integer>> array)
+    public static void setMonsterDirection(Monster mons)
     {
-        System.out.println();
-        System.out.print("{");
-        for (int i = 0; i < array.size(); i++) {
-            System.out.print("(" + array.get(i).get(0) + ", " + array.get(i).get(1) + ") | ");
-        }
-        System.out.println("}");
+        
     }
 
-    public static void printIntArray(ArrayList<Integer> array) {
-        System.out.println("(" + array.get(0) + ", " + array.get(1) + ")");
+    public static void moveMonster(Monster mons)
+    {
+
     }
+
 
 
     /**
      * Trouver le point de debut des monstres. C'est le type de "road" au plus gauche colonne.
      * @return les coordonnées de debut
      */
-    private int[] findStart()
+    private static int[] findStart()
     {
         for(int i = 0; i < grid.length; i++)
         {
@@ -76,7 +64,7 @@ public class MonsterPathFinding
      * @param j coordonnée j
      * @return une liste avec les cellules atour depuis les cordoonnées
      */
-    private List<ArrayList<Integer>> getVoisin(int i, int j)
+    private static List<ArrayList<Integer>> getVoisin(int i, int j)
     {
         List<ArrayList<Integer>> res = new ArrayList<>();
         if(i > 0) // HAUT
@@ -113,7 +101,14 @@ public class MonsterPathFinding
     }
 
 
-    private boolean inArray(List<ArrayList<Integer>> arr, int i, int j)
+    /**
+     * Determine si le couple (i, j) existe dans arr.
+     * @param arr le array
+     * @param i coordonnée i
+     * @param j coordonnée j
+     * @return existe ou pas
+     */
+    private static boolean inArray(List<ArrayList<Integer>> arr, int i, int j)
     {
         for (ArrayList<Integer> couple : arr)
         {
@@ -126,12 +121,12 @@ public class MonsterPathFinding
     }
 
     /**
-     * Trouver une chemin depuis le debut vers la base pour les monstres.
+     * Trouver un chemin depuis le debut vers la base pour les monstres.
      * @param i coordonnée i
      * @param j coordonnée j
      * @return une liste avec les coordonnées des cellules de chemin depuis les coordonnées de début
      */
-    private List<ArrayList<Integer>> getListeChemin(int i, int j)
+    private static List<ArrayList<Integer>> getListeChemin(int i, int j)
     {
         List<ArrayList<Integer>> res = new ArrayList<>();
         res.add(new ArrayList<Integer>(List.of(i, j)));
@@ -141,12 +136,6 @@ public class MonsterPathFinding
             List<ArrayList<Integer>> temp = new ArrayList<>();
             for(ArrayList<Integer> couple: getVoisin(i, j))
             {
-                System.out.println("===============================================");
-                printIntCoupleArray(getVoisin(i, j));
-                System.out.println("Current: (" + i + ", " + j + ")");
-                printIntArray(couple);
-                System.out.print("Path: ");
-                printIntCoupleArray(res);
                 ic = couple.get(0);
                 jc = couple.get(1);
                 if(!(inArray(res, ic, jc)))
