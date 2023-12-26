@@ -74,6 +74,7 @@ public class MapConfig {
                     if (str.charAt(i) == '1') maze[j][i] = new Cellule(true, 1);
                     if (str.charAt(i) == '2') maze[j][i] = new Cellule(false, 2);
                     if (str.charAt(i) == '3') maze[j][i] = new Cellule(false, 3);
+                    if (str.charAt(i) == '4') maze[j][i] = new Cellule(false, 4);
                 }
                 j++;
             }

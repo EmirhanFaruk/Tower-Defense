@@ -27,16 +27,30 @@ public class MonsterPathFinding
         {
             System.out.println("{" + couple.get(0) + ", " + couple.get(1) + "}");
         }
-        System.out.print("}");
+        System.out.println("}");
     }
 
-    public static void printIntArray(Cellule[][] array) {
+    public static void printCellArray(Cellule[][] array) {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i].length; j++) {
                 System.out.print("(" + i + ", " + j + "): " + array[i][j] + " | ");
             }
             System.out.println();
         }
+    }
+
+    public static void printIntCoupleArray(List<ArrayList<Integer>> array)
+    {
+        System.out.println();
+        System.out.print("{");
+        for (int i = 0; i < array.size(); i++) {
+            System.out.print("(" + array.get(i).get(0) + ", " + array.get(i).get(1) + ") | ");
+        }
+        System.out.println("}");
+    }
+
+    public static void printIntArray(ArrayList<Integer> array) {
+        System.out.println("(" + array.get(0) + ", " + array.get(1) + ")");
     }
 
 
@@ -67,22 +81,48 @@ public class MonsterPathFinding
         List<ArrayList<Integer>> res = new ArrayList<>();
         if(i > 0) // HAUT
         {
-            res.add(new ArrayList<>(List.of(i - 1, j)));
+            if(grid[i - 1][j].isRoad())
+            {
+                res.add(new ArrayList<>(List.of(i - 1, j)));
+            }
         }
-        if(j < grid.length - 1) // DROITE
+        if(j < grid[0].length - 1) // DROITE
         {
-            res.add(new ArrayList<>(List.of(i, j + 1)));
+
+            if(grid[i][j + 1].isRoad())
+            {
+                res.add(new ArrayList<>(List.of(i, j + 1)));
+            }
         }
         if(i < grid.length - 1) // BAS
         {
-            res.add(new ArrayList<>(List.of(i + 1, j)));
+            if(grid[i + 1][j].isRoad())
+            {
+                res.add(new ArrayList<>(List.of(i + 1, j)));
+            }
         }
         if(j > 0) // GAUCHE
         {
-            res.add(new ArrayList<>(List.of(i, j - 1)));
+            if(grid[i][j - 1].isRoad())
+            {
+                res.add(new ArrayList<>(List.of(i, j - 1)));
+            }
         }
 
         return res;
+    }
+
+
+    private boolean inArray(List<ArrayList<Integer>> arr, int i, int j)
+    {
+        for (ArrayList<Integer> couple : arr)
+        {
+            if(couple.get(0) == i && couple.get(1) == j)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -94,18 +134,31 @@ public class MonsterPathFinding
     private List<ArrayList<Integer>> getListeChemin(int i, int j)
     {
         List<ArrayList<Integer>> res = new ArrayList<>();
+        res.add(new ArrayList<Integer>(List.of(i, j)));
+        int ic = 0, jc = 0;
         while(true)
         {
             List<ArrayList<Integer>> temp = new ArrayList<>();
             for(ArrayList<Integer> couple: getVoisin(i, j))
             {
-                int ic = couple.get(0);
-                int jc = couple.get(1);
-                if(grid[ic][jc].isRoad())
+                System.out.println("===============================================");
+                printIntCoupleArray(getVoisin(i, j));
+                System.out.println("Current: (" + i + ", " + j + ")");
+                printIntArray(couple);
+                System.out.print("Path: ");
+                printIntCoupleArray(res);
+                ic = couple.get(0);
+                jc = couple.get(1);
+                if(!(inArray(res, ic, jc)))
                 {
                     temp.add(new ArrayList<Integer>(List.of(ic, jc)));
                     res.add(new ArrayList<Integer>(List.of(ic, jc)));
                 }
+            }
+            if(res.size() > 1)
+            {
+                i = res.get(res.size()-1).get(0);
+                j = res.get(res.size()-1).get(1);
             }
 
             if(temp.isEmpty())

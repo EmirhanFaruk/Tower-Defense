@@ -19,7 +19,7 @@ public class Cellule {
         if ( i == 1 ) return new Cellule(true, 1 ) ;
         if ( i == 2 ) return new Cellule(false, 2 ) ;
         if ( i == 3 ) return new Cellule(false, 3 ) ;
-        if (  i== 4 ) return new Cellule(true , 4) ;
+        if ( i == 4 ) return new Cellule(true , 4) ;
         return null ;
     }
     public boolean isRoad() {
