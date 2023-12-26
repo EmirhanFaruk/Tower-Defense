@@ -1,6 +1,7 @@
 package gui;
 
 
+import config.Cellule;
 import config.MapConfig ;
 import model.Player ;
 import model.Character ;
@@ -19,11 +20,15 @@ public class TerminalAffichage {
         final int niveau ;
 
         // permet de dire comment est la map et où les monstres peuvent aller
-        int[][] tableau ;
+        Cellule[][] tableau ;
 
-        public Plateau () throws Exception {
+        Player player ;
+
+        Character character ;
+
+        public Plateau ( Player player , Character character ) throws Exception {
             Scanner scanner = new Scanner(System.in);
-            System.out.print("Veuillez donner un niveau entre 1 et 5 : ");
+            System.out.print("Veuillez donner un niveau entre 1 et 4 : ");
             this.niveau = Integer.parseInt(scanner.nextLine().replaceAll("\\s", ""));
             String temp = "Map" + this.niveau + ".txt";
             String path = System.getProperty("user.dir") ;
@@ -33,10 +38,15 @@ public class TerminalAffichage {
             } catch (Exception e ){
                 file =new File(path+"\\src\\resources\\"+temp);
             }
-            this.width = MapConfig.compteLongeur(temp , new  Scanner( new File(String.valueOf(file))));
-            this.height = MapConfig.compteLigne(temp , new Scanner( new File(String.valueOf(file))));
-            this.tableau = MapConfig.gridInteger(temp , new Scanner( new File(String.valueOf(file))));
-            scanner.close();
+            this.tableau = MapConfig.grid(temp , new Scanner( new File(String.valueOf(file))));
+            this.width = tableau[0].length ;
+            this.height = tableau.length ;
+            this.player = player ;
+            this.character = character ;
+        }
+
+        public Plateau ( Player player ) throws Exception {
+            this(player , null ) ;
         }
 
         // une fonction qui dit si on a perdu ou pas
@@ -44,9 +54,40 @@ public class TerminalAffichage {
             return Character.getLive() <= 0 ;
         }
 
+        // une fonction qui ajoute au tableau l'apparition des monstres
+        public void apparitionMonster(){
+
+        }
+
         // une fonction qui affiche comment le jeu est à cette instance
         public void afficheCourant (){
-            System.out.println("Niveau : "+this.niveau);
+            System.out.println(player.getName());
+            System.out.println(" Argent : " +character.getMoney());
+            System.out.println(" Vie : " + Character.getLive());
+            String colonne = "   ";
+            for (int i =0 ; i<=this.width;i++) colonne = colonne + " " + i + " ";
+            System.out.println(colonne);
+            String ligne = "";
+            for ( int i =0 ; i <=colonne.length() ; i++ ) ligne = ligne + "-";
+            System.out.println(ligne);
+            for (int i =0; i <= this.width ;i++) {
+                System.out.print((char) (65 + i) + " |");
+                for (int j = 0; j < this.height ; j++) {
+                    if ( tableau[i][j].getType() == 0 ) {
+                        System.out.print("#"); // l'herbe
+                    } else if (tableau[i][j].getType() == 1 ) {
+                        System.out.print("O"); // la route
+                    }  else if (tableau[i][j].getType() == 2 ) {
+                        System.out.print("~"); // l'eau
+                    }  else if (tableau[i][j].getType() == 3 ) {
+                        System.out.print("A"); // l'arbre
+                    } else if (tableau[i][j].getType() == 4 )  {
+                        System.out.print("B"); // la base
+                    } else{
+                        System.out.print("T"); // une tour
+                    }
+                }
+            }
         }
 
     }
@@ -55,29 +96,42 @@ public class TerminalAffichage {
         Player player;
         Plateau plateau ;
 
-        public Jeu (Player player , Plateau plateau ){
+        Character character ;
+
+        public Jeu (Player player , Plateau plateau , Character character ){
             this.player = player;
             this.plateau = plateau ;
+            this.character = character ;
         }
 
-        public void play (){
-            do {
-                if (player.wantPlay()) {
-                    while (!plateau.GameLose()) {
-                        if (player.requestAction()) {
-                            player.enterCoordinates();
-                        }
-                        plateau.afficheCourant();
+        public Jeu (Player player){
+            this ( player ,  null , null ) ;
+        }
+
+        // une fonction qui nous fait jouer
+        public void play () throws Exception {
+            if (player.wantPlay()) { // si le player veut jouer
+                this.plateau = new Plateau( player ) ; // demande la map que le player veut
+                this.character = new Character("test" , 200 , 10 ) ; // test pour voir si play() fonctionne
+                // il faut écrire une fonction qui permet d'écrire un nom pour créer un character
+                this.plateau.character = this.character ; // l'attribut character du plateau est initiaser
+                while (!plateau.GameLose()) { // si le player n'a pas perdu
+                    plateau.afficheCourant(); // affiche la map a cette instance
+                    Thread.sleep(2000); // fait dormir le terminal 2 sec
+                    if (player.requestAction()) { // demande si le player veut-il poser une tour
+                        player.enterCoordinates(); // demande au player de donner une coordonnée
                     }
                 }
-            } while (player.wantPlay());
-            player.closeScanner();
+                play(); // quand le player a perdu faire la recursion pour une nouvelle partie
+            } else { // si le player ne veut pas jouer
+                player.closeScanner(); // ferme le scanner
+            }
         }
     }
 
     public static void main(String[] args) throws Exception {
         System.out.println("-------- TOWER DEFENSE --------");
-        Jeu jeu = new Jeu(new Player() , new Plateau());
+        Jeu jeu = new Jeu(new Player());
         jeu.play() ;
     }
 }

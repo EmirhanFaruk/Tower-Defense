@@ -87,7 +87,7 @@ public class MapConfig {
         return longueur;
     }
 
-    public static Cellule[][] gridCellule(String s, Scanner scanner) throws Exception {
+    public static Cellule[][] grid(String s, Scanner scanner) throws Exception {
         Cellule[][] maze = new Cellule[compteLigne(s, scanner)][compteLongeur(s, scanner)];
         int j = 0;
         // Utilise le scanner pour lire chaque ligne du fichier
@@ -103,21 +103,4 @@ public class MapConfig {
         }
         return maze;
     }
-    public static int[][] gridInteger(String s, Scanner scanner) throws Exception {
-        int[][] maze = new int[compteLigne(s, scanner)][compteLongeur(s, scanner)];
-        int j = 0;
-        // Utilise le scanner pour lire chaque ligne du fichier
-        while (scanner.hasNextLine()) {
-            String str = scanner.nextLine();
-            for (int i = 0; i < str.length(); i++) {
-                if (str.charAt(i) == '0') maze[j][i] = 0;
-                if (str.charAt(i) == '1') maze[j][i] = 1;
-                if (str.charAt(i) == '2') maze[j][i] = 2;
-                if (str.charAt(i) == '3') maze[j][i] = 3;
-            }
-            j++;
-        }
-        return maze;
-    }
-
 }

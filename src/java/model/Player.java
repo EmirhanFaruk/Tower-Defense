@@ -9,7 +9,7 @@ public class Player {
     public Player() {
         // Utilisez le même scanner pour lire le nom
         this.scanAnswer = new Scanner(System.in);
-        System.out.print("Veuillez donner un nom : ");
+        System.out.print("Veuillez-vous donner un nom : ");
         this.name = scanAnswer.nextLine();
     }
 
@@ -42,5 +42,9 @@ public class Player {
     // Ferme le scanner lorsqu'il n'est plus nécessaire
     public void closeScanner() {
         scanAnswer.close();
+    }
+
+    public String getName() {
+        return name;
     }
 }
