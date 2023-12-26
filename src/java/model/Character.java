@@ -19,7 +19,7 @@ public class Character {
     }
 
     public void whenMonsterEnterBase ( Monster monster){
-        if ( monster.entrerDansBase())  setLive(getLive() - 1) ;
+        if ( monster.entrerDansBase())  setLive(getLive() - (int)monster.getLive()) ;
     }
 
     public String getName() {
