@@ -2,6 +2,8 @@ package model.monster;
 
 import config.MapConfig;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Monster {
@@ -13,6 +15,7 @@ public class Monster {
     protected final int degats ;
     protected double x, y;
     private final int type ; // 0 est lent ; 1 est normal ; 2 est rapide
+    private List<ArrayList<Integer>> path;
 
     private final MapConfig mapConfig ;
     private final static double[][][] mulp =
