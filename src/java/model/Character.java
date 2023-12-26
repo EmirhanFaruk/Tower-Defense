@@ -3,13 +3,13 @@ package model;
 import model.monster.Monster;
 public class Character {
     private final String name ;
-    private double live ;
+    private static int live ;
     private int degats ;
     private int money ;
 
-    public Character (String name , double live , int degats ){
+    public Character (String name , int lives , int degats ){
         this.name = name ;
-        this.live = live ;
+        live = lives ;
         this.degats = degats ;
         this.money = 0 ;
     }
@@ -26,7 +26,7 @@ public class Character {
         return name;
     }
 
-    public double getLive() {
+    public static int getLive() {
         return live;
     }
     public int getMoney() {
