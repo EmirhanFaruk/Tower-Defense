@@ -11,8 +11,13 @@ public class App {
 
         MapConfig config = new MapConfig(MapConfig.grid("Map1.txt"));
 
+        System.out.println("Printing array...");
+        MonsterPathFinding.printIntArray(config.getGrid());
+
+        System.out.println("Making MonsterPathFinding object...");
         MonsterPathFinding mpf = new MonsterPathFinding(config);
 
+        System.out.println("Printing its chemin...");
         mpf.printChemin();
     }
 }

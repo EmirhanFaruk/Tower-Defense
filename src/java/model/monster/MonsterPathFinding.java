@@ -30,6 +30,15 @@ public class MonsterPathFinding
         System.out.print("}");
     }
 
+    public static void printIntArray(Cellule[][] array) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
+                System.out.print("(" + i + ", " + j + "): " + array[i][j] + " | ");
+            }
+            System.out.println();
+        }
+    }
+
 
     /**
      * Trouver le point de debut des monstres. C'est le type de "road" au plus gauche colonne.

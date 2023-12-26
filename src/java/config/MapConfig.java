@@ -25,7 +25,7 @@ public class MapConfig {
         }
         int nbligne =0 ;
         Scanner scanner = new Scanner( file ) ;
-        while (scanner.nextLine()!=null){
+        while (scanner.hasNextLine()){
             nbligne++;
         }
         scanner.close();
@@ -59,17 +59,28 @@ public class MapConfig {
             file =new File(path+"\\src\\resources\\"+s);
         }
         Scanner scanner = new Scanner( file ) ;
+        System.out.println("Making the maze...");
         Cellule[][] maze = new Cellule[compteligne(s)][comptelongeur(s)] ;
         int j = 0 ;
-        String str  = scanner.nextLine();
+        String str = "";
         while (str != null){
-            for ( int i = 0 ; i< str.length();i++){
-                if (str.charAt(i)=='0') maze[j][i]=  new Cellule(false,0) ;
-                if (str.charAt(i)=='1') maze[j][i]=  new Cellule(true,1) ;
-                if (str.charAt(i)=='2') maze[j][i]=  new Cellule(false,2) ;
-                if (str.charAt(i)=='3') maze[j][i]=  new Cellule(false,3) ;
+            System.out.println("In the while loop...");
+            if(scanner.hasNextLine())
+            {
+                str = scanner.nextLine();
+                for (int i = 0; i < str.length(); i++)
+                {
+                    if (str.charAt(i) == '0') maze[j][i] = new Cellule(false, 0);
+                    if (str.charAt(i) == '1') maze[j][i] = new Cellule(true, 1);
+                    if (str.charAt(i) == '2') maze[j][i] = new Cellule(false, 2);
+                    if (str.charAt(i) == '3') maze[j][i] = new Cellule(false, 3);
+                }
+                j++;
             }
-            j++ ;
+            else
+            {
+                break;
+            }
         }
         return maze;
     }

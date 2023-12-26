@@ -29,4 +29,9 @@ public class Cellule {
     public int getType() {
         return type;
     }
+
+    public String toString()
+    {
+        return "Type: " + type + ", isRoad: " + road;
+    }
 }
