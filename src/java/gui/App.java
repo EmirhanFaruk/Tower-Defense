@@ -19,5 +19,7 @@ public class App {
 
         System.out.println("Printing its chemin...");
         mpf.printChemin();
+
+        System.out.println("Done!");
     }
 }

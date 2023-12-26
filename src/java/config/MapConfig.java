@@ -25,7 +25,9 @@ public class MapConfig {
         }
         int nbligne =0 ;
         Scanner scanner = new Scanner( file ) ;
-        while (scanner.hasNextLine()){
+        while (scanner.hasNextLine())
+        {
+            scanner.nextLine();
             nbligne++;
         }
         scanner.close();
@@ -59,12 +61,10 @@ public class MapConfig {
             file =new File(path+"\\src\\resources\\"+s);
         }
         Scanner scanner = new Scanner( file ) ;
-        System.out.println("Making the maze...");
         Cellule[][] maze = new Cellule[compteligne(s)][comptelongeur(s)] ;
         int j = 0 ;
         String str = "";
         while (str != null){
-            System.out.println("In the while loop...");
             if(scanner.hasNextLine())
             {
                 str = scanner.nextLine();
