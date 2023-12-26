@@ -31,7 +31,7 @@ public class MonsterPathFinding
     }
 
 
-    public static void setMonsterDirection(Monster mons)
+    private static void setMonsterDirection(Monster mons)
     {
         if(!mons.getPath().isEmpty())
         {
@@ -74,12 +74,33 @@ public class MonsterPathFinding
         }
     }
 
+    private static boolean closeToTarget(Monster mons)
+    {
+        double[] pos = mons.getPos();
+        ArrayList<Integer> target = mons.getPath().get(0);
+        return Math.abs(pos[0] - target.get(0)) < mons.getSpeed() && Math.abs(pos[1] - target.get(1)) < mons.getSpeed();
+    }
+
     public static void moveMonster(Monster mons)
     {
         setMonsterDirection(mons);
         if(!mons.getDirection().equals("NONE"))
         {
-            
+            if(closeToTarget(mons))
+            {
+                ArrayList<Integer> target = mons.getPath().get(0);
+                mons.setPos((double)target.get(0), (double)target.get(1));
+            }
+            else
+            {
+                switch (mons.getDirection())
+                {
+                    case "NORTH": mons.addPos(mons.getSpeed(), 0);
+                    case "SOUTH": mons.addPos(-mons.getSpeed(), 0);
+                    case "EAST": mons.addPos(0, mons.getSpeed());
+                    case "WEST": mons.addPos(0, -mons.getSpeed());
+                }
+            }
         }
     }
 

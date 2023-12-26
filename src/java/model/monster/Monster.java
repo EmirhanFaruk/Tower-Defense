@@ -116,4 +116,6 @@ public class Monster {
     public void setDirection(String direction) {this.direction = direction;}
 
     public double[] getPos() {return new double[]{i, j};}
+    public void setPos(double a, double b) {i = a; j = b;}
+    public void addPos(double a, double b) {i += a; j += b;}
 }
