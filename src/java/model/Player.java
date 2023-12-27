@@ -17,13 +17,14 @@ public class Player {
     public boolean wantPlay() {
         System.out.print("Voulez-vous jouer (oui/non) ? : ");
         // Utilisez le scanner de la classe
-        if ( scanAnswer.nextLine().replaceAll("\\s", "").equalsIgnoreCase("oui") ){
-            return true ;
-        } else if ( scanAnswer.nextLine().replaceAll("\\s", "").equalsIgnoreCase("non") ){
-            return false ;
+        String userInput = scanAnswer.nextLine().replaceAll("\\s", "").toLowerCase();
+        if (userInput.equals("oui")) {
+            return true;
+        } else if (userInput.equals("non")) {
+            return false;
         } else {
             System.out.println("Ce n'est pas la réponse attendue.");
-            return wantPlay() ;
+            return wantPlay();
         }
     }
 
@@ -42,13 +43,14 @@ public class Player {
     public boolean requestAction() {
         System.out.print("Voulez-vous poser une tour(oui/non) ? : ");
         // Utilisez le scanner de la classe
-        if ( scanAnswer.nextLine().replaceAll("\\s", "").equalsIgnoreCase("oui") ){
-            return true ;
-        } else if ( scanAnswer.nextLine().replaceAll("\\s", "").equalsIgnoreCase("non") ){
-            return false ;
+        String userInput = scanAnswer.nextLine().replaceAll("\\s", "").toLowerCase();
+        if (userInput.equals("oui")) {
+            return true;
+        } else if (userInput.equals("non")) {
+            return false;
         } else {
             System.out.println("Ce n'est pas la réponse attendue.");
-            return requestAction() ;
+            return requestAction();
         }
     }
 
@@ -59,5 +61,8 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+    public Scanner getScanAnswer() {
+        return scanAnswer;
     }
 }
