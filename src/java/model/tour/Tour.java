@@ -4,7 +4,9 @@ import gui.Coordinate;
 import model.Character;
 import model.monster.Monster;
 
-import static java.lang.Thread.sleep;
+import java.sql.Array;
+import java.util.ArrayList;
+
 public class Tour {
     private final String name ;
     private final int prix ;
@@ -35,26 +37,28 @@ public class Tour {
     }
 
     // une fonction qui attaque le monstre
-    public void target (){
-        if ( monsterInRange()){ // vérifie que le monstre est à la portée
-            Monster.setLive(Monster.getLive() - this.degats ); //fait perdre de la vie au monstre
+    public void target (ArrayList<Monster> monsters){
+        for (Monster m : monsters) {
+            if (monsterInRange(m)) { // vérifie que le monstre est à la portée
+                m.setLive(m.getLive() - this.degats); //fait perdre de la vie au monstre
+            }
         }
     }
 
     // une fonction qui attaque les monstres après le cooldown
-    public void attaquer() {
+    public void attaquer(ArrayList<Monster> monsters) {
         long currentTime = System.currentTimeMillis();
         // Vérifier si le cooldown est écoulé
         if (currentTime - lastAttackTime >= cooldown) {
-            target(); //attaque
+            target(monsters); //attaque
             lastAttackTime = currentTime;  // Mettre à jour le temps de la dernière attaque
         }
     }
 
     // une fonction qui renvoie true si le montre est à la portée de la tour sinon non
-    public boolean monsterInRange (){
-        return (Monster.getPos().i() - this.coordinates.i() ) <= this.range
-                && (Monster.getPos().j() - this.coordinates.j() ) <= this.range ;
+    public boolean monsterInRange (Monster monster){
+        return (monster.getPos().i() - this.coordinates.i() ) <= this.range
+                && (monster.getPos().j() - this.coordinates.j() ) <= this.range ;
         // regarde la position de la tour et du montres est dans la portée
     }
 
