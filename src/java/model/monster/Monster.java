@@ -13,7 +13,7 @@ public class Monster {
     private final double speed ;
     private final int money ;
     private final int niveau;
-    private Coordinate pos;
+    private static Coordinate pos;
     private final int type ; // 0 est lent ; 1 est normal ; 2 est rapide
     private final ArrayList<Coordinate> path;
     private String direction = "EAST";
@@ -112,7 +112,7 @@ public class Monster {
     public String getDirection() {return direction;}
     public void setDirection(String direction) {this.direction = direction;}
 
-    public Coordinate getPos() {return pos;}
+    public static Coordinate getPos() {return pos;}
     public void setPos(double a, double b) {pos.set(a, b);}
     public void addPos(double a, double b) {pos.add(a, b);}
 }

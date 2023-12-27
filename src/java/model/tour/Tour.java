@@ -9,12 +9,13 @@ public class Tour {
     private final String name ;
     private final int prix ;
     private final int degats ;
-    private int level ; // il y a que 3 niveau
+    private int level ; // il y a que 3 niveaux
     private Coordinate coordinates ;
-    private int range ;
-    private int cooldown ;
+    private int range ; // la portée de la tour
+    private long lastAttackTime;  // Temps de la dernière attaque
+    private final long cooldown;   // Temps de recharge en millisecondes
     private final static int[][] mulp= { { 1 } , { 2 } , { 3 } };
-    public Tour (String name , int prix , int degats , int level , int x , int y , int range , int time ){
+    public Tour (String name , int prix , int degats , int level , int x , int y , int range , long time ){
         this.name = name ;
         this.prix = prix ;
         this.degats = degats ;
@@ -22,6 +23,7 @@ public class Tour {
         this.coordinates = new Coordinate( x , y ) ;
         this.range =  range ;
         this.cooldown = time ;
+        this.lastAttackTime = System.currentTimeMillis();
     }
 
     // une fonction qui l'améliore la tour au niveau supérieur
@@ -31,19 +33,29 @@ public class Tour {
             Character.setMoney(Character.getMoney()-this.prix*mulp[level][0]); // retire l'argent au Character
         }
     }
+
+    // une fonction qui attaque le monstre
     public void target (){
-        if ( monsterInRange()){
-            Monster.setLive(Monster.getLive() - this.degats );
+        if ( monsterInRange()){ // vérifie que le monstre est à la portée
+            Monster.setLive(Monster.getLive() - this.degats ); //fait perdre de la vie au monstre
         }
     }
 
-    // la fonction ne fonctionne pas je changerai plus tard ( il faut faire un lambda )
-    public void cooldown() throws InterruptedException {
-        sleep(cooldown * 1000L) ;
+    // une fonction qui attaque les monstres après le cooldown
+    public void attaquer() {
+        long currentTime = System.currentTimeMillis();
+        // Vérifier si le cooldown est écoulé
+        if (currentTime - lastAttackTime >= cooldown) {
+            target(); //attaque
+            lastAttackTime = currentTime;  // Mettre à jour le temps de la dernière attaque
+        }
     }
 
+    // une fonction qui renvoie true si le montre est à la portée de la tour sinon non
     public boolean monsterInRange (){
-        return true;
+        return (Monster.getPos().i() - this.coordinates.i() ) <= this.range
+                && (Monster.getPos().j() - this.coordinates.j() ) <= this.range ;
+        // regarde la position de la tour et du montres est dans la portée
     }
 
     public String getName() {
