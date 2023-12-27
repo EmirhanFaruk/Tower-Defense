@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class Monster {
     private final String name ;
-    private double live ;
+    private static double live ;
     private final double speed ;
     private final int money ;
     private final int niveau;
@@ -93,16 +93,15 @@ public class Monster {
         return "\n\n>>>>>>>>>>\n\n" + name + "\nlive = " + live + "\nspeed = " + speed + "\nmoney = " + money + "\n(i, j) = (" + pos.i() + ", " + pos.j() + ")\nniveau = " + niveau + "\ntype = " + type + "\nresistance = " + resistance;
     }
 
-    public double getLive() {
+    public static double getLive() {
         return live;
     }
+
     public double getSpeed() {return speed;}
     public int getMoney() {
         return money;
     }
-    public void setLive(double live) {
-        this.live = live;
-    }
+    public static void setLive(double lives) { live = lives ; }
     public boolean isDead (){
         return this.live <=0 ;
     }
