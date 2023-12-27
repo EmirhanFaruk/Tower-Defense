@@ -1,21 +1,21 @@
 package model.monster;
 
 import config.MapConfig;
+import gui.Coordinate;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Monster {
-    protected final String name ;
-    protected double live ;
-    protected final double speed ;
-    protected final int money ;
-    protected final int niveau;
-    protected final int degats ;
-    protected double i, j;
+    private final String name ;
+    private double live ;
+    private final double speed ;
+    private final int money ;
+    private final int niveau;
+    private Coordinate pos;
     private final int type ; // 0 est lent ; 1 est normal ; 2 est rapide
-    private final List<ArrayList<Integer>> path;
+    private final ArrayList<Coordinate> path;
     private String direction = "EAST";
 
     private final MapConfig mapConfig ;
@@ -41,16 +41,14 @@ public class Monster {
 
     private String resistance = "";
 
-    public Monster(String name, double live, double speed, int degats, int money, int niveau, double i, double j, int type, MapConfig mapConfig)
+    public Monster(String name, double live, double speed, int money, int niveau, Coordinate pos, int type, MapConfig mapConfig)
     {
-        this.i = i;
-        this.j = j;
+        this.pos = pos;
         this.name = name;
         this.live = live * mulp[type][niveau][0];
         this.speed = speed * mulp[type][niveau][1];
         this.niveau = niveau; // niveau est entre 0-3
         this.money = money;
-        this.degats = degats;
         this.type  = type;
         choixResistance();
         this.mapConfig = mapConfig;
@@ -87,12 +85,12 @@ public class Monster {
     // une fonction qui retourne un boolean si le montre est rentrer dans la base
     public boolean entrerDansBase(){
         // regarde si les coordonnes du monstres est celui où la base
-        return mapConfig.getGrid()[(int) i][(int) j].getType() == 4; // renvoie true
+        return mapConfig.getGrid()[(int) pos.i()][(int) pos.j()].getType() == 4; // renvoie true
     }
 
     public String toString()
     {
-        return "\n\n>>>>>>>>>>\n\n" + name + "\nlive = " + live + "\nspeed = " + speed + "\nmoney = " + money + "\n(i, j) = (" + i + ", " + j + ")\nniveau = " + niveau + "\ntype = " + type + "\nresistance = " + resistance;
+        return "\n\n>>>>>>>>>>\n\n" + name + "\nlive = " + live + "\nspeed = " + speed + "\nmoney = " + money + "\n(i, j) = (" + pos.i() + ", " + pos.j() + ")\nniveau = " + niveau + "\ntype = " + type + "\nresistance = " + resistance;
     }
 
     public double getLive() {
@@ -109,13 +107,13 @@ public class Monster {
         return this.live <=0 ;
     }
 
-    public List<ArrayList<Integer>> getPath() {return path;}
+    public ArrayList<Coordinate> getPath() {return path;}
     public void popPath() { if(!path.isEmpty()) path.remove(0);}
 
     public String getDirection() {return direction;}
     public void setDirection(String direction) {this.direction = direction;}
 
-    public double[] getPos() {return new double[]{i, j};}
-    public void setPos(double a, double b) {i = a; j = b;}
-    public void addPos(double a, double b) {i += a; j += b;}
+    public Coordinate getPos() {return pos;}
+    public void setPos(double a, double b) {pos.set(a, b);}
+    public void addPos(double a, double b) {pos.add(a, b);}
 }
