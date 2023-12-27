@@ -9,26 +9,28 @@ public class Character {
     private static int live ;
     private final int degats ;
     private int money ;
+    private Player player ;
 
-    public Character (String name , int lives , int degats ){
+    public Character (Player player,String name , int lives , int degats ){
         this.name = name ;
         live = lives ;
         this.degats = degats ;
         this.money = 0 ;
+        this.player = player ;
     }
 
-    public static Character chooseCharacter(){
-        System.out.print("Voulez choisir un personnage ( commandant , artilleur , archer ) ? : "); // le player choisit son character
-        Scanner scanner = new Scanner(System.in); // ouverture d'un scanner
-        if ( scanner.nextLine().replaceAll("\\s", "").equalsIgnoreCase("commandant")) {
-            return  new Character("commandant",300 , 10 ) ; // création du character commandant si le player a écrit commandant
-        } else if (scanner.nextLine().replaceAll("\\s", "").equalsIgnoreCase("artilleur")){
-            return new Character("artilleur",250 , 7 ) ; // création du character artilleur si le player a écrit artilleur
-        } else if (scanner.nextLine().replaceAll("\\s", "").equalsIgnoreCase("archer")){
-            return new Character("archer",250 , 7 ) ; // création du character archer si le player a écrit archer
+    public static Character chooseCharacter(Player player) {
+        System.out.print("Voulez choisir un personnage (commandant, artilleur, archer) ? : ");
+        String userInput = player.getScanAnswer().nextLine().replaceAll("\\s", "").toLowerCase();
+        if (userInput.equals("commandant")) {
+            return new Character(player, "commandant", 300, 10);
+        } else if (userInput.equals("artilleur")) {
+            return new Character(player, "artilleur", 250, 7);
+        } else if (userInput.equals("archer")) {
+            return new Character(player, "archer", 250, 7);
         } else {
-            System.out.println("Le character n'existe pas. ");
-            return chooseCharacter() ;
+            System.out.println("Le personnage n'existe pas.");
+            return chooseCharacter(player);
         }
     }
 

@@ -26,17 +26,33 @@ public class TerminalAffichage {
 
         Character character ;
 
-        public Plateau ( Player player , Character character ) throws Exception {
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Veuillez donner un niveau entre 1 et 4 : ");
-            this.niveau = Integer.parseInt(scanner.nextLine().replaceAll("\\s", ""));
+        public Plateau(Player player, Character character) throws Exception {
+            this.player = player;
+            this.character = character;
+            int tempNiveau;
+            // Boucle pour demander au joueur de saisir un niveau valide
+            do {
+                System.out.print("Veuillez donner un niveau entre 1 et 4 : ");
+                String tempInput = player.getScanAnswer().nextLine().replaceAll("\\s", "");
+                try {
+                    tempNiveau = Integer.parseInt(tempInput);
+                    // Vérifiez si le niveau est dans la plage valide
+                    if (tempNiveau >= 1 && tempNiveau <= 4) {
+                        break; // Sort de la boucle si le niveau est valide
+                    } else {
+                        System.out.println("Le niveau doit être entre 1 et 4.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Veuillez entrer un nombre valide.");
+                }
+            } while (true);
+            this.niveau = tempNiveau;
             String temp = "Map" + this.niveau + ".txt";
             this.tableau = MapConfig.grid(temp);
-            this.width = tableau[0].length ;
-            this.height = tableau.length ;
-            this.player = player ;
-            this.character = character ;
+            this.width = tableau[0].length;
+            this.height = tableau.length;
         }
+
 
         public Plateau ( Player player ) throws Exception {
             this(player , null ) ;
@@ -111,7 +127,7 @@ public class TerminalAffichage {
         public void play () throws Exception {
             if (player.wantPlay()) { // si le player veut jouer
                 this.plateau = new Plateau( player ) ; // demande la map que le player veut
-                this.character = Character.chooseCharacter() ; // initialisation d'un character
+                this.character = Character.chooseCharacter(player) ; // initialisation d'un character
                 this.plateau.character = this.character ; // l'attribut character du plateau est initiaser
                 while (!plateau.GameLose()) { // si le player n'a pas perdu
                     plateau.afficheCourant(); // affiche la map a cette instance
