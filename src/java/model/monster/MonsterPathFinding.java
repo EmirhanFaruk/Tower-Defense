@@ -2,14 +2,16 @@ package model.monster;
 
 import config.Cellule;
 import config.MapConfig;
+import gui.Coordinate;
 
+import java.nio.charset.CoderResult;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MonsterPathFinding
 {
     private static Cellule[][] grid;
-    public static List<ArrayList<Integer>> monster_path;
+    public static ArrayList<Coordinate> monster_path;
 
 
     /**
@@ -17,36 +19,40 @@ public class MonsterPathFinding
      * @param map_config map_config
      * @return monster_path
      */
-    public static List<ArrayList<Integer>> makeMonster_path(MapConfig map_config)
+    public static ArrayList<Coordinate> makeMonster_path(MapConfig map_config)
     {
         if(monster_path == null)
         {
             grid = map_config.getGrid();
 
-            int[] debut = findStart();
+            Coordinate debut = findStart();
 
-            monster_path = getListeChemin(debut[0], debut[1]);
+            monster_path = getListeChemin(debut.intCopy());
         }
         return monster_path;
     }
 
 
+    /**
+     * Determiner la direction du monstre en utilisant son chemin
+     * @param mons le manstre
+     */
     private static void setMonsterDirection(Monster mons)
     {
         if(!mons.getPath().isEmpty())
         {
-            ArrayList<Integer> couple = mons.getPath().get(0);
-            double[] pos = mons.getPos();
+            Coordinate couple = mons.getPath().get(0);
+            Coordinate pos = mons.getPos();
             // Si au meme position que path target, enleve le et reessaie
-            if(pos[0] == couple.get(0) && pos[1] == couple.get(1))
+            if(pos.i() == couple.i() && pos.j() == couple.j())
             {
                 mons.popPath();
                 setMonsterDirection(mons);
             }
-            else if(pos[0] == couple.get(0))
+            else if(pos.i() == couple.i())
             {
                 // Gerer j, EAST ou WEST
-                if(pos[1] < couple.get(1))
+                if(pos.j() < couple.j())
                 {
                     mons.setDirection("EAST");
                 }
@@ -58,7 +64,7 @@ public class MonsterPathFinding
             else
             {
                 // Gerer i, NORTH ou SOUTH
-                if(pos[0] < couple.get(0))
+                if(pos.i() < couple.i())
                 {
                     mons.setDirection("NORTH");
                 }
@@ -74,13 +80,22 @@ public class MonsterPathFinding
         }
     }
 
+    /**
+     * Vérifie si la vitesse de monstre est plus grand de son prochain place à aller
+     * @param mons le monstre
+     * @return si assez proche ou pas
+     */
     private static boolean closeToTarget(Monster mons)
     {
-        double[] pos = mons.getPos();
-        ArrayList<Integer> target = mons.getPath().get(0);
-        return Math.abs(pos[0] - target.get(0)) < mons.getSpeed() && Math.abs(pos[1] - target.get(1)) < mons.getSpeed();
+        Coordinate pos = mons.getPos();
+        Coordinate target = mons.getPath().get(0);
+        return Math.abs(pos.i() - target.i()) < mons.getSpeed() && Math.abs(pos.j() - target.j()) < mons.getSpeed();
     }
 
+    /**
+     * Faire bouger le monstre en fonction de son direction
+     * @param mons le monstre
+     */
     public static void moveMonster(Monster mons)
     {
         setMonsterDirection(mons);
@@ -88,8 +103,8 @@ public class MonsterPathFinding
         {
             if(closeToTarget(mons))
             {
-                ArrayList<Integer> target = mons.getPath().get(0);
-                mons.setPos((double)target.get(0), (double)target.get(1));
+                Coordinate target = mons.getPath().get(0).copy();
+                mons.setPos(target.i(), target.j());
             }
             else
             {
@@ -110,32 +125,33 @@ public class MonsterPathFinding
      * Trouver le point de debut des monstres. C'est le type de "road" au plus gauche colonne.
      * @return les coordonnées de debut
      */
-    private static int[] findStart()
+    private static Coordinate findStart()
     {
         for(int i = 0; i < grid.length; i++)
         {
             if(grid[i][0].isRoad())
             {
-                return new int[]{i, 0};
+                return new Coordinate(i, 0);
             }
         }
-        return new int[]{-1, -1};
+        return new Coordinate(-1, -1);
     }
 
     /**
      * Trouver les voisins d'une cellule en coordonnées.
-     * @param i coordonnée i
-     * @param j coordonnée j
+     * @param cord coordonnées de la cellule
      * @return une liste avec les cellules atour depuis les cordoonnées
      */
-    private static List<ArrayList<Integer>> getVoisin(int i, int j)
+    private static ArrayList<Coordinate> getVoisin(Coordinate cord)
     {
-        List<ArrayList<Integer>> res = new ArrayList<>();
+        ArrayList<Coordinate> res = new ArrayList<>();
+        int i = cord.inti();
+        int j = cord.intj();
         if(i > 0) // HAUT
         {
             if(grid[i - 1][j].isRoad())
             {
-                res.add(new ArrayList<>(List.of(i - 1, j)));
+                res.add(new Coordinate(i - 1, j));
             }
         }
         if(j < grid[0].length - 1) // DROITE
@@ -143,21 +159,21 @@ public class MonsterPathFinding
 
             if(grid[i][j + 1].isRoad())
             {
-                res.add(new ArrayList<>(List.of(i, j + 1)));
+                res.add(new Coordinate(i, j + 1));
             }
         }
         if(i < grid.length - 1) // BAS
         {
             if(grid[i + 1][j].isRoad())
             {
-                res.add(new ArrayList<>(List.of(i + 1, j)));
+                res.add(new Coordinate(i + 1, j));
             }
         }
         if(j > 0) // GAUCHE
         {
             if(grid[i][j - 1].isRoad())
             {
-                res.add(new ArrayList<>(List.of(i, j - 1)));
+                res.add(new Coordinate(i, j - 1));
             }
         }
 
@@ -166,17 +182,16 @@ public class MonsterPathFinding
 
 
     /**
-     * Determine si le couple (i, j) existe dans arr.
+     * Determine si le coordonné existe dans arr.
      * @param arr le array
-     * @param i coordonnée i
-     * @param j coordonnée j
+     * @param cord le coordonné à comparer avec
      * @return existe ou pas
      */
-    private static boolean inArray(List<ArrayList<Integer>> arr, int i, int j)
+    private static boolean inArray(ArrayList<Coordinate> arr, Coordinate cord)
     {
-        for (ArrayList<Integer> couple : arr)
+        for (Coordinate element : arr)
         {
-            if(couple.get(0) == i && couple.get(1) == j)
+            if(element.i() == cord.i() && element.j() == cord.j())
             {
                 return true;
             }
@@ -186,32 +201,29 @@ public class MonsterPathFinding
 
     /**
      * Trouver un chemin depuis le debut vers la base pour les monstres.
-     * @param i coordonnée i
-     * @param j coordonnée j
+     * @param cord coordonné de debut
      * @return une liste avec les coordonnées des cellules de chemin depuis les coordonnées de début
      */
-    private static List<ArrayList<Integer>> getListeChemin(int i, int j)
+    private static ArrayList<Coordinate> getListeChemin(Coordinate cord)
     {
-        List<ArrayList<Integer>> res = new ArrayList<>();
-        res.add(new ArrayList<Integer>(List.of(i, j)));
-        int ic = 0, jc = 0;
+        ArrayList<Coordinate> res = new ArrayList<>();
+        res.add(cord.copy());
+        Coordinate current = cord.copy();
         while(true)
         {
-            List<ArrayList<Integer>> temp = new ArrayList<>();
-            for(ArrayList<Integer> couple: getVoisin(i, j))
+            ArrayList<Coordinate> temp = new ArrayList<>();
+            for(Coordinate couple: getVoisin(current))
             {
-                ic = couple.get(0);
-                jc = couple.get(1);
-                if(!(inArray(res, ic, jc)))
+                Coordinate cord_temp = couple.intCopy();
+                if(!(inArray(res, cord_temp)))
                 {
-                    temp.add(new ArrayList<Integer>(List.of(ic, jc)));
-                    res.add(new ArrayList<Integer>(List.of(ic, jc)));
+                    temp.add(cord_temp);
+                    res.add(cord_temp);
                 }
             }
             if(res.size() > 1)
             {
-                i = res.get(res.size()-1).get(0);
-                j = res.get(res.size()-1).get(1);
+                current.set(res.get(res.size()-1));
             }
 
             if(temp.isEmpty())
