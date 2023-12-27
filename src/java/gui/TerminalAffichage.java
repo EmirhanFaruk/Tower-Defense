@@ -111,8 +111,7 @@ public class TerminalAffichage {
         public void play () throws Exception {
             if (player.wantPlay()) { // si le player veut jouer
                 this.plateau = new Plateau( player ) ; // demande la map que le player veut
-                this.character = new Character("test" , 200 , 10 ) ; // test pour voir si play() fonctionne
-                // il faut écrire une fonction qui permet d'écrire un nom pour créer un character
+                this.character = Character.chooseCharacter() ; // initialisation d'un character
                 this.plateau.character = this.character ; // l'attribut character du plateau est initiaser
                 while (!plateau.GameLose()) { // si le player n'a pas perdu
                     plateau.afficheCourant(); // affiche la map a cette instance

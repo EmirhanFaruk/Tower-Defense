@@ -15,9 +15,16 @@ public class Player {
 
     // Demande si le joueur veut-il jouer ou non
     public boolean wantPlay() {
-        System.out.print("Voulez-vous jouer (oui/non) : ");
+        System.out.print("Voulez-vous jouer (oui/non) ? : ");
         // Utilisez le scanner de la classe
-        return scanAnswer.nextLine().replaceAll("\\s", "").equalsIgnoreCase("oui");
+        if ( scanAnswer.nextLine().replaceAll("\\s", "").equalsIgnoreCase("oui") ){
+            return true ;
+        } else if ( scanAnswer.nextLine().replaceAll("\\s", "").equalsIgnoreCase("non") ){
+            return false ;
+        } else {
+            System.out.println("Ce n'est pas la réponse attendue.");
+            return wantPlay() ;
+        }
     }
 
     // Demande au joueur de donner une coordonnée
@@ -33,10 +40,16 @@ public class Player {
 
     // Demande si le joueur veut-il effectuer une action
     public boolean requestAction() {
-        System.out.print("Voulez-vous poser une tour (oui/non) ?");
+        System.out.print("Voulez-vous poser une tour(oui/non) ? : ");
         // Utilisez le scanner de la classe
-        String str = scanAnswer.nextLine().replaceAll("\\s", "");
-        return str.equalsIgnoreCase("oui");
+        if ( scanAnswer.nextLine().replaceAll("\\s", "").equalsIgnoreCase("oui") ){
+            return true ;
+        } else if ( scanAnswer.nextLine().replaceAll("\\s", "").equalsIgnoreCase("non") ){
+            return false ;
+        } else {
+            System.out.println("Ce n'est pas la réponse attendue.");
+            return requestAction() ;
+        }
     }
 
     // Ferme le scanner lorsqu'il n'est plus nécessaire
