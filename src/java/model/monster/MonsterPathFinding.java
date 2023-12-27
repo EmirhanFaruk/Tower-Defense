@@ -29,7 +29,7 @@ public class MonsterPathFinding
 
             monster_path = getListeChemin(debut.intCopy());
         }
-        return monster_path;
+        return (ArrayList<Coordinate>) monster_path.clone();
     }
 
 

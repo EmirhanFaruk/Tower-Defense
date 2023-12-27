@@ -41,6 +41,7 @@ public class Monster {
 
     private String resistance = "";
 
+
     public Monster(String name, double live, double speed, int money, int niveau, Coordinate pos, int type, MapConfig mapConfig)
     {
         this.pos = pos;
@@ -54,6 +55,21 @@ public class Monster {
         this.mapConfig = mapConfig;
         path = MonsterPathFinding.makeMonster_path(mapConfig);
     }
+
+    public Monster(String name, double live, double speed, int money, int niveau, int type, MapConfig mapConfig)
+    {
+        this.name = name;
+        this.live = live * mulp[type][niveau][0];
+        this.speed = speed * mulp[type][niveau][1];
+        this.niveau = niveau; // niveau est entre 0-3
+        this.money = money;
+        this.type  = type;
+        choixResistance();
+        this.mapConfig = mapConfig;
+        path = MonsterPathFinding.makeMonster_path(mapConfig);
+        this.pos = path.get(0);
+    }
+
 
     private void choixResistance()
     {
@@ -82,6 +98,8 @@ public class Monster {
         live -= degats;
     }
 
+    public void moveMonster() {MonsterPathFinding.moveMonster(this);}
+
     // une fonction qui retourne un boolean si le montre est rentrer dans la base
     public boolean entrerDansBase(){
         // regarde si les coordonnes du monstres est celui où la base
@@ -90,21 +108,14 @@ public class Monster {
 
     public String toString()
     {
-        return "\n\n>>>>>>>>>>\n\n" + name + "\nlive = " + live + "\nspeed = " + speed + "\nmoney = " + money + "\n(i, j) = (" + pos.i() + ", " + pos.j() + ")\nniveau = " + niveau + "\ntype = " + type + "\nresistance = " + resistance;
+        return "\n\n>>>>>>>>>>\n\n" + name + "\nlive = " + live + "\nspeed = " + speed + "\nmoney = " + money + "\n(i, j) = " + pos +  "\nniveau = " + niveau + "\ntype = " + type + "\nresistance = " + resistance;
     }
 
-    public double getLive() {
-        return live;
-    }
-
+    public double getLive() {return live;}
     public double getSpeed() {return speed;}
-    public int getMoney() {
-        return money;
-    }
+    public int getMoney() {return money;}
     public void setLive(double lives) { live = lives ; }
-    public boolean isDead (){
-        return this.live <=0 ;
-    }
+    public boolean isDead () {return this.live <=0;}
 
     public ArrayList<Coordinate> getPath() {return path;}
     public void popPath() { if(!path.isEmpty()) path.remove(0);}
