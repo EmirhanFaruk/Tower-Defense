@@ -9,11 +9,11 @@ import java.util.Random;
 
 public class Monster {
     private final String name ;
-    private double live ;
+    private  double live ;
     private final double speed ;
     private final int money ;
     private final int niveau;
-    private Coordinate pos;
+    private  Coordinate pos;
     private final int type ; // 0 est lent ; 1 est normal ; 2 est rapide
     private final ArrayList<Coordinate> path;
     private String direction = "EAST";
@@ -96,13 +96,12 @@ public class Monster {
     public double getLive() {
         return live;
     }
+
     public double getSpeed() {return speed;}
     public int getMoney() {
         return money;
     }
-    public void setLive(double live) {
-        this.live = live;
-    }
+    public void setLive(double lives) { live = lives ; }
     public boolean isDead (){
         return this.live <=0 ;
     }

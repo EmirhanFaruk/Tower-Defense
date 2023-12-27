@@ -8,7 +8,7 @@ public class Character {
     private final String name ;
     private static int live ;
     private final int degats ;
-    private int money ;
+    private static int money ;
     private Player player ;
 
     public Character (Player player,String name , int lives , int degats ){
@@ -49,7 +49,7 @@ public class Character {
     public static int getLive() {
         return live;
     }
-    public int getMoney() {
+    public static  int getMoney() {
         return money;
     }
 
@@ -57,10 +57,10 @@ public class Character {
         return degats;
     }
 
-    public void setLive (int live) {
-        this.live = live;
+    public void setLive (int lives) {
+        live = lives;
     }
-    public void setMoney(int money) {
-        this.money = money;
+    public static void setMoney(int moneys) {
+         money = moneys;
     }
 }
