@@ -8,7 +8,7 @@ public class Cellule {
         this.road = road ;
         this.type = type ;
     }
-    // 0 pour dire que on peut placer les tours
+    // 0 pour dire qu'on peut placer les tours
     // 1 pour dire que c'est le chemin des monstres
     // 2 pour dire que c'est l'eau
     // 3 pour dire que c'est un arbre
