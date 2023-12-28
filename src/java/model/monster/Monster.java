@@ -47,21 +47,20 @@ public class Monster {
         this.pos = pos;
         this.name = name;
         this.live = live * mulp[type][niveau][0];
-        //this.speed = speed * mulp[type][niveau][1];
+        this.speed = speed * mulp[type][niveau][1];
         this.niveau = niveau; // niveau est entre 0-3
         this.money = money;
         this.type  = type;
         choixResistance();
         this.mapConfig = mapConfig;
         path = MonsterPathFinding.makeMonster_path(mapConfig);
-        this.speed = 0.5;
     }
 
     public Monster(String name, double live, double speed, int money, int niveau, int type, MapConfig mapConfig)
     {
         this.name = name;
         this.live = live * mulp[type][niveau][0];
-        //this.speed = speed * mulp[type][niveau][1];
+        this.speed = speed * mulp[type][niveau][1];
         this.niveau = niveau; // niveau est entre 0-3
         this.money = money;
         this.type  = type;
@@ -69,7 +68,6 @@ public class Monster {
         this.mapConfig = mapConfig;
         path = MonsterPathFinding.makeMonster_path(mapConfig);
         this.pos = path.get(0);
-        this.speed = speed;
     }
 
 
@@ -100,7 +98,7 @@ public class Monster {
         live -= degats;
     }
 
-    public void moveMonster() {MonsterPathFinding.moveMonster(this);}
+    public void moveMonster(long delta) {MonsterPathFinding.moveMonster(this, delta);}
 
     // une fonction qui retourne un boolean si le montre est rentrer dans la base
     public boolean entrerDansBase(){
@@ -124,7 +122,7 @@ public class Monster {
     }
 
     public double getLive() {return live;}
-    public double getSpeed() {return speed;}
+    public double getSpeed(long delta) {return speed * (double)delta/1000000000;}
     public int getMoney() {return money;}
     public void setLive(double lives) { live = lives ; }
     public boolean isDead () {return this.live <=0;}

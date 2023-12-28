@@ -78,7 +78,7 @@ public class MonsterSpawner
      */
     private void timerHandler(long delta_time)
     {
-        double delta_double = ((double)delta_time)/1000000000;
+        double delta_double = (double)delta_time;
         if(between_wave_timer > 0)
         {
             between_wave_timer -= delta_double;
@@ -210,12 +210,13 @@ public class MonsterSpawner
         while(true)
         {
             //System.out.println(end + " >= " + 1000000000);
-            if((double)end/100 >= 1000000000)
+            if((double)end >= 1000)
             {
                 start = System.currentTimeMillis();
-                ms.update(end/100, monsters);
-                for (Monster m : monsters) {
-                    m.moveMonster();
+                ms.update(end/1000, monsters);
+                for (Monster m : monsters)
+                {
+                    m.moveMonster(end/1000);
                 }
                 //printArray(monsters);
                 if(!monsters.isEmpty())
@@ -225,7 +226,7 @@ public class MonsterSpawner
                 System.out.println(monsters.size());
                 ms.printStatus();
                 end = System.currentTimeMillis() - start; // Delta time in ms
-                System.out.println("Did loop in " + (double) end / 1000000000 + " seconds.");
+                System.out.println("Did loop in " + end + " seconds.");
             }
             else
             {
