@@ -34,29 +34,21 @@ public class Player {
         // Utilisez le scanner de la classe
         String str = scanAnswer.nextLine().replaceAll("\\s", "");
         // Vérifier que la chaîne a la bonne longueur
-        if (str.length() == 2) {
+        if (str.length() == 2 || str.length() == 3) {
             char firstChar = str.charAt(0);
-            char secondChar = str.charAt(1);
-            // Vérifier que le premier caractère est une lettre majuscule entre A et H inclus
-            if (firstChar >= 'A' && firstChar <= 'H') {
-                // Vérifier que le deuxième caractère est un nombre entre 1 et 9 inclus
-                if (secondChar >= 1 && secondChar<= 9) {
-                    int[] tab = new int[2];
-                    tab[0] = firstChar - 'A' + 1; // Convertir la lettre en indice (A=1, B=2, ..., H=8)
-                    tab[1] = secondChar;
-                    return tab;
-                }
+            int secondChar = 0  ;
+            if ( str.length()==2 ) {
+               secondChar = Integer.parseInt(String.valueOf(str.charAt(1)));
+            } else {
+                secondChar = Integer.parseInt(String.valueOf(str.charAt(1)+str.charAt(2)));
             }
-        } else if (str.length() == 3 ){
-            char firstChar = str.charAt(0);
-            int secondChar = Integer.parseInt(String.valueOf(str.charAt(1)+str.charAt(2)));
             // Vérifier que le premier caractère est une lettre majuscule entre A et H inclus
             if (firstChar >= 'A' && firstChar <= 'H') {
                 // Vérifier que le deuxième caractère est un nombre entre 1 et 16 inclus
-                if (secondChar >= 1 && secondChar <= 16) {
+                if (secondChar >= 1 && secondChar<= 16) {
                     int[] tab = new int[2];
                     tab[0] = firstChar - 'A' + 1; // Convertir la lettre en indice (A=1, B=2, ..., H=8)
-                    tab[1] = secondChar;
+                    tab[1] = secondChar - 1 ;
                     return tab;
                 }
             }
