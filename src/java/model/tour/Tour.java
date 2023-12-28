@@ -4,9 +4,7 @@ import gui.Coordinate;
 import model.Character;
 import model.monster.Monster;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Tour {
     private final String name ;
@@ -62,12 +60,16 @@ public class Tour {
         // regarde la position de la tour et du montres est dans la portée
     }
 
+    public boolean canBuyTower(){
+        return Character.getMoney() >= this.prix ;
+    }
+
     public String getName() {
         return name;
     }
 
     public int getPrix() {
-        return prix;
+        return this.prix;
     }
 
     public int getDegats() {

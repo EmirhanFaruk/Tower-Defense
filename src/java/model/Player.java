@@ -47,7 +47,7 @@ public class Player {
                 // Vérifier que le deuxième caractère est un nombre entre 1 et 16 inclus
                 if (secondChar >= 1 && secondChar<= 16) {
                     int[] tab = new int[2];
-                    tab[0] = firstChar - 'A' + 1; // Convertir la lettre en indice (A=1, B=2, ..., H=8)
+                    tab[0] = firstChar - 'A'; // Convertir la lettre en indice (A=1, B=2, ..., H=8)
                     tab[1] = secondChar - 1 ;
                     return tab;
                 }

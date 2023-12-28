@@ -3,7 +3,10 @@ package gui.TerminalAffichage;
 import config.MapConfig;
 import model.Character;
 import model.Player;
+import model.monster.Monster;
 import model.monster.MonsterSpawner;
+
+import java.util.ArrayList;
 
 public class Plateau {
     // le nombre de colonnes
@@ -18,6 +21,7 @@ public class Plateau {
     Player player ;
     Character character ;
     MonsterSpawner monsterSpawner ;
+    ArrayList<Monster> monsters ;
 
     public Plateau(Player player, Character character) throws Exception {
         this.player = player;
@@ -45,6 +49,7 @@ public class Plateau {
         this.width = tableau.getGrid()[0].length;
         this.height = tableau.getGrid().length;
         this.monsterSpawner = new MonsterSpawner(20 , 20 , 10 , 20 ,this.tableau ) ;
+        this.monsters = new ArrayList<>() ;
     }
 
 
@@ -57,9 +62,10 @@ public class Plateau {
         return Character.getLive() <= 0 ;
     }
 
-    // une fonction qui ajoute au tableau l'apparition des monstres
+    // une fonction qui fait l'apparition des monstres
     public void apparitionMonster(){
-
+        this.monsterSpawner.startWaves();
+        this.monsterSpawner.update(20 , monsters );
     }
 
     // une fonction qui affiche comment le jeu est à cette instance
@@ -78,27 +84,48 @@ public class Plateau {
         String ligne = "";
         for ( int i =0 ; i <=colonne.length() ; i++ ) ligne = ligne + "-";
         System.out.println(ligne);
-        for (int i =0; i < this.height ;i++) {
+        String[][] tab = tableauWithMonster(tableauCellule());
+        for ( int i = 0 ; i < this.height ; i++){
             System.out.print((char) (65 + i) + " |");
-            for (int j = 0; j < this.width ; j++) {
-                if ( tableau.getGrid()[i][j].getType() == 0 ) {
-                    System.out.print(" # "); // l'herbe
-                } else if (tableau.getGrid()[i][j].getType() == 1 ) {
-                    System.out.print(" O "); // la route
-                }  else if (tableau.getGrid()[i][j].getType() == 2 ) {
-                    System.out.print(" ~ "); // l'eau
-                }  else if (tableau.getGrid()[i][j].getType() == 3 ) {
-                    System.out.print(" A "); // l'arbre
-                } else if (tableau.getGrid()[i][j].getType() == 4 )  {
-                    System.out.print(" B "); // la base
-                } else if ( tableau.getGrid()[i][j].getType() == 5){
-                    System.out.print(" T "); // une tour
-                } else {
-                    System.out.print(" m ");
-                }
+            for ( int j = 0 ; j < this.width ; j++ ){
+                System.out.print(tab[i][j]);
             }
             System.out.print("\n");
         }
+    }
+
+    // une fonction qui rajoute a tab ou les monstres sont positionné
+    public String[][] tableauWithMonster (String[][] tab){
+        apparitionMonster();
+        if (this.monsters != null) {
+            for (Monster m : this.monsters) {
+                tab[m.getPos().inti()][m.getPos().intj()] = " m ";
+            }
+        }
+        return tab ;
+    }
+
+    // une fonction qui revoie un tableau String de la map
+    public String[][] tableauCellule(){
+        String[][] tab = new String[this.height][this.width] ;
+        for (int i =0; i < this.height ;i++) {
+            for (int j = 0; j < this.width ; j++) {
+                if (tableau.getGrid()[i][j].getType() == 0) {
+                    tab[i][j] = " # " ; // l'herbe
+                } else if (tableau.getGrid()[i][j].getType() == 1) {
+                    tab[i][j] = " O " ; // la route
+                } else if (tableau.getGrid()[i][j].getType() == 2) {
+                    tab[i][j] = " ~ " ; // l'eau
+                } else if (tableau.getGrid()[i][j].getType() == 3) {
+                    tab[i][j] = " A " ; // l'arbre
+                } else if (tableau.getGrid()[i][j].getType() == 4) {
+                    tab[i][j] = " B " ; // la base
+                } else {
+                    tab[i][j] = " T " ; // une tour
+                }
+            }
+        }
+        return tab ;
     }
 
 }

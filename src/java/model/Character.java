@@ -15,7 +15,7 @@ public class Character {
         this.name = name ;
         live = lives ;
         this.degats = degats ;
-        this.money = 0 ;
+        this.money = 10 ;
         this.player = player ;
     }
 
