@@ -16,7 +16,7 @@ public class Monster {
     private  Coordinate pos;
     private final int type ; // 0 est lent ; 1 est normal ; 2 est rapide
     private final ArrayList<Coordinate> path;
-    private String direction = "EAST";
+    private String direction = "NONE";
 
     private final MapConfig mapConfig ;
     private final static double[][][] mulp =
@@ -47,20 +47,21 @@ public class Monster {
         this.pos = pos;
         this.name = name;
         this.live = live * mulp[type][niveau][0];
-        this.speed = speed * mulp[type][niveau][1];
+        //this.speed = speed * mulp[type][niveau][1];
         this.niveau = niveau; // niveau est entre 0-3
         this.money = money;
         this.type  = type;
         choixResistance();
         this.mapConfig = mapConfig;
         path = MonsterPathFinding.makeMonster_path(mapConfig);
+        this.speed = 0.5;
     }
 
     public Monster(String name, double live, double speed, int money, int niveau, int type, MapConfig mapConfig)
     {
         this.name = name;
         this.live = live * mulp[type][niveau][0];
-        this.speed = speed * mulp[type][niveau][1];
+        //this.speed = speed * mulp[type][niveau][1];
         this.niveau = niveau; // niveau est entre 0-3
         this.money = money;
         this.type  = type;
@@ -68,6 +69,7 @@ public class Monster {
         this.mapConfig = mapConfig;
         path = MonsterPathFinding.makeMonster_path(mapConfig);
         this.pos = path.get(0);
+        this.speed = speed;
     }
 
 
@@ -108,7 +110,17 @@ public class Monster {
 
     public String toString()
     {
-        return "\n\n>>>>>>>>>>\n\n" + name + "\nlive = " + live + "\nspeed = " + speed + "\nmoney = " + money + "\n(i, j) = " + pos +  "\nniveau = " + niveau + "\ntype = " + type + "\nresistance = " + resistance;
+        String s = "\n\n>>>>>>>>>>\n\n" + name + "\nlive = " + live + "\nspeed = " + speed + "\nmoney = " + money + "\n(i, j) = " + pos + "\nnext = ";
+        if(path.isEmpty())
+        {
+            s = s + "none";
+        }
+        else
+        {
+            s = s + path.get(0);
+        }
+        s = s + "\ndirection = " + direction + "\nniveau = " + niveau + "\ntype = " + type + "\nresistance = " + resistance;
+        return s;
     }
 
     public double getLive() {return live;}

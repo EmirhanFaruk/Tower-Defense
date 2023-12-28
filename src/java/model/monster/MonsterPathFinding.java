@@ -11,7 +11,7 @@ import java.util.List;
 public class MonsterPathFinding
 {
     private static Cellule[][] grid;
-    public static ArrayList<Coordinate> monster_path;
+    private static ArrayList<Coordinate> monster_path = new ArrayList<>();
 
 
     /**
@@ -21,7 +21,7 @@ public class MonsterPathFinding
      */
     public static ArrayList<Coordinate> makeMonster_path(MapConfig map_config)
     {
-        if(monster_path == null)
+        if(monster_path.isEmpty())
         {
             grid = map_config.getGrid();
 
@@ -29,7 +29,17 @@ public class MonsterPathFinding
 
             monster_path = getListeChemin(debut.intCopy());
         }
-        return (ArrayList<Coordinate>) monster_path.clone();
+        return copy(monster_path);
+    }
+
+    private static ArrayList<Coordinate> copy(ArrayList<Coordinate> arr)
+    {
+        ArrayList<Coordinate> res = new ArrayList<>();
+        for (Coordinate cord : arr)
+        {
+            res.add(cord.copy());
+        }
+        return res;
     }
 
 

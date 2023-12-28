@@ -218,6 +218,10 @@ public class MonsterSpawner
                     m.moveMonster();
                 }
                 //printArray(monsters);
+                if(!monsters.isEmpty())
+                {
+                    System.out.println(monsters.get(0));
+                }
                 System.out.println(monsters.size());
                 ms.printStatus();
                 end = System.currentTimeMillis() - start; // Delta time in ms
