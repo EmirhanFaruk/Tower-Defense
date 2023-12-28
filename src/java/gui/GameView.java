@@ -1,11 +1,9 @@
 package gui;
 
-import config.MapConfig;
-import model.monster.MonsterSpawner;
-
 import javax.swing.*;
+import java.awt.*;
 
-public class GameView extends JPanel
+public class GameView extends JFrame
 {
     private boolean running = false;
 
@@ -13,7 +11,9 @@ public class GameView extends JPanel
 
     private boolean in_game = false;
 
-    private int width, height;
+    private int width, height, scale;
+
+    private JPanel main_panel;
 
     private Menu menu;
     private Game game;
@@ -22,8 +22,11 @@ public class GameView extends JPanel
     /**
      * Constructeur de GameView, assigner les attributs
      */
-    public GameView()
+    public GameView(int width, int height)
     {
+        this.width = width;
+        this.height = height;
+        this.setPreferredSize(new Dimension(width, height));
         menu = new Menu(width, height);
         // On ne peut pas produire game encore car on n'a pas encore choisit le map.
     }

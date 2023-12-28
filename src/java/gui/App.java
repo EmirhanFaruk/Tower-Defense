@@ -6,6 +6,6 @@ import model.monster.MonsterPathFinding;
 public class App {
 
     public static void main(String[] args) throws Exception {
-        MapConfig config = new MapConfig(MapConfig.grid("Map1.txt"));
+        //Main game_view = new GameView(800, 500);
     }
 }
