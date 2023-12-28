@@ -7,7 +7,11 @@ import javax.swing.*;
 
 public class GameView extends JPanel
 {
-    private boolean running;
+    private boolean running = false;
+
+    private boolean in_main_menu = true;
+
+    private boolean in_game = false;
 
     private MapConfig map_config;
     private MonsterSpawner monster_spawner;
@@ -17,7 +21,7 @@ public class GameView extends JPanel
      */
     public GameView()
     {
-        // Produire les attributs etc...
+
     }
 
     /**
@@ -45,15 +49,60 @@ public class GameView extends JPanel
      */
     private void updateCode()
     {
-
+        if(in_main_menu)
+        {
+            logicMenu();
+        }
+        else if(in_game)
+        {
+            logicGame();
+        }
     }
 
     /**
-     * Une func qui met a jour le panel pour afficher les elements de jeu
+     * Mettre a jour le panel pour afficher les elements de jeu
      */
     private void updateGraphs()
+    {
+        if(in_main_menu)
+        {
+            drawMenu();
+        }
+        else if(in_game)
+        {
+            drawGame();
+        }
+    }
+
+    /**
+     * Afficher le menu
+     */
+    private void drawMenu()
     {
 
     }
 
+    /**
+     * Partie logique de Menu
+     */
+    private void logicMenu()
+    {
+
+    }
+
+    /**
+     * Afficher le jeu
+     */
+    private void drawGame()
+    {
+
+    }
+
+    /**
+     * Partie logique du jeu
+     */
+    private void logicGame()
+    {
+
+    }
 }
