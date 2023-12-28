@@ -13,6 +13,7 @@ public class Cellule {
     // 2 pour dire que c'est l'eau
     // 3 pour dire que c'est un arbre
     // 4 pour dire que c'est la base
+    // 5 pour dire que c'est une tour
 
     public static Cellule Cell (int i ){
         if ( i == 0 ) return new Cellule(false , 0 ) ;
@@ -20,6 +21,7 @@ public class Cellule {
         if ( i == 2 ) return new Cellule(false, 2 ) ;
         if ( i == 3 ) return new Cellule(false, 3 ) ;
         if ( i == 4 ) return new Cellule(true , 4) ;
+        if ( i == 5 ) return new Cellule ( false , 5) ;
         return null ;
     }
     public boolean isRoad() {

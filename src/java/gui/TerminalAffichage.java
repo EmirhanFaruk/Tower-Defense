@@ -97,8 +97,10 @@ public class TerminalAffichage {
                         System.out.print(" A "); // l'arbre
                     } else if (tableau[i][j].getType() == 4 )  {
                         System.out.print(" B "); // la base
-                    } else{
+                    } else if ( tableau[i][j].getType() == 5){
                         System.out.print(" T "); // une tour
+                    } else {
+                        System.out.print(" m ");
                     }
                 }
                 System.out.print("\n");
@@ -133,7 +135,8 @@ public class TerminalAffichage {
                     plateau.afficheCourant(); // affiche la map a cette instance
                     Thread.sleep(2000); // fait dormir le terminal 2 sec
                     if (player.requestAction()) { // demande si le player veut-il poser une tour
-                        player.enterCoordinates(); // demande au player de donner une coordonnée
+                        int[] val =player.enterCoordinates(); // demande au player de donner une coordonnée
+                        this.plateau.tableau[val[0]][val[1]]=new Cellule(false , 5) ; //place la tour à la position que le player a demandée
                     }
                 }
                 play(); // quand le player a perdu faire la recursion pour une nouvelle partie

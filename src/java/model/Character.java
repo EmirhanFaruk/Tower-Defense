@@ -49,7 +49,7 @@ public class Character {
     public static int getLive() {
         return live;
     }
-    public static  int getMoney() {
+    public static int getMoney() {
         return money;
     }
 

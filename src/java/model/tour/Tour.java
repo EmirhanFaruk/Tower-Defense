@@ -6,6 +6,7 @@ import model.monster.Monster;
 
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Tour {
     private final String name ;
@@ -38,10 +39,9 @@ public class Tour {
 
     // une fonction qui attaque le monstre
     public void target (ArrayList<Monster> monsters){
-        for (Monster m : monsters) {
-            if (monsterInRange(m)) { // vérifie que le monstre est à la portée
-                m.setLive(m.getLive() - this.degats); //fait perdre de la vie au monstre
-            }
+        Monster m = monsters.get(0) ;
+        if (monsterInRange(m)) { // vérifie que le monstre est à la portée
+            m.setLive(m.getLive() - this.degats); //fait perdre de la vie au monstre
         }
     }
 
@@ -57,8 +57,8 @@ public class Tour {
 
     // une fonction qui renvoie true si le montre est à la portée de la tour sinon non
     public boolean monsterInRange (Monster monster){
-        return (monster.getPos().i() - this.coordinates.i() ) <= this.range
-                && (monster.getPos().j() - this.coordinates.j() ) <= this.range ;
+        return Math.abs(monster.getPos().i() - this.coordinates.i() ) <= this.range
+                && Math.abs(monster.getPos().j() - this.coordinates.j() ) <= this.range ;
         // regarde la position de la tour et du montres est dans la portée
     }
 
