@@ -33,11 +33,39 @@ public class Player {
         System.out.print("Veuillez saisir une coordonnée (exemple : A6) : ");
         // Utilisez le scanner de la classe
         String str = scanAnswer.nextLine().replaceAll("\\s", "");
-        int[] tab = new int[2];
-        tab[0] = str.charAt(0) - 64;
-        tab[1] = str.charAt(1) - 48;
-        return tab;
+        // Vérifier que la chaîne a la bonne longueur
+        if (str.length() == 2) {
+            char firstChar = str.charAt(0);
+            char secondChar = str.charAt(1);
+            // Vérifier que le premier caractère est une lettre majuscule entre A et H inclus
+            if (firstChar >= 'A' && firstChar <= 'H') {
+                // Vérifier que le deuxième caractère est un nombre entre 1 et 9 inclus
+                if (secondChar >= 1 && secondChar<= 9) {
+                    int[] tab = new int[2];
+                    tab[0] = firstChar - 'A' + 1; // Convertir la lettre en indice (A=1, B=2, ..., H=8)
+                    tab[1] = secondChar;
+                    return tab;
+                }
+            }
+        } else if (str.length() == 3 ){
+            char firstChar = str.charAt(0);
+            int secondChar = Integer.parseInt(String.valueOf(str.charAt(1)+str.charAt(2)));
+            // Vérifier que le premier caractère est une lettre majuscule entre A et H inclus
+            if (firstChar >= 'A' && firstChar <= 'H') {
+                // Vérifier que le deuxième caractère est un nombre entre 1 et 16 inclus
+                if (secondChar >= 1 && secondChar <= 16) {
+                    int[] tab = new int[2];
+                    tab[0] = firstChar - 'A' + 1; // Convertir la lettre en indice (A=1, B=2, ..., H=8)
+                    tab[1] = secondChar;
+                    return tab;
+                }
+            }
+        }
+        // Si la coordonnée n'est pas valide, afficher un message d'erreur et demander une nouvelle saisie
+        System.out.println("Coordonnée invalide. Veuillez saisir une coordonnée valide.");
+        return enterCoordinates(); // Appel récursif pour demander une nouvelle saisie
     }
+
 
     // Demande si le joueur veut-il effectuer une action
     public boolean requestAction() {
