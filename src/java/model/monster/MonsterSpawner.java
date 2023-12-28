@@ -66,9 +66,8 @@ public class MonsterSpawner
         if(in_wave)
         {
             spawnWave(monsters);
+            timerHandler(delta_time);
         }
-        timerHandler(delta_time);
-
     }
 
     /**
@@ -104,10 +103,17 @@ public class MonsterSpawner
                 serie_count++;
                 if(serie_count == serie_count_max)
                 {
+                    // wave out
                     between_wave_timer = between_wave_timer_max;
                     serie_count = 0;
+                    wave_count++;
                 }
             }
+        }
+        if(wave_count == wave_count_max)
+        {
+            in_wave = false;
+            System.out.println("Wave done.");
         }
     }
 
