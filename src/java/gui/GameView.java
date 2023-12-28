@@ -13,15 +13,19 @@ public class GameView extends JPanel
 
     private boolean in_game = false;
 
-    private MapConfig map_config;
-    private MonsterSpawner monster_spawner;
+    private int width, height;
+
+    private Menu menu;
+    private Game game;
+
 
     /**
      * Constructeur de GameView, assigner les attributs
      */
     public GameView()
     {
-
+        menu = new Menu(width, height);
+        // On ne peut pas produire game encore car on n'a pas encore choisit le map.
     }
 
     /**
