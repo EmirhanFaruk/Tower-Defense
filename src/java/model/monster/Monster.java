@@ -122,7 +122,7 @@ public class Monster {
     }
 
     public double getLive() {return live;}
-    public double getSpeed(long delta) {return speed * (double)delta/1000000000;}
+    public double getSpeed(long delta) {return speed * (double)delta/1000;}
     public int getMoney() {return money;}
     public void setLive(double lives) { live = lives ; }
     public boolean isDead () {return this.live <=0;}

@@ -73,44 +73,39 @@ public class MonsterSpawner
 
     /**
      * Gerer les timers.
-     * | between_wave_timer | in_serie_timer | repeat
+     * | between_wave_timer | in_serie_timer && serie count | repeat
      * @param delta_time delta time
      */
     private void timerHandler(long delta_time)
     {
-        double delta_double = (double)delta_time;
+        double delta_double = (double)delta_time/1000;
         if(between_wave_timer > 0)
         {
+            // Not in serie
             between_wave_timer -= delta_double;
             if(between_wave_timer <= 0)
             {
+                between_wave_timer = 0;
                 in_serie_timer = in_serie_timer_max;
+                serie_count = 0;
             }
         }
         else
         {
-            if(in_serie_timer > 0 && monster_per_serie > 0)
+            // In serie
+            System.out.println("In serie");
+            in_serie_timer -= delta_double;
+            monster_timer -= delta_double;
+            if(in_serie_timer <= 0)
             {
-                in_serie_timer -= delta_double;
-                if (monster_per_serie > 0 && monster_timer > 0)
-                {
-                    monster_timer -= delta_double;
-                }
-            }
-            else
-            {
+                // serie out
+                in_serie_timer = 0;
+                monster_per_serie = monster_per_serie_max[serie_count%2];
+                serie_count++;
                 if(serie_count == serie_count_max)
                 {
                     between_wave_timer = between_wave_timer_max;
                     serie_count = 0;
-                    wave_count++;
-                }
-                else
-                {
-                    in_serie_timer = in_serie_timer_max;
-                    monster_per_serie = monster_per_serie_max[serie_count%2];
-                    serie_count++;
-
                 }
             }
         }
@@ -118,28 +113,33 @@ public class MonsterSpawner
 
     /**
      * Produire une vague des monstres
+     * in wave -> if between_wave_timer <= 0 then
+     * if monster per serie > 0 -> spawn
+     * else if monsters.isEmpty() && monster per serie == 0 ->
+     * in serie timer = 3 (3 seconds wait for next serie); monster per serie = -1
      * @param monsters liste de monstre a ajouter
      */
     private void spawnWave(ArrayList<Monster> monsters)
     {
         if(in_wave)
         {
-            if(in_serie_timer > 0 && monster_per_serie > 0)
+            if(in_serie_timer > 0)
             {
                 // If in a serie, has monsters to spawn and monster timer is up, put a monster and renew timer.
-                if(monster_timer <= 0)
+                if(monster_timer <= 0 && monster_per_serie > 0)
                 {
                     spawnMonster(monsters);
                     monster_per_serie--;
                     monster_timer = monster_timer_max;
                 }
+                if(monster_per_serie == 0 && monsters.isEmpty())
+                {
+                    // If no more monsters, pass to the other serie in 3 seconds.
+                    monster_per_serie = -1;
+                    in_serie_timer = 3;
+                }
             }
-            if(monster_per_serie == 0 && monsters.isEmpty())
-            {
-                // If no more monsters, pass to the other serie in 3 seconds.
-                monster_per_serie = -1;
-                in_serie_timer = 3;
-            }
+
         }
     }
 
@@ -205,28 +205,24 @@ public class MonsterSpawner
         long end = 1, start = System.currentTimeMillis();
         MapConfig mapConfig = MapConfig.make("Map1.txt");
         ArrayList<Monster> monsters = new ArrayList<>();
-        MonsterSpawner ms = new MonsterSpawner(5, 2, 8, 0.5, mapConfig);
+        MonsterSpawner ms = new MonsterSpawner(20, 5, 8, 0.5, mapConfig);
         ms.startWaves();
         while(true)
         {
-            //System.out.println(end + " >= " + 1000000000);
-            if((double)end >= 1000)
+            //System.out.println(end + " >= " + 1000);
+            if(end/1000000000 >= 500)
             {
+                //System.out.println(end/1000000000 + " >= " + 500);
                 start = System.currentTimeMillis();
-                ms.update(end/1000, monsters);
+                ms.update(end/1000000000, monsters);
                 for (Monster m : monsters)
                 {
-                    m.moveMonster(end/1000);
-                }
-                //printArray(monsters);
-                if(!monsters.isEmpty())
-                {
-                    System.out.println(monsters.get(0));
+                    m.moveMonster(end/1000000000);
                 }
                 System.out.println(monsters.size());
                 ms.printStatus();
                 end = System.currentTimeMillis() - start; // Delta time in ms
-                System.out.println("Did loop in " + end + " seconds.");
+                //System.out.println("Did loop in " + end + " seconds.");
             }
             else
             {
