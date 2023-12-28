@@ -11,7 +11,7 @@ import java.util.List;
 public class MonsterPathFinding
 {
     private static Cellule[][] grid;
-    public static ArrayList<Coordinate> monster_path;
+    private static ArrayList<Coordinate> monster_path = new ArrayList<>();
 
 
     /**
@@ -21,7 +21,7 @@ public class MonsterPathFinding
      */
     public static ArrayList<Coordinate> makeMonster_path(MapConfig map_config)
     {
-        if(monster_path == null)
+        if(monster_path.isEmpty())
         {
             grid = map_config.getGrid();
 
@@ -29,7 +29,22 @@ public class MonsterPathFinding
 
             monster_path = getListeChemin(debut.intCopy());
         }
-        return monster_path;
+        return copy(monster_path);
+    }
+
+    /**
+     * Produire une copie dur d'un array
+     * @param arr array a copier
+     * @return copie dur de l'array
+     */
+    private static ArrayList<Coordinate> copy(ArrayList<Coordinate> arr)
+    {
+        ArrayList<Coordinate> res = new ArrayList<>();
+        for (Coordinate cord : arr)
+        {
+            res.add(cord.copy());
+        }
+        return res;
     }
 
 
@@ -85,23 +100,23 @@ public class MonsterPathFinding
      * @param mons le monstre
      * @return si assez proche ou pas
      */
-    private static boolean closeToTarget(Monster mons)
+    private static boolean closeToTarget(Monster mons, long delta)
     {
         Coordinate pos = mons.getPos();
         Coordinate target = mons.getPath().get(0);
-        return Math.abs(pos.i() - target.i()) < mons.getSpeed() && Math.abs(pos.j() - target.j()) < mons.getSpeed();
+        return Math.abs(pos.i() - target.i()) < mons.getSpeed(delta) && Math.abs(pos.j() - target.j()) < mons.getSpeed(delta);
     }
 
     /**
      * Faire bouger le monstre en fonction de son direction
      * @param mons le monstre
      */
-    public static void moveMonster(Monster mons)
+    public static void moveMonster(Monster mons, long delta)
     {
         setMonsterDirection(mons);
         if(!mons.getDirection().equals("NONE"))
         {
-            if(closeToTarget(mons))
+            if(closeToTarget(mons, delta))
             {
                 Coordinate target = mons.getPath().get(0).copy();
                 mons.setPos(target.i(), target.j());
@@ -110,10 +125,10 @@ public class MonsterPathFinding
             {
                 switch (mons.getDirection())
                 {
-                    case "NORTH": mons.addPos(mons.getSpeed(), 0);
-                    case "SOUTH": mons.addPos(-mons.getSpeed(), 0);
-                    case "EAST": mons.addPos(0, mons.getSpeed());
-                    case "WEST": mons.addPos(0, -mons.getSpeed());
+                    case "NORTH": mons.addPos(mons.getSpeed(delta), 0);
+                    case "SOUTH": mons.addPos(-mons.getSpeed(delta), 0);
+                    case "EAST": mons.addPos(0, mons.getSpeed(delta));
+                    case "WEST": mons.addPos(0, -mons.getSpeed(delta));
                 }
             }
         }

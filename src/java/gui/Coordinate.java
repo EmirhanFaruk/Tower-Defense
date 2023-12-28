@@ -25,4 +25,5 @@ public class Coordinate {
     public double[] ij() {return new double[]{i, j};}
     public Coordinate copy() {return new Coordinate(i, j);}
     public Coordinate intCopy() {return new Coordinate(inti(), intj());}
+    public String toString() {return "(" + i + ", " + j + ")";}
 }
