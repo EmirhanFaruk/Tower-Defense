@@ -24,15 +24,19 @@ public class GameView extends JFrame
      */
     public GameView(int width, int height)
     {
+        // Les attributs de JPanel
         this.width = width;
         this.height = height;
+        this.setTitle("Tower Defense");
         this.setSize(width, height);
         this.setPreferredSize(new Dimension(width, height));
+        this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("Tower Defense");
 
 
+        // On commence par menu
         menu = new Menu(width, height);
+        this.add(menu);
 
         this.setVisible(true);
         // On ne peut pas produire game encore car on n'a pas encore choisit le map.
