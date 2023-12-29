@@ -23,9 +23,9 @@ public class Plateau {
     MonsterSpawner monsterSpawner ;
     ArrayList<Monster> monsters ;
 
-    public Plateau(Player player, Character character) throws Exception {
+    public Plateau(Player player) throws Exception {
         this.player = player;
-        this.character = character;
+        this.character = chooseCharacter(player) ;
         int tempNiveau;
         // Boucle pour demander au joueur de saisir un niveau valide
         do {
@@ -48,30 +48,41 @@ public class Plateau {
         this.tableau = new MapConfig(MapConfig.grid(temp));
         this.width = tableau.getGrid()[0].length;
         this.height = tableau.getGrid().length;
-        this.monsterSpawner = new MonsterSpawner(20 , 20 , 10 , 20 ,this.tableau ) ;
+        this.monsterSpawner = new MonsterSpawner(20 , 20 , 10 , 20 ,this.tableau ,this.character) ;
         this.monsters = new ArrayList<>() ;
     }
-
-
-    public Plateau ( Player player ) throws Exception {
-        this(player , null ) ;
+    public Character chooseCharacter(Player player) {
+        System.out.print("Voulez choisir un personnage (commandant, artilleur, archer) ? : ");
+        String userInput = player.getScanAnswer().nextLine().replaceAll("\\s", "").toLowerCase();
+        switch (userInput) {
+            case "commandant":
+                return new Character( "commandant", 300, 10);
+            case "artilleur":
+                return new Character("artilleur", 250, 7);
+            case "archer":
+                return new Character("archer", 250, 7);
+            default:
+                System.out.println("Le personnage n'existe pas.");
+                return chooseCharacter(player);
+        }
     }
 
     // une fonction qui dit si on a perdu ou pas
     public boolean GameLose(){
-        return Character.getLive() <= 0 ;
+        return character.getLive() <= 0 ;
     }
 
     // une fonction qui fait l'apparition des monstres
     public void apparitionMonster(){
         this.monsterSpawner.startWaves();
-        this.monsterSpawner.update(20 , monsters );
+        if (this.monsterSpawner.getInWave()) this.monsterSpawner.update(20000 , monsters);
     }
 
     // une fonction qui affiche comment le jeu est à cette instance
     public void afficheCourant (){
+        String[][] tab = tableauWithMonster(tableauCellule());
         System.out.println(" Argent : " +character.getMoney());
-        System.out.println(" Vie : " + Character.getLive());
+        System.out.println(" Vie : " + character.getLive());
         String colonne = "   ";
         for (int i = 1; i<=this.width;i++){
             if ( i < 10 ){
@@ -84,7 +95,6 @@ public class Plateau {
         String ligne = "";
         for ( int i =0 ; i <=colonne.length() ; i++ ) ligne = ligne + "-";
         System.out.println(ligne);
-        String[][] tab = tableauWithMonster(tableauCellule());
         for ( int i = 0 ; i < this.height ; i++){
             System.out.print((char) (65 + i) + " |");
             for ( int j = 0 ; j < this.width ; j++ ){
@@ -99,7 +109,11 @@ public class Plateau {
         apparitionMonster();
         if (this.monsters != null) {
             for (Monster m : this.monsters) {
-                tab[m.getPos().inti()][m.getPos().intj()] = " m ";
+                if ( m.entrerDansBase()) {
+                    m.whenMonsterEnterBase();
+                } else {
+                    tab[m.getPos().inti()][m.getPos().intj()] = " m ";
+                }
             }
         }
         return tab ;

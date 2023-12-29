@@ -2,6 +2,7 @@ package model.monster;
 
 import config.MapConfig;
 import gui.Coordinate;
+import model.Character;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,8 @@ public class Monster {
     private  Coordinate pos;
     private final int type ; // 0 est lent ; 1 est normal ; 2 est rapide
     private final ArrayList<Coordinate> path;
+
+    private Character character ;
     private String direction = "NONE";
 
     private final MapConfig mapConfig ;
@@ -42,7 +45,7 @@ public class Monster {
     private String resistance = "";
 
 
-    public Monster(String name, double live, double speed, int money, int niveau, Coordinate pos, int type, MapConfig mapConfig)
+    public Monster(String name, double live, double speed, int money, int niveau, Coordinate pos, int type, Character character , MapConfig mapConfig)
     {
         this.pos = pos;
         this.name = name;
@@ -54,9 +57,10 @@ public class Monster {
         choixResistance();
         this.mapConfig = mapConfig;
         path = MonsterPathFinding.makeMonster_path(mapConfig);
+        this.character = character ;
     }
 
-    public Monster(String name, double live, double speed, int money, int niveau, int type, MapConfig mapConfig)
+    public Monster(String name, double live, double speed, int money, int niveau, int type, Character character ,MapConfig mapConfig)
     {
         this.name = name;
         this.live = live * mulp[type][niveau][0];
@@ -68,6 +72,7 @@ public class Monster {
         this.mapConfig = mapConfig;
         path = MonsterPathFinding.makeMonster_path(mapConfig);
         this.pos = path.get(0);
+        this.character = character ;
     }
 
 
@@ -96,6 +101,14 @@ public class Monster {
             degats = degats - degats * resistance_pourcentage[niveau];
         }
         live -= degats;
+    }
+    public void whenMonsterEnterBase() {
+        System.out.println("Before: Character live = " + character.getLive());
+        if (character != null) {
+            character.setLive((int) (character.getLive() - getLive()));
+        }
+        System.out.println("After: Character live = " + character.getLive());
+        setLive(0);
     }
 
     public void moveMonster(long delta) {MonsterPathFinding.moveMonster(this, delta);}

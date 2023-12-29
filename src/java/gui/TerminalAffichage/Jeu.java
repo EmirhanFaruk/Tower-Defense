@@ -3,9 +3,6 @@ package gui.TerminalAffichage;
 import config.Cellule;
 import model.Character;
 import model.Player;
-import model.tour.Tour;
-
-import java.util.ArrayList;
 
 public class Jeu {
 
@@ -28,11 +25,10 @@ public class Jeu {
     public void play () throws Exception {
         if (player.wantPlay()) { // si le player veut jouer
             this.plateau = new Plateau( player ) ; // demande la map que le player veut
-            this.character = Character.chooseCharacter(player) ; // initialisation d'un character
-            this.plateau.character = this.character ; // l'attribut character du plateau est initiaser
+            this.character = this.plateau.character ;
             while (!plateau.GameLose()) { // si le player n'a pas perdu
                 plateau.afficheCourant(); // affiche la map a cette instance
-                Thread.sleep(1000); // fait dormir le terminal 1 sec
+                //Thread.sleep(5000); // fait dormir le terminal 5 sec
                 if ( player.requestAction()) { // demande si le player veut-il poser une tour
                     int[] val =player.enterCoordinates(); // demande au player de donner une coordonnée
                     this.plateau.tableau.getGrid()[val[0]][val[1]]=new Cellule(false , 5) ; //place la tour à la position que le player a demandée
