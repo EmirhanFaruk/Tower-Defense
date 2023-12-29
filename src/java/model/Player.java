@@ -1,5 +1,8 @@
 package model;
 
+import model.tour.Archer;
+import model.tour.Tour;
+
 import java.util.Scanner;
 
 public class Player {
@@ -71,6 +74,19 @@ public class Player {
         } else {
             System.out.println("Ce n'est pas la réponse attendue.");
             return requestAction();
+        }
+    }
+
+    // Demande quel type de tour veut-il acheter
+    public String chooseTowerType(){
+        System.out.print("Quelles types de tour voulez-vous acheter ( canon/archer/arme/artillerie ) ? : ");
+        String userInput = scanAnswer.nextLine().replaceAll("\\s", "").toLowerCase();
+        switch (userInput){
+            case "archer"  : return "archer" ;
+            case "artillerie" : return "artillerie" ;
+            case "canon" : return "canon" ;
+            case "arme" : return "arme" ;
+            default : System.out.println("Cette tour n'existe pas.") ; return chooseTowerType() ;
         }
     }
 

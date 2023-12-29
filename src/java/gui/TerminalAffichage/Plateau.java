@@ -120,26 +120,24 @@ public class Plateau {
     }
 
     // une fonction qui revoie un tableau String de la map
-    public String[][] tableauCellule(){
-        String[][] tab = new String[this.height][this.width] ;
-        for (int i =0; i < this.height ;i++) {
-            for (int j = 0; j < this.width ; j++) {
-                if (tableau.getGrid()[i][j].getType() == 0) {
-                    tab[i][j] = " # " ; // l'herbe
-                } else if (tableau.getGrid()[i][j].getType() == 1) {
-                    tab[i][j] = " O " ; // la route
-                } else if (tableau.getGrid()[i][j].getType() == 2) {
-                    tab[i][j] = " ~ " ; // l'eau
-                } else if (tableau.getGrid()[i][j].getType() == 3) {
-                    tab[i][j] = " A " ; // l'arbre
-                } else if (tableau.getGrid()[i][j].getType() == 4) {
-                    tab[i][j] = " B " ; // la base
-                } else {
-                    tab[i][j] = " T " ; // une tour
+    public String[][] tableauCellule() {
+        String[][] tab = new String[this.height][this.width];
+        for (int i = 0; i < this.height; i++) {
+            for (int j = 0; j < this.width; j++) {
+                switch (tableau.getGrid()[i][j].getType()) {
+                    case 0: tab[i][j] = " # "; // l'herbe
+                    case 1: tab[i][j] = " O "; // la route
+                    case 2: tab[i][j] = " ~ "; // l'eau
+                    case 3: tab[i][j] = " A "; // l'arbre
+                    case 4: tab[i][j] = " B "; // la base
+                    case 5: tab[i][j] = " } "; // une tour archer
+                    case 6: tab[i][j] = " J "; // une tour arme
+                    case 7: tab[i][j] = " ꓕ "; // une tour artillerie
+                    case 8: tab[i][j] = " ⅄ "; // une tour canon
                 }
             }
         }
-        return tab ;
+        return tab;
     }
 
 }
