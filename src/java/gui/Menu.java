@@ -13,7 +13,7 @@ public class Menu extends JPanel
     private String difficulte;
 
     private int width, height;
-    private boolean fullscreen;
+    private boolean fullscreen = false;
 
 
     private JPanel button_panel;
@@ -21,6 +21,12 @@ public class Menu extends JPanel
 
     private String mode = "HOME";
 
+    /**
+     * Constructeur de Menu.
+     * @param width largueur
+     * @param height hauteur
+     * @throws IOException exception pour le path dans home image
+     */
     public Menu(int width, int height) throws IOException
     {
         this.width = width;
@@ -38,6 +44,10 @@ public class Menu extends JPanel
 
     }
 
+    /**
+     * Produire le panel avec les buttons.
+     * @return JPanel des buttons
+     */
     private JPanel makeButtonPanel()
     {
         JPanel res = new JPanel();
@@ -54,17 +64,29 @@ public class Menu extends JPanel
         return res;
     }
 
+    /**
+     * Produire le main panel qui sera dans le JFrame quand le mode est "menu"
+     * @return main panel
+     * @throws IOException exception pour le path
+     */
     private JPanel makeMainPanel() throws IOException
     {
         JPanel res  = new JPanel();
         switch (mode)
         {
-            case "HOME" : res = makeHome();break;
+            case "HOME" : res = makeHome(); break;
+            case "PLAY" : res = makePlay(); break;
+            case "SETTINGS" : res = makeSettings(); break;
         }
 
         return res;
     }
 
+    /**
+     * Produire JPanel pour home: Image de menu.
+     * @return JPanel de home
+     * @throws IOException exception pour le path
+     */
     private JPanel makeHome() throws IOException
     {
         JPanel res = new JPanel();
@@ -86,5 +108,23 @@ public class Menu extends JPanel
         JLabel label = new JLabel(new ImageIcon(scaled_home_image));
         res.add(label);
         return res;
+    }
+
+    /**
+     * Produire le menu de jeu ou on peut choisir un niveau et sa difficulté, et ou on peut lancer le jeu.
+     * @return JPanel de play
+     */
+    private JPanel makePlay()
+    {
+        return null;
+    }
+
+    /**
+     * Produire le menu des parametres ou il y a le reglage de largeur et hauteur, et aussi fullscreen
+     * @return Jpanel de settings
+     */
+    private JPanel makeSettings()
+    {
+        return null;
     }
 }
