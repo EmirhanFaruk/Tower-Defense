@@ -1,7 +1,11 @@
 package gui;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Menu extends JPanel
 {
@@ -15,7 +19,9 @@ public class Menu extends JPanel
     private JPanel button_panel;
     private JPanel main_panel;
 
-    public Menu(int width, int height)
+    private String mode = "HOME";
+
+    public Menu(int width, int height) throws IOException
     {
         this.width = width;
         this.height = height;
@@ -25,8 +31,10 @@ public class Menu extends JPanel
         this.setLayout(new BorderLayout());
 
         button_panel = makeButtonPanel();
+        main_panel = makeMainPanel();
 
         this.add(button_panel, BorderLayout.SOUTH);
+        this.add(main_panel);
 
     }
 
@@ -43,6 +51,40 @@ public class Menu extends JPanel
         res.add(play);
         res.add(settings);
 
+        return res;
+    }
+
+    private JPanel makeMainPanel() throws IOException
+    {
+        JPanel res  = new JPanel();
+        switch (mode)
+        {
+            case "HOME" : res = makeHome();break;
+        }
+
+        return res;
+    }
+
+    private JPanel makeHome() throws IOException
+    {
+        JPanel res = new JPanel();
+        String path = System.getProperty("user.dir");
+
+        // Getting home image
+        BufferedImage home_image;
+        try
+        {
+            home_image = ImageIO.read(new File(path + "/src/resources/images/menu/Menu.png"));
+        }
+        catch (Exception e)
+        {
+            home_image = ImageIO.read(new File(path + "\\src\\resources\\images\\menu\\Menu.png"));
+        }
+
+        Image scaled_home_image = home_image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+
+        JLabel label = new JLabel(new ImageIcon(scaled_home_image));
+        res.add(label);
         return res;
     }
 }

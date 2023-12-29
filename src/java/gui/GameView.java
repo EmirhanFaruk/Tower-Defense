@@ -2,6 +2,7 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class GameView extends JFrame
 {
@@ -22,7 +23,7 @@ public class GameView extends JFrame
     /**
      * Constructeur de GameView, assigner les attributs
      */
-    public GameView(int width, int height)
+    public GameView(int width, int height) throws IOException
     {
         // Les attributs de JPanel
         this.width = width;
