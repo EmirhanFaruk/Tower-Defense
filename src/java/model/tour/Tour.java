@@ -16,7 +16,9 @@ public class Tour {
     private long lastAttackTime;  // Temps de la dernière attaque
     private final long cooldown;   // Temps de recharge en millisecondes
     private final static int[][] mulp= { { 1 } , { 2 } , { 3 } };
-    public Tour (String name , int prix , int degats , int level , int x , int y , int range , long time ){
+
+    private Character character ;
+    public Tour (Character character , String name , int prix , int degats , int level , int x , int y , int range , long time ){
         this.name = name ;
         this.prix = prix ;
         this.degats = degats ;
@@ -25,13 +27,14 @@ public class Tour {
         this.range =  range ;
         this.cooldown = time ;
         this.lastAttackTime = System.currentTimeMillis();
+        this.character = character ;
     }
 
     // une fonction qui l'améliore la tour au niveau supérieur
     public void upgradeTower(){
-        if (Character.getMoney()>=this.prix*mulp[level+1][0]){ // regarde si le Character a assez d'argent pour pouvoir l'upgrade
+        if (character.getMoney()>=this.prix*mulp[level+1][0]){ // regarde si le Character a assez d'argent pour pouvoir l'upgrade
             this.level++ ; // upgrade de niveau
-            Character.setMoney(Character.getMoney()-this.prix*mulp[level][0]); // retire l'argent au Character
+            character.setMoney(character.getMoney()-this.prix*mulp[level][0]); // retire l'argent au Character
         }
     }
 
@@ -61,7 +64,7 @@ public class Tour {
     }
 
     public boolean canBuyTower(){
-        return Character.getMoney() >= this.prix ;
+        return character.getMoney() >= this.prix ;
     }
 
     public String getName() {

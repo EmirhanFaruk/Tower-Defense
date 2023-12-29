@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class Character {
     private final String name ;
-    private static int live ;
+    private int live ;
     private final int degats ;
-    private static int money ;
+    private int money ;
     private Player player ;
 
     public Character (Player player,String name , int lives , int degats ){
@@ -22,15 +22,16 @@ public class Character {
     public static Character chooseCharacter(Player player) {
         System.out.print("Voulez choisir un personnage (commandant, artilleur, archer) ? : ");
         String userInput = player.getScanAnswer().nextLine().replaceAll("\\s", "").toLowerCase();
-        if (userInput.equals("commandant")) {
-            return new Character(player, "commandant", 300, 10);
-        } else if (userInput.equals("artilleur")) {
-            return new Character(player, "artilleur", 250, 7);
-        } else if (userInput.equals("archer")) {
-            return new Character(player, "archer", 250, 7);
-        } else {
-            System.out.println("Le personnage n'existe pas.");
-            return chooseCharacter(player);
+        switch (userInput) {
+            case "commandant":
+                return new Character(player, "commandant", 300, 10);
+            case "artilleur":
+                return new Character(player, "artilleur", 250, 7);
+            case "archer":
+                return new Character(player, "archer", 250, 7);
+            default:
+                System.out.println("Le personnage n'existe pas.");
+                return chooseCharacter(player);
         }
     }
 
@@ -39,17 +40,13 @@ public class Character {
         if ( monster.isDead()) setMoney(getMoney()+monster.getMoney());
     }
 
-    public void whenMonsterEnterBase ( Monster monster){
-        if ( monster.entrerDansBase())  setLive(getLive() - (int)monster.getLive()) ;
-    }
-
     public String getName() {
         return name;
     }
-    public static int getLive() {
+    public int getLive() {
         return live;
     }
-    public static int getMoney() {
+    public int getMoney() {
         return money;
     }
 
@@ -57,10 +54,10 @@ public class Character {
         return degats;
     }
 
-    public void setLive (int lives) {
-        live = lives;
+    public void setLive(int live) {
+        this.live = live;
     }
-    public static void setMoney(int moneys) {
-         money = moneys;
+    public void setMoney(int money) {
+         this.money = money;
     }
 }
