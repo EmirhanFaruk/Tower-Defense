@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Menu extends JPanel
 {
     /**
-     * Home button
+     * Home button.
      */
     public class HomeButton implements ActionListener
     {
@@ -22,7 +22,7 @@ public class Menu extends JPanel
             setMode("HOME");
             try
             {
-                make();
+                remake();
             }
             catch (IOException ex)
             {
@@ -32,7 +32,7 @@ public class Menu extends JPanel
     }
 
     /**
-     * Play button
+     * Play button.
      */
     public class PlayButton implements ActionListener
     {
@@ -42,7 +42,7 @@ public class Menu extends JPanel
             setMode("PLAY");
             try
             {
-                make();
+                remake();
             }
             catch (IOException ex)
             {
@@ -62,7 +62,7 @@ public class Menu extends JPanel
             setMode("SETTINGS");
             try
             {
-                make();
+                remake();
             }
             catch (IOException ex)
             {
@@ -102,8 +102,16 @@ public class Menu extends JPanel
         make();
     }
 
+    /**
+     * Produire le panel.
+     * @throws IOException exception pour le path
+     */
     private void make() throws IOException
     {
+        for(int i = 0; i < this.getComponentCount(); i++)
+        {
+            System.out.println(this.getComponent(i));
+        }
         // Le reste: affichage
         // En bas: home - play - settings
         this.setLayout(new BorderLayout());
@@ -113,7 +121,15 @@ public class Menu extends JPanel
 
         this.add(button_panel, BorderLayout.SOUTH);
         this.add(main_panel);
+    }
 
+    /**
+     * Refaire le menu pour l'action de button.
+     */
+    private void remake() throws IOException
+    {
+        //TODO: DO IT! JUST DO IT!
+        make();
     }
 
     private void setMode(String mode) {this.mode = mode;}
