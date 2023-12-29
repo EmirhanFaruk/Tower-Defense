@@ -57,6 +57,14 @@ public class Menu extends JPanel
         JButton play = new JButton("PLAY");
         JButton settings = new JButton("SETTINGS");
 
+        JButton[] bl = {home, play, settings};
+        for (JButton button : bl)
+        {
+            button.setBorderPainted(false);
+            button.setBackground(Color.BLACK);
+            button.setForeground(Color.GRAY);
+        }
+
         res.add(home);
         res.add(play);
         res.add(settings);
