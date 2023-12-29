@@ -26,8 +26,15 @@ public class GameView extends JFrame
     {
         this.width = width;
         this.height = height;
+        this.setSize(width, height);
         this.setPreferredSize(new Dimension(width, height));
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setTitle("Tower Defense");
+
+
         menu = new Menu(width, height);
+
+        this.setVisible(true);
         // On ne peut pas produire game encore car on n'a pas encore choisit le map.
     }
 

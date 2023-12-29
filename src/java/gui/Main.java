@@ -5,10 +5,9 @@ import javax.swing.*;
 public class Main
 {
     JFrame frame;
-    public Main()
+    public Main(int width, int height)
     {
-        frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Tower Defense");
+        frame = new GameView(width, height);
+
     }
 }
