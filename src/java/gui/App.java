@@ -1,7 +1,6 @@
 package gui;
 
-import config.MapConfig;
-import model.monster.MonsterPathFinding;
+import gui.mainmenu.Main;
 
 public class App {
 

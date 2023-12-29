@@ -1,5 +1,8 @@
 package gui;
 
+import gui.game.Game;
+import gui.mainmenu.Menu;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -16,7 +19,7 @@ public class GameView extends JFrame
 
     private JPanel main_panel;
 
-    private Menu menu;
+    private gui.mainmenu.Menu menu;
     private Game game;
 
 

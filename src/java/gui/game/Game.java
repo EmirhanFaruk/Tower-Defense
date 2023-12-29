@@ -1,4 +1,4 @@
-package gui;
+package gui.game;
 
 import config.MapConfig;
 import model.monster.Monster;

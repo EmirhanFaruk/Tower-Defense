@@ -1,4 +1,6 @@
-package gui;
+package gui.mainmenu;
+
+import gui.GameView;
 
 import javax.swing.*;
 import java.io.IOException;

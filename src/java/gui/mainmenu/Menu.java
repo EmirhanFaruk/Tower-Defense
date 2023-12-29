@@ -1,14 +1,76 @@
-package gui;
+package gui.mainmenu;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class Menu extends JPanel
 {
+    /**
+     * Home button
+     */
+    public class HomeButton implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            setMode("HOME");
+            try
+            {
+                make();
+            }
+            catch (IOException ex)
+            {
+                throw new RuntimeException(ex);
+            }
+        }
+    }
+
+    /**
+     * Play button
+     */
+    public class PlayButton implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            setMode("PLAY");
+            try
+            {
+                make();
+            }
+            catch (IOException ex)
+            {
+                throw new RuntimeException(ex);
+            }
+        }
+    }
+
+    /**
+     * Settings button.
+     */
+    public class SettingsButton implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            setMode("SETTINGS");
+            try
+            {
+                make();
+            }
+            catch (IOException ex)
+            {
+                throw new RuntimeException(ex);
+            }
+        }
+    }
+
     private String map_choisi;
     private String difficulte;
 
@@ -18,6 +80,11 @@ public class Menu extends JPanel
 
     private JPanel button_panel;
     private JPanel main_panel;
+
+
+    private final HomeButton hbl = new HomeButton();
+    private final PlayButton pbl = new PlayButton();
+    private final SettingsButton sbl = new SettingsButton();
 
     private String mode = "HOME";
 
@@ -32,6 +99,11 @@ public class Menu extends JPanel
         this.width = width;
         this.height = height;
 
+        make();
+    }
+
+    private void make() throws IOException
+    {
         // Le reste: affichage
         // En bas: home - play - settings
         this.setLayout(new BorderLayout());
@@ -44,6 +116,8 @@ public class Menu extends JPanel
 
     }
 
+    private void setMode(String mode) {this.mode = mode;}
+
     /**
      * Produire le panel avec les buttons.
      * @return JPanel des buttons
@@ -53,9 +127,14 @@ public class Menu extends JPanel
         JPanel res = new JPanel();
         res.setLayout(new GridLayout(1, 3));
 
+
+
         JButton home = new JButton("HOME");
+        home.addActionListener(hbl);
         JButton play = new JButton("PLAY");
+        play.addActionListener(pbl);
         JButton settings = new JButton("SETTINGS");
+        settings.addActionListener(sbl);
 
         JButton[] bl = {home, play, settings};
         for (JButton button : bl)
@@ -124,7 +203,9 @@ public class Menu extends JPanel
      */
     private JPanel makePlay()
     {
-        return null;
+        JPanel res = new JPanel();
+        res.setBackground(Color.BLUE);
+        return res;
     }
 
     /**
