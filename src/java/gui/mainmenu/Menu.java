@@ -20,14 +20,7 @@ public class Menu extends JPanel
         public void actionPerformed(ActionEvent e)
         {
             setMode("HOME");
-            try
-            {
-                remake();
-            }
-            catch (IOException ex)
-            {
-                throw new RuntimeException(ex);
-            }
+            cardLayout.show(main_panel, home_mode);
         }
     }
 
@@ -40,14 +33,7 @@ public class Menu extends JPanel
         public void actionPerformed(ActionEvent e)
         {
             setMode("PLAY");
-            try
-            {
-                remake();
-            }
-            catch (IOException ex)
-            {
-                throw new RuntimeException(ex);
-            }
+            cardLayout.show(main_panel, play_mode);
         }
     }
 
@@ -60,14 +46,7 @@ public class Menu extends JPanel
         public void actionPerformed(ActionEvent e)
         {
             setMode("SETTINGS");
-            try
-            {
-                remake();
-            }
-            catch (IOException ex)
-            {
-                throw new RuntimeException(ex);
-            }
+            cardLayout.show(main_panel, settings_mode);
         }
     }
 
@@ -87,6 +66,12 @@ public class Menu extends JPanel
     private final SettingsButton sbl = new SettingsButton();
 
     private String mode = "HOME";
+
+    private final CardLayout cardLayout = new CardLayout();
+
+    private final String home_mode = "HOME";
+    private final String play_mode = "PLAY";
+    private final String settings_mode = "SETTINGS";
 
     /**
      * Constructeur de Menu.
@@ -119,17 +104,10 @@ public class Menu extends JPanel
         button_panel = makeButtonPanel();
         main_panel = makeMainPanel();
 
+
+
         this.add(button_panel, BorderLayout.SOUTH);
         this.add(main_panel);
-    }
-
-    /**
-     * Refaire le menu pour l'action de button.
-     */
-    private void remake() throws IOException
-    {
-        //TODO: DO IT! JUST DO IT!
-        make();
     }
 
     private void setMode(String mode) {this.mode = mode;}
@@ -142,8 +120,6 @@ public class Menu extends JPanel
     {
         JPanel res = new JPanel();
         res.setLayout(new GridLayout(1, 3));
-
-
 
         JButton home = new JButton("HOME");
         home.addActionListener(hbl);
@@ -175,12 +151,15 @@ public class Menu extends JPanel
     private JPanel makeMainPanel() throws IOException
     {
         JPanel res  = new JPanel();
-        switch (mode)
-        {
-            case "HOME" : res = makeHome(); break;
-            case "PLAY" : res = makePlay(); break;
-            case "SETTINGS" : res = makeSettings(); break;
-        }
+        // Pour pouvoir changer le mode
+        res.setLayout(cardLayout);
+
+        // Ajout des modes
+        res.add(home_mode, makeHome());
+        res.add(play_mode, makePlay());
+        //res.add(settings_mode, makeSettings());
+
+        cardLayout.show(res, home_mode);
 
         return res;
     }
