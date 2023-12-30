@@ -3,22 +3,45 @@ package gui.TerminalAffichage;
 import config.Cellule;
 import model.Character;
 import model.Player;
+import model.tour.*;
+
+import java.util.ArrayList;
 
 public class Jeu {
 
     Player player;
     Plateau plateau ;
     Character character ;
+    private final ArrayList<Tour> tours ;
 
     public Jeu (Player player , Plateau plateau , Character character ){
         this.player = player;
         this.plateau = plateau ;
         this.character = character ;
+        this.tours = towerList() ;
     }
 
     public Jeu (Player player){
         this ( player ,  null , null ) ;
     }
+
+    private ArrayList<Tour> towerList (){
+        ArrayList<Tour> towerList = new ArrayList<>() ;
+        towerList.add(new Archer(1 )) ;
+        towerList.add(new Archer(2 )) ;
+        towerList.add(new Archer(3 )) ;
+        towerList.add(new Arme(1 )) ;
+        towerList.add(new Arme(2 )) ;
+        towerList.add(new Arme(3 )) ;
+        towerList.add(new Artillerie(1 )) ;
+        towerList.add(new Artillerie(2 )) ;
+        towerList.add(new Artillerie(3 )) ;
+        towerList.add(new Canon(1 )) ;
+        towerList.add(new Canon(2 )) ;
+        towerList.add(new Canon(3 )) ;
+        return towerList ;
+    }
+
 
 
     // une fonction qui nous fait jouer

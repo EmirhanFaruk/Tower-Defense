@@ -9,7 +9,6 @@ public class Arme extends Tour {
         super( "arme" , 10 , 10 , level, x , y , 100 , 100 );
     }
 
-
     public Arme( int level ) {
         super( "arme" , 10 , 10 , level ,100 , 100 );
     }

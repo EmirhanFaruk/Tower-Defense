@@ -19,9 +19,6 @@ public class Plateau {
     private MonsterSpawner monsterSpawner ;
     private ArrayList<Monster> monsters ;
 
-    private final ArrayList<Tour> tours ;
-
-
     public Plateau(Player player) throws Exception {
         this.player = player;
         this.character = chooseCharacter(player) ;
@@ -49,7 +46,6 @@ public class Plateau {
         this.height = tableau.getGrid().length;
         this.monsterSpawner = new MonsterSpawner(20 , 20 , 10 , 20 ,this.tableau ,this.character) ;
         this.monsters = new ArrayList<>() ;
-        this.tours = towerList() ;
     }
     public Character chooseCharacter(Player player) {
         System.out.print("Voulez choisir un personnage (commandant, artilleur, archer) ? : ");
@@ -140,22 +136,6 @@ public class Plateau {
         return tab;
     }
 
-    private ArrayList<Tour> towerList (){
-        ArrayList<Tour> towerList = new ArrayList<>() ;
-        towerList.add(new Archer(1 )) ;
-        towerList.add(new Archer(2 )) ;
-        towerList.add(new Archer(3 )) ;
-        towerList.add(new Arme(1 )) ;
-        towerList.add(new Arme(2 )) ;
-        towerList.add(new Arme(3 )) ;
-        towerList.add(new Artillerie(1 )) ;
-        towerList.add(new Artillerie(2 )) ;
-        towerList.add(new Artillerie(3 )) ;
-        towerList.add(new Canon(1 )) ;
-        towerList.add(new Canon(2 )) ;
-        towerList.add(new Canon(3 )) ;
-        return towerList ;
-    }
 
     // getteurs et setteurs
     public MapConfig getTableau() {
