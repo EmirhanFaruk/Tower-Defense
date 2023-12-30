@@ -39,7 +39,7 @@ public class GameView extends JFrame
 
 
         // On commence par menu
-        menu = new Menu(width, height);
+        menu = new Menu(width, height, this);
         this.add(menu);
 
         this.setVisible(true);

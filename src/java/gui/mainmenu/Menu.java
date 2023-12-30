@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Menu extends JPanel
 {
@@ -57,21 +58,33 @@ public class Menu extends JPanel
     private boolean fullscreen = false;
 
 
+    // Les panels principales
     private JPanel button_panel;
     private JPanel main_panel;
 
 
+    // Les buttons
     private final HomeButton hbl = new HomeButton();
     private final PlayButton pbl = new PlayButton();
     private final SettingsButton sbl = new SettingsButton();
 
-    private String mode = "HOME";
 
+
+    // Pour changer le mode
+    private String mode = "HOME";
     private final CardLayout cardLayout = new CardLayout();
 
     private final String home_mode = "HOME";
     private final String play_mode = "PLAY";
     private final String settings_mode = "SETTINGS";
+
+
+    // Le JFrame
+    private JFrame frame;
+
+
+
+
 
     /**
      * Constructeur de Menu.
@@ -79,10 +92,11 @@ public class Menu extends JPanel
      * @param height hauteur
      * @throws IOException exception pour le path dans home image
      */
-    public Menu(int width, int height) throws IOException
+    public Menu(int width, int height, JFrame frame) throws IOException
     {
         this.width = width;
         this.height = height;
+        this.frame = frame;
 
         make();
     }
@@ -93,10 +107,6 @@ public class Menu extends JPanel
      */
     private void make() throws IOException
     {
-        for(int i = 0; i < this.getComponentCount(); i++)
-        {
-            System.out.println(this.getComponent(i));
-        }
         // Le reste: affichage
         // En bas: home - play - settings
         this.setLayout(new BorderLayout());
@@ -157,7 +167,7 @@ public class Menu extends JPanel
         // Ajout des modes
         res.add(home_mode, makeHome());
         res.add(play_mode, makePlay());
-        //res.add(settings_mode, makeSettings());
+        res.add(settings_mode, makeSettings());
 
         cardLayout.show(res, home_mode);
 
@@ -166,49 +176,39 @@ public class Menu extends JPanel
 
     /**
      * Produire JPanel pour home: Image de menu.
-     * @return JPanel de home
-     * @throws IOException exception pour le path
+     * @return JPanel de Home
      */
-    private JPanel makeHome() throws IOException
+    private Home makeHome()
     {
-        JPanel res = new JPanel();
-        String path = System.getProperty("user.dir");
-
-        // Getting home image
-        BufferedImage home_image;
-        try
-        {
-            home_image = ImageIO.read(new File(path + "/src/resources/images/menu/Menu.png"));
-        }
-        catch (Exception e)
-        {
-            home_image = ImageIO.read(new File(path + "\\src\\resources\\images\\menu\\Menu.png"));
-        }
-
-        Image scaled_home_image = home_image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-
-        JLabel label = new JLabel(new ImageIcon(scaled_home_image));
-        res.add(label);
-        return res;
+        return new Home(width, height);
     }
 
     /**
      * Produire le menu de jeu ou on peut choisir un niveau et sa difficulté, et ou on peut lancer le jeu.
-     * @return JPanel de play
+     * @return JPanel de Play
      */
-    private JPanel makePlay()
+    private Play makePlay()
     {
-        JPanel res = new JPanel();
-        res.setBackground(Color.BLUE);
-        return res;
+        return new Play(width, height);
     }
 
     /**
      * Produire le menu des parametres ou il y a le reglage de largeur et hauteur, et aussi fullscreen
-     * @return Jpanel de settings
+     * @return Jpanel de Settings
      */
-    private JPanel makeSettings()
+    private Settings makeSettings()
     {
-        return null;
+        return new Settings(width, height);
+    }
+
+    private void setAllSize()
+    {
+        frame.setSize(width, height);
+        for(Component component : this.getComponents())
+        {
+            component.setSize(width, height);
+        }
+        this.setSize(width, height);
+
     }
 }
