@@ -19,10 +19,20 @@ public class Tour {
 
     public Tour ( String name , int prix , int degats , int level , int x , int y , int range , long time ){
         this.name = name ;
-        this.prix = prix ;
-        this.degats = degats ;
         this.level = level ;
+        this.prix = prix * mulp[getLevel()][0] ;
+        this.degats = degats *  mulp[getLevel()][0] ;
         this.coordinates = new Coordinate( x , y ) ;
+        this.range =  range ;
+        this.cooldown = time ;
+        this.lastAttackTime = System.currentTimeMillis();
+    }
+
+    public Tour ( String name , int prix , int degats , int level , int range , long time  ){
+        this.name = name ;
+        this.level = level ;
+        this.prix = prix * mulp[getLevel()][0] ;
+        this.degats = degats *  mulp[getLevel()][0] ;
         this.range =  range ;
         this.cooldown = time ;
         this.lastAttackTime = System.currentTimeMillis();

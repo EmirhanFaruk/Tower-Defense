@@ -1,8 +1,5 @@
 package model;
 
-import model.tour.Archer;
-import model.tour.Tour;
-
 import java.util.Scanner;
 
 public class Player {

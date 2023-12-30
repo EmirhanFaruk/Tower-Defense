@@ -5,23 +5,22 @@ import model.Character;
 import model.Player;
 import model.monster.Monster;
 import model.monster.MonsterSpawner;
+import model.tour.*;
 
 import java.util.ArrayList;
 
 public class Plateau {
-    // le nombre de colonnes
-    final int width ;
+    final int width ; // le nombre de colonnes
+    final int height ;  // le nombre de lignes
+    final int niveau ; // niveau entre 1 et 3
+    private MapConfig tableau ; // permet de dire comment est la map et où les monstres peuvent aller
+    private  Player player ;
+    private Character character ;
+    private MonsterSpawner monsterSpawner ;
+    private ArrayList<Monster> monsters ;
 
-    // le nombre de lignes
-    final int height ;
-    final int niveau ;
+    private final ArrayList<Tour> tours ;
 
-    // permet de dire comment est la map et où les monstres peuvent aller
-    MapConfig tableau ;
-    Player player ;
-    Character character ;
-    MonsterSpawner monsterSpawner ;
-    ArrayList<Monster> monsters ;
 
     public Plateau(Player player) throws Exception {
         this.player = player;
@@ -50,6 +49,7 @@ public class Plateau {
         this.height = tableau.getGrid().length;
         this.monsterSpawner = new MonsterSpawner(20 , 20 , 10 , 20 ,this.tableau ,this.character) ;
         this.monsters = new ArrayList<>() ;
+        this.tours = towerList() ;
     }
     public Character chooseCharacter(Player player) {
         System.out.print("Voulez choisir un personnage (commandant, artilleur, archer) ? : ");
@@ -140,4 +140,28 @@ public class Plateau {
         return tab;
     }
 
+    private ArrayList<Tour> towerList (){
+        ArrayList<Tour> towerList = new ArrayList<>() ;
+        towerList.add(new Archer(1 )) ;
+        towerList.add(new Archer(2 )) ;
+        towerList.add(new Archer(3 )) ;
+        towerList.add(new Arme(1 )) ;
+        towerList.add(new Arme(2 )) ;
+        towerList.add(new Arme(3 )) ;
+        towerList.add(new Artillerie(1 )) ;
+        towerList.add(new Artillerie(2 )) ;
+        towerList.add(new Artillerie(3 )) ;
+        towerList.add(new Canon(1 )) ;
+        towerList.add(new Canon(2 )) ;
+        towerList.add(new Canon(3 )) ;
+        return towerList ;
+    }
+
+    // getteurs et setteurs
+    public MapConfig getTableau() {
+        return tableau;
+    }
+    public Character getCharacter() {
+        return character;
+    }
 }
