@@ -1,5 +1,8 @@
 package model;
 
+import config.Cellule;
+import config.MapConfig;
+
 import java.util.Scanner;
 
 public class Player {
@@ -29,15 +32,40 @@ public class Player {
     }
 
     // Demande au joueur de donner une coordonnée
-    public int[] enterCoordinates() {
+    public int[] enterCoordinates(MapConfig mapConfig) {
         System.out.print("Veuillez saisir une coordonnée (exemple : A6) : ");
         // Utilisez le scanner de la classe
         String str = scanAnswer.nextLine().replaceAll("\\s", "");
-        int[] tab = new int[2];
-        tab[0] = str.charAt(0) - 64;
-        tab[1] = str.charAt(1) - 48;
-        return tab;
+        // Vérifier que la chaîne a la bonne longueur
+        if (str.length() == 2 || str.length() == 3) {
+            char firstChar = str.charAt(0);
+            int secondChar;
+            if ( str.length()==2 ) {
+               secondChar = Integer.parseInt(String.valueOf(str.charAt(1)));
+            } else {
+                secondChar =Integer.parseInt(str.substring(1));
+            }
+            // Vérifier que le premier caractère est une lettre majuscule entre A et H inclus et le deuxième caractère est un nombre entre 1 et 16 inclus
+            if (firstChar >= 'A' && firstChar <= 'H' && secondChar >= 1 && secondChar<= 16) {
+                int x = firstChar - 'A'; // Convertir la lettre en indice (A=1, B=2, ..., H=8)
+                int y = secondChar - 1;
+                // Vérifier que
+                if (mapConfig.getGrid()[x][y].getType() == 0 ) {
+                    int[] tab = new int[2];
+                    tab[0] = x ;
+                    tab[1] = y ;
+                    return tab;
+                } else {
+                    System.out.println("Impossible de poser la tour à cette endroit. Veuillez saisir une coordonnée valide.");
+                    return enterCoordinates(mapConfig); // Appel récursif pour demander une nouvelle saisie
+                }
+            }
+        }
+        // Si la coordonnée n'est pas valide, afficher un message d'erreur et demander une nouvelle saisie
+        System.out.println("Coordonnée invalide. Veuillez saisir une coordonnée valide.");
+        return enterCoordinates(mapConfig); // Appel récursif pour demander une nouvelle saisie
     }
+
 
     // Demande si le joueur veut-il effectuer une action
     public boolean requestAction() {
@@ -51,6 +79,31 @@ public class Player {
         } else {
             System.out.println("Ce n'est pas la réponse attendue.");
             return requestAction();
+        }
+    }
+
+    // Demande quel type de tour veut-il acheter
+    public String chooseTowerType(){
+        System.out.print("Quelles types de tour voulez-vous acheter ( canon/archer/arme/artillerie ) ? : ");
+        String userInput = scanAnswer.nextLine().replaceAll("\\s", "").toLowerCase();
+        switch (userInput){
+            case "archer"  : return "archer" ;
+            case "artillerie" : return "artillerie" ;
+            case "canon" : return "canon" ;
+            case "arme" : return "arme" ;
+            default : System.out.println("Cette tour n'existe pas.") ; return chooseTowerType() ;
+        }
+    }
+
+    // Demande quel niveau de tour veut-il acheter
+    public int chooseTowerLevel(){
+        System.out.print(" Choisissez un niveau entre 1 et 3 pour votre tour : ");
+        String userInput = scanAnswer.nextLine().replaceAll("\\s", "").toLowerCase();
+        switch (Integer.parseInt(userInput)){
+            case 1  : return 1 ;
+            case 2 : return 2 ;
+            case 3 : return 3 ;
+            default : System.out.println("Ce niveau n'existe pas.") ; return chooseTowerLevel() ;
         }
     }
 

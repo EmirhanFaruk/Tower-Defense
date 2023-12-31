@@ -1,10 +1,8 @@
 package model.tour;
 
 import gui.Coordinate;
-import model.Character;
 import model.monster.Monster;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 public class Tour {
@@ -14,33 +12,44 @@ public class Tour {
     private int level ; // il y a que 3 niveaux
     private Coordinate coordinates ;
     private int range ; // la portée de la tour
+    private final int type ; // le type de la tour
     private long lastAttackTime;  // Temps de la dernière attaque
     private final long cooldown;   // Temps de recharge en millisecondes
     private final static int[][] mulp= { { 1 } , { 2 } , { 3 } };
-    public Tour (String name , int prix , int degats , int level , int x , int y , int range , long time ){
+
+    public Tour ( String name , int prix , int degats , int level , int x , int y , int range , int type ,  long time ){
         this.name = name ;
-        this.prix = prix ;
-        this.degats = degats ;
         this.level = level ;
+        this.prix = prix * mulp[getLevel()][0] ;
+        this.degats = degats *  mulp[getLevel()][0] ;
         this.coordinates = new Coordinate( x , y ) ;
         this.range =  range ;
+        this.type = type ;
         this.cooldown = time ;
         this.lastAttackTime = System.currentTimeMillis();
     }
 
-    // une fonction qui l'améliore la tour au niveau supérieur
-    public void upgradeTower(){
-        if (Character.getMoney()>=this.prix*mulp[level+1][0]){ // regarde si le Character a assez d'argent pour pouvoir l'upgrade
-            this.level++ ; // upgrade de niveau
-            Character.setMoney(Character.getMoney()-this.prix*mulp[level][0]); // retire l'argent au Character
-        }
+    public Tour ( String name , int prix , int degats , int level , int range , int type , long time  ){
+        this.name = name ;
+        this.level = level ;
+        this.prix = prix * mulp[getLevel()-1][0] ;
+        this.degats = degats *  mulp[getLevel()-1][0] ;
+        this.range =  range ;
+        this.type = type ;
+        this.cooldown = time ;
+        this.lastAttackTime = System.currentTimeMillis();
     }
 
     // une fonction qui attaque le monstre
     public void target (ArrayList<Monster> monsters){
-        for (Monster m : monsters) {
-            if (monsterInRange(m)) { // vérifie que le monstre est à la portée
-                m.setLive(m.getLive() - this.degats); //fait perdre de la vie au monstre
+        if (!monsters.isEmpty()) { // Vérifie que la liste n'est pas vide
+            Monster m = monsters.get(0); // attaque le premier monstre
+            if (monsterInRange(m)) { // vérifie s'il est à sa portée si oui
+                m.setLive(m.getLive() - this.degats); // perd de la vie
+                if (m.isDead()) { // vérifie si le monstre est mort
+                    m.winMoneyWhenMonsterDead(); // donne l'argent au character
+                    monsters.remove(0); // enlève le monstre de la liste
+                }
             }
         }
     }
@@ -57,8 +66,8 @@ public class Tour {
 
     // une fonction qui renvoie true si le montre est à la portée de la tour sinon non
     public boolean monsterInRange (Monster monster){
-        return (monster.getPos().i() - this.coordinates.i() ) <= this.range
-                && (monster.getPos().j() - this.coordinates.j() ) <= this.range ;
+        return Math.abs(monster.getPos().i() - this.coordinates.i() ) <= this.range
+                && Math.abs(monster.getPos().j() - this.coordinates.j() ) <= this.range ;
         // regarde la position de la tour et du montres est dans la portée
     }
 
@@ -67,7 +76,7 @@ public class Tour {
     }
 
     public int getPrix() {
-        return prix;
+        return this.prix;
     }
 
     public int getDegats() {
@@ -78,7 +87,15 @@ public class Tour {
         return level;
     }
 
+    public int getType() {
+        return type;
+    }
+
     public Coordinate getCoordinates() {
         return coordinates;
+    }
+
+    public void setCoordinates(Coordinate coordinates) {
+        this.coordinates = coordinates;
     }
 }

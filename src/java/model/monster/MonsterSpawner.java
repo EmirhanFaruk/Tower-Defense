@@ -1,7 +1,7 @@
 package model.monster;
 
 import config.MapConfig;
-import gui.Coordinate;
+import model.Character;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,9 +23,11 @@ public class MonsterSpawner
     private double monster_timer;
     private final double monster_timer_max;
 
-    private int niveau = 0; // Entre 0-4
+    private int niveau = 1; // Entre 1-4
 
     private MapConfig map_config;
+
+    private Character character ;
 
     /**
      * Constructeur de MonsterSpawner. Initialisation des attributs.
@@ -35,7 +37,7 @@ public class MonsterSpawner
      * @param monster_timer_max le temps max entre l'apparition des monstres dans une serie
      * @param map_config map_config pour produire les monstre
      */
-    public MonsterSpawner(double in_serie_timer_max, double between_wave_timer_max, int wave_count_max, double monster_timer_max, MapConfig map_config)
+    public MonsterSpawner(double in_serie_timer_max, double between_wave_timer_max, int wave_count_max, double monster_timer_max, MapConfig map_config , Character character)
     {
         this.in_serie_timer_max = in_serie_timer_max;
         in_serie_timer = in_serie_timer_max;
@@ -52,6 +54,7 @@ public class MonsterSpawner
         monster_timer = monster_timer_max;
 
         this.map_config = map_config;
+        this.character = character ;
     }
 
     public void startWaves() {in_wave = true;}
@@ -63,12 +66,19 @@ public class MonsterSpawner
      */
     public void update(long delta_time, ArrayList<Monster> monsters)
     {
-        if(in_wave)
+        if (in_wave)
         {
             spawnWave(monsters);
             timerHandler(delta_time);
+            moveMonsters(delta_time, monsters); // Appeler la fonction pour déplacer tous les monstres
         }
     }
+    private void moveMonsters(long delta_time, ArrayList<Monster> monsters) {
+        for (Monster monster : monsters) {
+            monster.moveMonster(delta_time);
+        }
+    }
+
 
     /**
      * Gerer les timers.
@@ -158,6 +168,10 @@ public class MonsterSpawner
         Random random = new Random();
         int type = random.nextInt(3);
         int money = random.nextInt(20);
-        monsters.add(new Monster("Monster of wave " + wave_count, 20 * niveau, 5, money, niveau, type, map_config));
+        monsters.add(new Monster("Monster of wave " + wave_count, 20 * niveau, 5, money, niveau, type , character , map_config));
+    }
+
+    public boolean getInWave(){
+        return this.in_wave ;
     }
 }
