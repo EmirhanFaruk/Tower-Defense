@@ -42,9 +42,15 @@ public class Tour {
 
     // une fonction qui attaque le monstre
     public void target (ArrayList<Monster> monsters){
-        Monster m = monsters.get(0) ;
-        if (monsterInRange(m)) { // vérifie que le monstre est à la portée
-            m.setLive(m.getLive() - this.degats); //fait perdre de la vie au monstre
+        if (!monsters.isEmpty()) { // Vérifie que la liste n'est pas vide
+            Monster m = monsters.get(0); // attaque le premier monstre
+            if (monsterInRange(m)) { // vérifie s'il est à sa portée si oui
+                m.setLive(m.getLive() - this.degats); // perd de la vie
+                if (m.isDead()) { // vérifie si le monstre est mort
+                    m.winMoneyWhenMonsterDead(); // donne l'argent au character
+                    monsters.remove(0); // enlève le monstre de la liste
+                }
+            }
         }
     }
 

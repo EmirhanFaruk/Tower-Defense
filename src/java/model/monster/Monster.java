@@ -111,11 +111,15 @@ public class Monster {
         setLive(0);
     }
 
+    public void winMoneyWhenMonsterDead(){
+        character.setMoney(character.getMoney()+getMoney());
+    }
+
     public void moveMonster(long delta) {MonsterPathFinding.moveMonster(this, delta);}
 
-    // une fonction qui retourne un boolean si le montre est rentrer dans la base
+    // une fonction qui retourne un boolean si le montre est rentré dans la base
     public boolean entrerDansBase(){
-        // regarde si les coordonnes du monstres est celui où la base
+        // regarde si les coordonnés du monstre est celui où est la base
         return mapConfig.getGrid()[(int) pos.i()][(int) pos.j()].getType() == 4; // renvoie true
     }
 

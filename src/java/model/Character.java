@@ -17,11 +17,6 @@ public class Character {
         this.money = 10 ;
     }
 
-
-    public void winMoneyWhenMonsterDead(Monster monster){
-        if ( monster.isDead()) setMoney(getMoney()+monster.getMoney());
-    }
-
     public String getName() {
         return name;
     }
