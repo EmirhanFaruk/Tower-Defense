@@ -13,13 +13,11 @@ public class Plateau {
     final int height ;  // le nombre de lignes
     final int niveau ; // niveau entre 1 et 3
     private MapConfig tableau ; // permet de dire comment est la map et où les monstres peuvent aller
-    private  Player player ;
     private Character character ;
     private MonsterSpawner monsterSpawner ;
     private ArrayList<Monster> monsters ;
 
     public Plateau(Player player) throws Exception {
-        this.player = player;
         this.character = chooseCharacter(player) ;
         int tempNiveau;
         // Boucle pour demander au joueur de saisir un niveau valide
