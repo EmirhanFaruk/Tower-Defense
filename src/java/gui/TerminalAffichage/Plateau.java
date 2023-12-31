@@ -47,15 +47,17 @@ public class Plateau {
         this.monsters = new ArrayList<>() ;
     }
     public Character chooseCharacter(Player player) {
-        System.out.print("Voulez choisir un personnage (commandant, artilleur, archer) ? : ");
+        System.out.print("Voulez choisir un personnage (commandant, artilleur, archer, villageois) ? : ");
         String userInput = player.getScanAnswer().nextLine().replaceAll("\\s", "").toLowerCase();
         switch (userInput) {
             case "commandant":
-                return new Character( "commandant", 300, 10);
+                return new Character("commandant", 300, 10);
             case "artilleur":
                 return new Character("artilleur", 250, 7);
             case "archer":
                 return new Character("archer", 250, 7);
+            case " villageois" :
+                return new Character("villageois", 200, 5) ;
             default:
                 System.out.println("Le personnage n'existe pas.");
                 return chooseCharacter(player);
