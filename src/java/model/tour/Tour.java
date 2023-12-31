@@ -1,7 +1,6 @@
 package model.tour;
 
 import gui.Coordinate;
-import model.Character;
 import model.monster.Monster;
 
 import java.util.ArrayList;
@@ -13,27 +12,30 @@ public class Tour {
     private int level ; // il y a que 3 niveaux
     private Coordinate coordinates ;
     private int range ; // la portée de la tour
+    private final int type ; // le type de la tour
     private long lastAttackTime;  // Temps de la dernière attaque
     private final long cooldown;   // Temps de recharge en millisecondes
     private final static int[][] mulp= { { 1 } , { 2 } , { 3 } };
 
-    public Tour ( String name , int prix , int degats , int level , int x , int y , int range , long time ){
+    public Tour ( String name , int prix , int degats , int level , int x , int y , int range , int type ,  long time ){
         this.name = name ;
         this.level = level ;
         this.prix = prix * mulp[getLevel()][0] ;
         this.degats = degats *  mulp[getLevel()][0] ;
         this.coordinates = new Coordinate( x , y ) ;
         this.range =  range ;
+        this.type = type ;
         this.cooldown = time ;
         this.lastAttackTime = System.currentTimeMillis();
     }
 
-    public Tour ( String name , int prix , int degats , int level , int range , long time  ){
+    public Tour ( String name , int prix , int degats , int level , int range , int type , long time  ){
         this.name = name ;
         this.level = level ;
-        this.prix = prix * mulp[getLevel()][0] ;
-        this.degats = degats *  mulp[getLevel()][0] ;
+        this.prix = prix * mulp[getLevel()-1][0] ;
+        this.degats = degats *  mulp[getLevel()-1][0] ;
         this.range =  range ;
+        this.type = type ;
         this.cooldown = time ;
         this.lastAttackTime = System.currentTimeMillis();
     }
@@ -79,7 +81,15 @@ public class Tour {
         return level;
     }
 
+    public int getType() {
+        return type;
+    }
+
     public Coordinate getCoordinates() {
         return coordinates;
+    }
+
+    public void setCoordinates(Coordinate coordinates) {
+        this.coordinates = coordinates;
     }
 }

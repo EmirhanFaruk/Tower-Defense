@@ -36,11 +36,11 @@ public class Player {
         // Vérifier que la chaîne a la bonne longueur
         if (str.length() == 2 || str.length() == 3) {
             char firstChar = str.charAt(0);
-            int secondChar = 0  ;
+            int secondChar;
             if ( str.length()==2 ) {
                secondChar = Integer.parseInt(String.valueOf(str.charAt(1)));
             } else {
-                secondChar = Integer.parseInt(String.valueOf(str.charAt(1)+str.charAt(2)));
+                secondChar =Integer.parseInt(str.substring(1));
             }
             // Vérifier que le premier caractère est une lettre majuscule entre A et H inclus
             if (firstChar >= 'A' && firstChar <= 'H') {

@@ -5,7 +5,6 @@ import model.Character;
 import model.Player;
 import model.monster.Monster;
 import model.monster.MonsterSpawner;
-import model.tour.*;
 
 import java.util.ArrayList;
 
@@ -121,15 +120,15 @@ public class Plateau {
         for (int i = 0; i < this.height; i++) {
             for (int j = 0; j < this.width; j++) {
                 switch (tableau.getGrid()[i][j].getType()) {
-                    case 0: tab[i][j] = " # "; // l'herbe
-                    case 1: tab[i][j] = " O "; // la route
-                    case 2: tab[i][j] = " ~ "; // l'eau
-                    case 3: tab[i][j] = " A "; // l'arbre
-                    case 4: tab[i][j] = " B "; // la base
-                    case 5: tab[i][j] = " } "; // une tour archer
-                    case 6: tab[i][j] = " J "; // une tour arme
-                    case 7: tab[i][j] = " ꓕ "; // une tour artillerie
-                    case 8: tab[i][j] = " ⅄ "; // une tour canon
+                    case 0: tab[i][j] = " # "; break; // l'herbe
+                    case 1: tab[i][j] = " O "; break; // la route
+                    case 2: tab[i][j] = " ~ "; break; // l'eau
+                    case 3: tab[i][j] = " A "; break; // l'arbre
+                    case 4: tab[i][j] = " B "; break; // la base
+                    case 5: tab[i][j] = " } "; break; // une tour archer
+                    case 6: tab[i][j] = " J "; break; // une tour arme
+                    case 7: tab[i][j] = " ꓕ "; break; // une tour artillerie
+                    case 8: tab[i][j] = " ⅄ "; break; // une tour canon
                 }
             }
         }

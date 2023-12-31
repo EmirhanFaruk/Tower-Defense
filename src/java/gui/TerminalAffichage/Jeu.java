@@ -1,6 +1,7 @@
 package gui.TerminalAffichage;
 
 import config.Cellule;
+import gui.Coordinate;
 import model.Character;
 import model.Player;
 import model.tour.*;
@@ -43,6 +44,15 @@ public class Jeu {
     }
 
 
+    public Tour findTower ( String str ){
+        for ( Tour t : tours){
+            if (t.getName().equals(str)) {
+                return t ;
+            }
+        }
+        return null ;
+    }
+
 
     // une fonction qui nous fait jouer
     public void play () throws Exception {
@@ -54,8 +64,14 @@ public class Jeu {
                 //Thread.sleep(5000); // fait dormir le terminal 5 sec
                 if ( player.requestAction()) { // demande si le player veut-il poser une tour
                     String towerType = player.chooseTowerType(); // demande quelle tour le player veut-il achetez
-                    int[] val =player.enterCoordinates(); // demande au player de donner une coordonnée
-                    this.plateau.getTableau().getGrid()[val[0]][val[1]]=new Cellule(false , 5) ; //place la tour à la position que le player a demandée
+                    Tour selectTower =  findTower(towerType) ;
+                    if (selectTower != null && character.getMoney() >= selectTower.getPrix()) {
+                        character.setMoney(character.getMoney() - selectTower.getPrix()); // Réduire l'argent du character au prix de la tour
+                        int[] val =player.enterCoordinates(); // demande au player de donner une coordonnée
+                        this.plateau.getTableau().getGrid()[val[0]][val[1]]=new Cellule(false , selectTower.getType()) ; //place la tour à la position que le player a demandée
+                    } else {
+                        System.out.println("Vous n'avez pas assez d'argent ou le type de tour est invalide.");
+                    }
                 }
             }
             play(); // quand le player a perdu faire la recursion pour une nouvelle partie
