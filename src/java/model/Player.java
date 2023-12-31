@@ -87,6 +87,18 @@ public class Player {
         }
     }
 
+    // Demande quel niveau de tour veut-il acheter
+    public int chooseTowerLevel(){
+        System.out.print(" Choisissez un niveau entre 1 et 3 pour votre tour : ");
+        String userInput = scanAnswer.nextLine().replaceAll("\\s", "").toLowerCase();
+        switch (Integer.parseInt(userInput)){
+            case 1  : return 1 ;
+            case 2 : return 2 ;
+            case 3 : return 3 ;
+            default : System.out.println("Ce niveau n'existe pas.") ; return chooseTowerLevel() ;
+        }
+    }
+
     // Ferme le scanner lorsqu'il n'est plus nécessaire
     public void closeScanner() {
         scanAnswer.close();

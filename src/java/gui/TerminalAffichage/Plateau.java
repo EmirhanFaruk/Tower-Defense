@@ -1,10 +1,12 @@
 package gui.TerminalAffichage;
 
+import config.Cellule;
 import config.MapConfig;
 import model.Character;
 import model.Player;
 import model.monster.Monster;
 import model.monster.MonsterSpawner;
+import model.tour.* ;
 
 import java.util.ArrayList;
 
@@ -142,5 +144,9 @@ public class Plateau {
     }
     public Character getCharacter() {
         return character;
+    }
+
+    public ArrayList<Monster> getMonsters() {
+        return monsters;
     }
 }
