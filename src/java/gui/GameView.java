@@ -9,13 +9,15 @@ import java.io.IOException;
 
 public class GameView extends JFrame
 {
+    public static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
+
     private boolean running = false;
 
     private boolean in_main_menu = true;
 
     private boolean in_game = false;
 
-    private int width, height, scale;
+    private double scale;
 
     private JPanel main_panel;
 
@@ -29,8 +31,6 @@ public class GameView extends JFrame
     public GameView(int width, int height)
     {
         // Les attributs de JPanel
-        this.width = width;
-        this.height = height;
         this.setTitle("Tower Defense");
         this.setSize(width, height);
         this.setPreferredSize(new Dimension(width, height));
@@ -126,5 +126,11 @@ public class GameView extends JFrame
     private void logicGame()
     {
 
+    }
+
+
+    public GraphicsDevice getDevice()
+    {
+        return device;
     }
 }

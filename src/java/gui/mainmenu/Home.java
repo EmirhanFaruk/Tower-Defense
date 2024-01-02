@@ -64,10 +64,7 @@ public class Home extends JPanel
 
         Image scaled_home_image = home_image_file.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 
-        for(Component component : getComponents())
-        {
-            remove(component);
-        }
+        removeAll();
         add(new JLabel(new ImageIcon(scaled_home_image)));
     }
 }

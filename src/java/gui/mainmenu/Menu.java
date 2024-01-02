@@ -1,5 +1,7 @@
 package gui.mainmenu;
 
+import gui.GameView;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +18,6 @@ public class Menu extends JPanel
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            setMode("HOME");
             cardLayout.show(main_panel, home_mode);
         }
     }
@@ -29,7 +30,6 @@ public class Menu extends JPanel
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            setMode("PLAY");
             cardLayout.show(main_panel, play_mode);
         }
     }
@@ -42,7 +42,6 @@ public class Menu extends JPanel
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            setMode("SETTINGS");
             cardLayout.show(main_panel, settings_mode);
         }
     }
@@ -67,7 +66,6 @@ public class Menu extends JPanel
 
 
     // Pour changer le mode
-    private String mode = "HOME";
     private final CardLayout cardLayout = new CardLayout();
 
     private final String home_mode = "HOME";
@@ -76,7 +74,7 @@ public class Menu extends JPanel
 
 
     // Le JFrame
-    private JFrame frame;
+    private GameView frame;
 
 
 
@@ -87,7 +85,7 @@ public class Menu extends JPanel
      * @param width largueur
      * @param height hauteur
      */
-    public Menu(int width, int height, JFrame frame)
+    public Menu(int width, int height, GameView frame)
     {
         this.width = width;
         this.height = height;
@@ -113,8 +111,6 @@ public class Menu extends JPanel
         this.add(button_panel, BorderLayout.SOUTH);
         this.add(main_panel);
     }
-
-    private void setMode(String mode) {this.mode = mode;}
 
     /**
      * Produire le panel avec les buttons.
@@ -188,17 +184,29 @@ public class Menu extends JPanel
      */
     private JPanel makeSettings()
     {
-        return new Settings(width, height);
+        return new Settings(this);
     }
 
-    private void setAllSize()
+    public void setAllSize(int width, int height)
     {
+        this.width = width;
+        this.height = height;
         frame.setSize(width, height);
-        for(Component component : this.getComponents())
-        {
-            component.setSize(width, height);
-        }
         this.setSize(width, height);
+        removeAll();
+        make();
+        cardLayout.show(main_panel, settings_mode);
+    }
 
+
+
+    public GraphicsDevice getDevice()
+    {
+        return frame.getDevice();
+    }
+
+    public GameView getFrame()
+    {
+        return frame;
     }
 }
