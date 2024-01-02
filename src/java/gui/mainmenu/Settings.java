@@ -8,44 +8,54 @@ import java.awt.image.BufferedImage;
 
 public class Settings extends JPanel
 {
-    private int width, height;
     private final Menu main;
 
     // Resolution
     private JComboBox<String> res_box;
-    private JButton choose_res;
-
     private final int[][] resolutions = {{600, 400}, {800, 600}, {1000, 800}, {1280, 720}, {1920, 1080}};
 
-    public Settings(int width, int height, Menu main)
-    {
-        this.width = width;
-        this.height = height;
-        this.main = main;
-        makeSettings();
-    }
 
-    @Override
-    public void setSize(int width, int height)
+    // Fullscreen
+    private JCheckBox fs_cb;
+
+
+    public Settings(Menu main)
     {
-        this.width = width;
-        this.height = height;
+        this.main = main;
         makeSettings();
     }
 
     private void makeSettings()
     {
-        this.setLayout(new GridLayout(2, 2));
+        this.setLayout(new GridLayout(2, 1));
+        // Maybe add only rows and put everything seperate each row?
 
-        // Resolution
+        // Resolution setting
+        add(makeResolutionSetting());
+        // Fullscreen setting
+        add(makeFullscreenSetting());
+
+    }
+
+    private JPanel makeBlackBox()
+    {
+        JPanel blackbox = new JPanel();
+        blackbox.setBackground(Color.BLACK);
+        return blackbox;
+    }
+
+    private JPanel makeResolutionSetting()
+    {
+        JPanel resolution_panel = new JPanel();
+        resolution_panel.setLayout(new GridLayout(1, 3));
         this.res_box = makeResBox();
-        this.choose_res = makeResChooseButton();
+        JButton choose_res = makeResChooseButton();
 
-        add(res_box);
-        add(choose_res);
+        resolution_panel.add(res_box);
+        resolution_panel.add(makeBlackBox());
+        resolution_panel.add(choose_res);
 
-        // Fullscreen
-        // For later if time left
+        return resolution_panel;
     }
 
     private JComboBox<String> makeResBox()
@@ -56,7 +66,8 @@ public class Settings extends JPanel
         {
             res.addItem(couple[0] + " x " + couple[1]);
         }
-
+        res.setBackground(Color.BLACK);
+        res.setForeground(Color.GRAY);
         return res;
     }
 
@@ -73,6 +84,65 @@ public class Settings extends JPanel
                 main.setAllSize(res[0], res[1]);
             }
         });
+
+        res.setBackground(Color.BLACK);
+        res.setForeground(Color.GRAY);
+
+
         return res;
     }
+
+
+
+    private JPanel makeFullscreenSetting()
+    {
+        JPanel fullscreen_panel = new JPanel();
+        fullscreen_panel.setLayout(new GridLayout(1, 3));
+
+
+
+        fullscreen_panel.add(makeFSCheckBox());
+        fullscreen_panel.add(makeBlackBox());
+        fullscreen_panel.add(makeFSButton());
+
+        return fullscreen_panel;
+    }
+
+    private JCheckBox makeFSCheckBox()
+    {
+        JCheckBox res = new JCheckBox("Fullscreen");
+        res.setBackground(Color.BLACK);
+        res.setForeground(Color.GRAY);
+        return res;
+    }
+
+    private JButton makeFSButton()
+    {
+        JButton res = new JButton("Choisir cette option de fullscreen.");
+        res.addActionListener(
+                new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        if(res.isEnabled())
+                        {
+                            main.getDevice().setFullScreenWindow(main.getFrame());
+                        }
+                        else
+                        {
+                            // Si pas de fullscreen il retourne a setting de resolution.
+                            int[] res = resolutions[res_box.getSelectedIndex()];
+                            main.setAllSize(res[0], res[1]);
+                        }
+                    }
+                });
+
+        res.setBackground(Color.BLACK);
+        res.setForeground(Color.GRAY);
+
+
+        return res;
+    }
+
 }

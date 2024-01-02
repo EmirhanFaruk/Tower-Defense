@@ -1,5 +1,7 @@
 package gui.mainmenu;
 
+import gui.GameView;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -76,7 +78,7 @@ public class Menu extends JPanel
 
 
     // Le JFrame
-    private JFrame frame;
+    private GameView frame;
 
 
 
@@ -87,7 +89,7 @@ public class Menu extends JPanel
      * @param width largueur
      * @param height hauteur
      */
-    public Menu(int width, int height, JFrame frame)
+    public Menu(int width, int height, GameView frame)
     {
         this.width = width;
         this.height = height;
@@ -188,7 +190,7 @@ public class Menu extends JPanel
      */
     private JPanel makeSettings()
     {
-        return new Settings(width, height, this);
+        return new Settings(this);
     }
 
     public void setAllSize(int width, int height)
@@ -202,5 +204,17 @@ public class Menu extends JPanel
         }
         this.setSize(width, height);
 
+    }
+
+
+
+    public GraphicsDevice getDevice()
+    {
+        return frame.getDevice();
+    }
+
+    public GameView getFrame()
+    {
+        return frame;
     }
 }
