@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Artillerie extends Tour {
     public Artillerie(int level, int x, int y) {
-        super("artillerie", 80, 90 , level , x , y , 600 , 7 , 10000 );
+        super("artillerie", 80, 90 , level , x , y , 5 , 7 , 10000 );
     }
 
     public Artillerie(int level ) {

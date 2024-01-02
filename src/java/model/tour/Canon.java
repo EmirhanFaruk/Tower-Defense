@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Canon extends Tour {
     public Canon( int level, int x, int y ) {
-        super("canon" , 40 , 75 , level , x , y , 400 ,8 , 5000);
+        super("canon" , 40 , 75 , level , x , y , 6 ,8 , 5000);
     }
 
     public Canon( int level ) {
