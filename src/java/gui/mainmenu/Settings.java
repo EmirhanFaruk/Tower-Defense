@@ -12,6 +12,7 @@ public class Settings extends JPanel
     {
         this.width = width;
         this.height = height;
+        makeSettings();
     }
 
     @Override

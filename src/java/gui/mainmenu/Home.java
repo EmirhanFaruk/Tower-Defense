@@ -16,6 +16,7 @@ public class Home extends JPanel
     {
         this.width = width;
         this.height = height;
+        makeHome();
     }
 
     @Override
@@ -23,14 +24,7 @@ public class Home extends JPanel
     {
         this.width = width;
         this.height = height;
-        try
-        {
-            makeHome();
-        }
-        catch (IOException e)
-        {
-            throw new RuntimeException(e);
-        }
+        makeHome();
     }
 
     private String findSlash(String p)
@@ -46,20 +40,26 @@ public class Home extends JPanel
         return "/";
     }
 
-    private void setHome_image_file() throws IOException
+    private void setHome_image_file()
     {
         String path = System.getProperty("user.dir");
         String s = findSlash(path);
-        home_image_file = ImageIO.read(new File(path + s + "src" + s + "resources" + s + "images" + s + "menu" + s + "Menu.png"));
+        try
+        {
+            home_image_file = ImageIO.read(new File(path + s + "src" + s + "resources" + s + "images" + s + "menu" + s + "Menu.png"));
+        }
+        catch (Exception ignored)
+        {
+            System.out.println("Couldn't read file.");
+        }
     }
 
     /**
      * Produire JPanel pour home: Image de menu.
      * @throws IOException exception pour le path
      */
-    public void makeHome() throws IOException
+    public void makeHome()
     {
-        setSize(width, height);
         // Getting home image
         setHome_image_file();
 

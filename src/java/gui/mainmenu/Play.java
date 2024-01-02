@@ -12,6 +12,7 @@ public class Play extends JPanel
     {
         this.width = width;
         this.height = height;
+        makePlay();
     }
 
     @Override

@@ -178,16 +178,13 @@ public class Menu extends JPanel
      * Produire JPanel pour home: Image de menu.
      * @return JPanel de Home
      */
-    private Home makeHome()
-    {
-        return new Home(width, height);
-    }
+    private JPanel makeHome() {return new Home(width, height);}
 
     /**
      * Produire le menu de jeu ou on peut choisir un niveau et sa difficulté, et ou on peut lancer le jeu.
      * @return JPanel de Play
      */
-    private Play makePlay()
+    private JPanel makePlay()
     {
         return new Play(width, height);
     }
@@ -196,7 +193,7 @@ public class Menu extends JPanel
      * Produire le menu des parametres ou il y a le reglage de largeur et hauteur, et aussi fullscreen
      * @return Jpanel de Settings
      */
-    private Settings makeSettings()
+    private JPanel makeSettings()
     {
         return new Settings(width, height);
     }
