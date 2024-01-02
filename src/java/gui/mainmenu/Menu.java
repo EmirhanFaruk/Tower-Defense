@@ -188,11 +188,13 @@ public class Menu extends JPanel
      */
     private JPanel makeSettings()
     {
-        return new Settings(width, height);
+        return new Settings(width, height, this);
     }
 
-    private void setAllSize()
+    public void setAllSize(int width, int height)
     {
+        this.width = width;
+        this.height = height;
         frame.setSize(width, height);
         for(Component component : this.getComponents())
         {
