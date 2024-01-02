@@ -12,7 +12,7 @@ public class Settings extends JPanel
 
     // Resolution
     private JComboBox<String> res_box;
-    private final int[][] resolutions = {{600, 400}, {800, 600}, {1000, 800}, {1280, 720}, {1920, 1080}};
+    private final int[][] resolutions = {{600, 400}, {800, 500}, {800, 600}, {1000, 800}, {1280, 720}, {1920, 1080}};
 
 
     // Fullscreen
@@ -80,7 +80,8 @@ public class Settings extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                int[] res = resolutions[res_box.getSelectedIndex()];
+                int index = res_box.getSelectedIndex();
+                int[] res = resolutions[index];
                 main.setAllSize(res[0], res[1]);
             }
         });
@@ -99,9 +100,9 @@ public class Settings extends JPanel
         JPanel fullscreen_panel = new JPanel();
         fullscreen_panel.setLayout(new GridLayout(1, 3));
 
+        fs_cb = makeFSCheckBox();
 
-
-        fullscreen_panel.add(makeFSCheckBox());
+        fullscreen_panel.add(fs_cb);
         fullscreen_panel.add(makeBlackBox());
         fullscreen_panel.add(makeFSButton());
 
@@ -125,13 +126,16 @@ public class Settings extends JPanel
                     @Override
                     public void actionPerformed(ActionEvent e)
                     {
-                        if(res.isEnabled())
+                        if(fs_cb.isSelected())
                         {
                             main.getDevice().setFullScreenWindow(main.getFrame());
+                            main.setAllSize(main.getWidth(), main.getHeight());
+                            fs_cb.setSelected(true);
                         }
                         else
                         {
                             // Si pas de fullscreen il retourne a setting de resolution.
+                            main.getDevice().setFullScreenWindow(null);
                             int[] res = resolutions[res_box.getSelectedIndex()];
                             main.setAllSize(res[0], res[1]);
                         }
