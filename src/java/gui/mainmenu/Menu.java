@@ -18,7 +18,6 @@ public class Menu extends JPanel
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            setMode("HOME");
             cardLayout.show(main_panel, home_mode);
         }
     }
@@ -31,7 +30,6 @@ public class Menu extends JPanel
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            setMode("PLAY");
             cardLayout.show(main_panel, play_mode);
         }
     }
@@ -44,7 +42,6 @@ public class Menu extends JPanel
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            setMode("SETTINGS");
             cardLayout.show(main_panel, settings_mode);
         }
     }
@@ -69,7 +66,6 @@ public class Menu extends JPanel
 
 
     // Pour changer le mode
-    private String mode = "HOME";
     private final CardLayout cardLayout = new CardLayout();
 
     private final String home_mode = "HOME";
@@ -115,8 +111,6 @@ public class Menu extends JPanel
         this.add(button_panel, BorderLayout.SOUTH);
         this.add(main_panel);
     }
-
-    private void setMode(String mode) {this.mode = mode;}
 
     /**
      * Produire le panel avec les buttons.
@@ -198,12 +192,10 @@ public class Menu extends JPanel
         this.width = width;
         this.height = height;
         frame.setSize(width, height);
-        for(Component component : this.getComponents())
-        {
-            component.setSize(width, height);
-        }
         this.setSize(width, height);
-
+        removeAll();
+        make();
+        cardLayout.show(main_panel, settings_mode);
     }
 
 
