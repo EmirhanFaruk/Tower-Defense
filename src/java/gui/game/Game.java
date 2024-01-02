@@ -1,6 +1,7 @@
 package gui.game;
 
 import config.MapConfig;
+import model.Character;
 import model.monster.Monster;
 import model.monster.MonsterSpawner;
 import model.tour.Tour;
@@ -25,10 +26,10 @@ public class Game extends JPanel
      * @param diff difficulté pour monster_spawner
      * @throws Exception pour map_config
      */
-    public Game(String map, String diff) throws Exception
+    public Game(String map, String diff, Character character) throws Exception
     {
         MapConfig map_config = MapConfig.make(map);
-        monster_spawner = new MonsterSpawner(20, 5, 8, 1, map_config);
+        monster_spawner = new MonsterSpawner(20, 5, 8, 1, map_config, character);
         monsters = new ArrayList<>();
         tours = new ArrayList<>();
     }
