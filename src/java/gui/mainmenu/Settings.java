@@ -129,7 +129,7 @@ public class Settings extends JPanel
                         if(fs_cb.isSelected())
                         {
                             main.getDevice().setFullScreenWindow(main.getFrame());
-                            main.setAllSize(main.getWidth(), main.getHeight());
+                            main.setAllSize(main.getFrame().getWidth(), main.getFrame().getHeight());
                             fs_cb.setSelected(true);
                         }
                         else
