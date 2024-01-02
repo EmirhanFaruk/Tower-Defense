@@ -20,8 +20,8 @@ public class Tour {
     public Tour ( String name , int prix , int degats , int level , int x , int y , int range , int type ,  long time ){
         this.name = name ;
         this.level = level ;
-        this.prix = prix * mulp[getLevel()][0] ;
-        this.degats = degats *  mulp[getLevel()][0] ;
+        this.prix = prix * mulp[getLevel()-1][0] ;
+        this.degats = degats *  mulp[getLevel()-1][0] ;
         this.coordinates = new Coordinate( x , y ) ;
         this.range =  range ;
         this.type = type ;

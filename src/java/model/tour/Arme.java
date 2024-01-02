@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Arme extends Tour {
     public Arme( int level, int x, int y ) {
-        super( "arme" , 10 , 10 , level, x , y , 100 , 6 , 100 );
+        super( "arme" , 10 , 10 , level, x , y , 2, 6 , 100 );
     }
 
     public Arme( int level ) {
