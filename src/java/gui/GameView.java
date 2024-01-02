@@ -17,7 +17,7 @@ public class GameView extends JFrame
 
     private boolean in_game = false;
 
-    private int width, height, scale;
+    private double scale;
 
     private JPanel main_panel;
 
