@@ -56,7 +56,6 @@ public class Home extends JPanel
 
     /**
      * Produire JPanel pour home: Image de menu.
-     * @throws IOException exception pour le path
      */
     public void makeHome()
     {

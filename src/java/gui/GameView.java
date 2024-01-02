@@ -26,7 +26,7 @@ public class GameView extends JFrame
     /**
      * Constructeur de GameView, assigner les attributs
      */
-    public GameView(int width, int height) throws IOException
+    public GameView(int width, int height)
     {
         // Les attributs de JPanel
         this.width = width;

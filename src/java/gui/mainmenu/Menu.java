@@ -5,10 +5,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
 
 public class Menu extends JPanel
 {
@@ -90,9 +86,8 @@ public class Menu extends JPanel
      * Constructeur de Menu.
      * @param width largueur
      * @param height hauteur
-     * @throws IOException exception pour le path dans home image
      */
-    public Menu(int width, int height, JFrame frame) throws IOException
+    public Menu(int width, int height, JFrame frame)
     {
         this.width = width;
         this.height = height;
@@ -103,9 +98,8 @@ public class Menu extends JPanel
 
     /**
      * Produire le panel.
-     * @throws IOException exception pour le path
      */
-    private void make() throws IOException
+    private void make()
     {
         // Le reste: affichage
         // En bas: home - play - settings
@@ -156,9 +150,8 @@ public class Menu extends JPanel
     /**
      * Produire le main panel qui sera dans le JFrame quand le mode est "menu"
      * @return main panel
-     * @throws IOException exception pour le path
      */
-    private JPanel makeMainPanel() throws IOException
+    private JPanel makeMainPanel()
     {
         JPanel res  = new JPanel();
         // Pour pouvoir changer le mode
