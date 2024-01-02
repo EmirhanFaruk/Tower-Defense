@@ -1,4 +1,4 @@
-package gui.mainmenu;
+package gui;
 
 import gui.GameView;
 
@@ -11,6 +11,5 @@ public class Main
     public Main(int width, int height)
     {
         frame = new GameView(width, height);
-
     }
 }
