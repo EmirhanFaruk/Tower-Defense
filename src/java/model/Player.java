@@ -84,13 +84,13 @@ public class Player {
 
     // Demande quel type de tour veut-il acheter
     public String chooseTowerType(){
-        System.out.print("Quelles types de tour voulez-vous acheter ( canon/archer/arme/artillerie ) ? : ");
+        System.out.print("Quelles types de tour voulez-vous acheter ( canon/archer/soldat/catapulte ) ? : ");
         String userInput = scanAnswer.nextLine().replaceAll("\\s", "").toLowerCase();
         switch (userInput){
             case "archer"  : return "archer" ;
-            case "artillerie" : return "artillerie" ;
+            case "catapulte" : return "catapulte" ;
             case "canon" : return "canon" ;
-            case "arme" : return "arme" ;
+            case "soldat" : return "soldat" ;
             default : System.out.println("Cette tour n'existe pas.") ; return chooseTowerType() ;
         }
     }
