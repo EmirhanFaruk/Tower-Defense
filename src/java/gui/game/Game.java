@@ -34,5 +34,25 @@ public class Game extends JPanel
         tours = new ArrayList<>();
     }
 
+    /**
+     * Mise a jour des tours et des monstres
+     */
+    public void updateEnts(long delta_time)
+    {
+        monster_spawner.update(delta_time, monsters);
+        updateTours();
+    }
+
+    /**
+     * Mettre a jour les tours
+     */
+    private void updateTours()
+    {
+        for(Tour tour : tours)
+        {
+            tour.attaquer(monsters);
+        }
+    }
+
 
 }
