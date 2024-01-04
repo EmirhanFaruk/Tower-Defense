@@ -44,6 +44,7 @@ public class Game
     {
         monster_spawner.update(delta_time, monsters);
         updateTours();
+        updateMonsters(delta_time);
     }
 
     /**
