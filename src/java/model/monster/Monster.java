@@ -120,15 +120,6 @@ public class Monster {
         }
     }
 
-    public void updateMonster(long delta_time, ArrayList<Monster> monsters)
-    {
-        moveMonster(delta_time);
-        if(entrerDansBase())
-        {
-            whenMonsterEnterBase();
-            monsters.remove(this);
-        }
-    }
 
 
     /**
