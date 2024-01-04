@@ -70,12 +70,6 @@ public class MonsterSpawner
         {
             spawnWave(monsters);
             timerHandler(delta_time);
-            moveMonsters(delta_time, monsters); // Appeler la fonction pour déplacer tous les monstres
-        }
-    }
-    private void moveMonsters(long delta_time, ArrayList<Monster> monsters) {
-        for (Monster monster : monsters) {
-            monster.moveMonster(delta_time);
         }
     }
 

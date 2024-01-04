@@ -9,7 +9,7 @@ import model.tour.Tour;
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class Game extends JPanel
+public class Game
 {
     private MapConfig map_config;
 
@@ -19,6 +19,8 @@ public class Game extends JPanel
 
     // Les tours seront encapsulé dans les cellules, cette liste va avoir leurs references
     private ArrayList<Tour> tours;
+
+    private String difficulty;
 
     /**
      * Constructeur de Game. Produire map_config depuis map(path) et
@@ -32,6 +34,40 @@ public class Game extends JPanel
         monster_spawner = new MonsterSpawner(20, 5, 8, 1, map_config, character);
         monsters = new ArrayList<>();
         tours = new ArrayList<>();
+        difficulty = diff;
+    }
+
+    /**
+     * Mise a jour des tours et des monstres
+     */
+    public void updateEnts(long delta_time)
+    {
+        monster_spawner.update(delta_time, monsters);
+        updateTours();
+    }
+
+    /**
+     * Mettre a jour les tours
+     */
+    private void updateTours()
+    {
+        for(Tour tour : tours)
+        {
+            tour.attaquer(monsters);
+        }
+    }
+
+    private void updateMonsters(long delta_time)
+    {
+        for(Monster monster : monsters)
+        {
+            monster.moveMonster(delta_time);
+            if(monster.entrerDansBase())
+            {
+                monster.whenMonsterEnterBase();
+                monsters.remove(monster);
+            }
+        }
     }
 
 

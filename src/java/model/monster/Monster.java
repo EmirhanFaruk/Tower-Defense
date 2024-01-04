@@ -45,6 +45,18 @@ public class Monster {
     private String resistance = "";
 
 
+    /**
+     * Constructeur de Monster.
+     * @param name
+     * @param live
+     * @param speed
+     * @param money
+     * @param niveau
+     * @param pos
+     * @param type
+     * @param character
+     * @param mapConfig
+     */
     public Monster(String name, double live, double speed, int money, int niveau, Coordinate pos, int type, Character character , MapConfig mapConfig)
     {
         this.pos = pos;
@@ -60,6 +72,17 @@ public class Monster {
         this.character = character ;
     }
 
+    /**
+     * Constructeur de Monster. La position n'est pas donné donc on le defini avec le premier cible de path
+     * @param name
+     * @param live
+     * @param speed
+     * @param money
+     * @param niveau
+     * @param type
+     * @param character
+     * @param mapConfig
+     */
     public Monster(String name, double live, double speed, int money, int niveau, int type, Character character ,MapConfig mapConfig)
     {
         this.name = name;
@@ -76,6 +99,9 @@ public class Monster {
     }
 
 
+    /**
+     * Choisir le type de resistance en fonction de niveau
+     */
     private void choixResistance()
     {
         Random random = new Random();
@@ -94,14 +120,28 @@ public class Monster {
         }
     }
 
-    public void monsterHurt(double degats, String type_degats)
+
+
+    /**
+     * Faire degats a la monstre en prenant compte de type, resistance et difficulté
+     * @param degats de tour
+     * @param type_degats type de tour
+     * @param difficulty difficulté du jeu
+     */
+    public void monsterHurt(double degats, String type_degats, String difficulty)
     {
         if(type_degats.equals(resistance))
         {
             degats = degats - degats * resistance_pourcentage[niveau];
         }
-        live -= degats;
+        switch (difficulty)
+        {
+            case "EASY" : live -= degats * 1.5; break;
+            case "NORMAL" : live -= degats * 1; break;
+            case "HARD" : live -= degats * 0.5; break;
+        }
     }
+
     public void whenMonsterEnterBase() {
         System.out.println("Before: Character live = " + character.getLive());
         if (character != null) {
