@@ -10,9 +10,16 @@ public class MonsterPaintable extends Paintable
      */
     Monster monster;
 
-    public MonsterPaintable(Monster monster)
+    public MonsterPaintable(int width, int height, double scale_width, double scale_height, Monster monster)
     {
-        super(monster.getPos());
+        super(monster.getPos(), width, height, scale_width, scale_height);
         this.monster = monster;
     }
+
+    public void update()
+    {
+        updatePos(monster.getPos());
+    }
+
+    public Monster getMonster() {return monster;}
 }

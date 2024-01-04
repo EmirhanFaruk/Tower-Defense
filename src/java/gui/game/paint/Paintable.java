@@ -10,24 +10,24 @@ import java.awt.print.Printable;
 public class Paintable extends JPanel
 {
     protected Coordinate pos;
+
     protected int width, height;
     protected BufferedImage image;
-    protected final double scale;
 
-    public Paintable(Coordinate p, int width, int height , double scale)
+    public Paintable(Coordinate p, int width, int height, double scale_width, double scale_height)
     {
         pos = p;
-        this.scale = scale;
-        this.width = width;
-        this.height = height;
+        this.width = (int) (width * scale_width);
+        this.height = (int) (height * scale_height);
     }
 
     public void setPanelImage()
     {
-        Image scaled_home_image = image.getScaledInstance((int) (width * scale), (int) (height * scale), Image.SCALE_SMOOTH);
+        setSize(width, height);
+        Image scaled_image = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 
         removeAll();
-        add(new JLabel(new ImageIcon(scaled_home_image)));
+        add(new JLabel(new ImageIcon(scaled_image)));
     }
 
     public void updatePos(Coordinate p)

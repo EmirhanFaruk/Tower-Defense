@@ -10,9 +10,9 @@ public class Caro extends Paintable
 {
     int type;
 
-    public Caro(Coordinate p, int width, int height , double scale, int t)
+    public Caro(Coordinate p, int width, int height , double scale_width, double scale_height, int t)
     {
-        super(p, width, height, scale);
+        super(p, width, height, scale_width, scale_height);
         type = t;
         setImage();
     }
@@ -56,11 +56,14 @@ public class Caro extends Paintable
         try
         {
             image = ImageIO.read(new File(full_path));
+            width = image.getWidth();
+            height = image.getHeight();
         }
         catch (Exception ignored)
         {
             System.out.println("Couldn't read file " + full_path + ". Cannot set the image.");
         }
+
         setPanelImage();
     }
 }
