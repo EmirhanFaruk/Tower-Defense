@@ -3,6 +3,7 @@ package gui.game;
 import config.Cellule;
 import config.MapConfig;
 import gui.Coordinate;
+import gui.GameView;
 import gui.game.paint.Caro;
 import gui.game.paint.MonsterPaintable;
 import gui.game.paint.TourPaintable;
@@ -17,27 +18,36 @@ public class GameScreen extends JPanel
     ArrayList<MonsterPaintable> monster_aff;
     ArrayList<TourPaintable> tour_aff;
 
-    private int tile_width, tile_height;
+    private static int tile_width, tile_height;
 
-    private int tile_offset_width;
+    private int tile_offset_width, tile_offset_height;
 
-    public GameScreen(int width, int height, MapConfig map_config)
+    private GameView frame;
+
+
+    public GameScreen(int width, int height, GameView frame)
     {
+        this.frame = frame;
         caros = new ArrayList<>();
         monster_aff = new ArrayList<>();
         tour_aff = new ArrayList<>();
 
         setSize(width, height);
         setBackground(new Color(66, 40, 14));
+    }
 
-        tile_width = getWidth() / 16;
-        tile_height = getHeight() / 8;
+    public void make(MapConfig map_config)
+    {
+        tile_width = getWidth() / 16; // normalement 16, c'est pour etre sur d'avoir toutes les caros
+        tile_height = getHeight() / 8; // // normalement 8, c'est pour etre sur d'avoir toutes les caros
 
-        tile_offset_width = getWidth() - (tile_width * 16);
+        tile_offset_width = (getWidth() - (tile_width * 16));
+        tile_offset_height = (getHeight() - (tile_height * 8));
+
+        System.out.println(tile_offset_width + "-" + tile_offset_height);
 
 
         makeCaros(map_config);
-
     }
 
     private void makeCaros(MapConfig map_config)
@@ -47,7 +57,8 @@ public class GameScreen extends JPanel
         {
             for(int j = 0; j < tab[i].length; j++)
             {
-                Coordinate temp_coord = new Coordinate(i * tile_height, j * tile_width);
+                // i = height, j = width
+                Coordinate temp_coord = new Coordinate(tile_offset_height + i * tile_height, tile_offset_width + j * tile_width);
                 caros.add(new Caro(temp_coord, tile_width, tile_height, tab[i][j].getType()));
             }
         }

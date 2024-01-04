@@ -1,6 +1,7 @@
 package gui.game;
 
 import config.MapConfig;
+import gui.GameView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,9 @@ public class GameWholeScreen extends JPanel
     GameScreen main_panel;
     JPanel button_panel;
 
-    public GameWholeScreen(int width, int height, MapConfig map_config)
+    private GameView frame;
+
+    public GameWholeScreen(int width, int height, GameView frame)
     {
         this.width = width;
         this.height = height;
@@ -20,12 +23,16 @@ public class GameWholeScreen extends JPanel
         setLayout(new BorderLayout());
 
 
-        main_panel = new GameScreen(width, height, map_config);
+        main_panel = new GameScreen(width, height, frame);
         button_panel = makeButton_panel();
 
         add(main_panel, BorderLayout.CENTER);
         add(button_panel, BorderLayout.SOUTH);
+    }
 
+    public void make(MapConfig mapConfig)
+    {
+        main_panel.make(mapConfig);
     }
 
     private JLabel makeMessagePanel()
