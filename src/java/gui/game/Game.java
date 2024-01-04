@@ -57,9 +57,17 @@ public class Game
         }
     }
 
-    private void updateMonsters()
+    private void updateMonsters(long delta_time)
     {
-
+        for(Monster monster : monsters)
+        {
+            monster.moveMonster(delta_time);
+            if(monster.entrerDansBase())
+            {
+                monster.whenMonsterEnterBase();
+                monsters.remove(monster);
+            }
+        }
     }
 
 

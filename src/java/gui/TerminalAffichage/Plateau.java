@@ -110,8 +110,16 @@ public class Plateau {
         if (this.monsters != null) {
             for (Monster m : this.monsters)
             {
-                m.updateMonster(20000, monsters);
-                tab[m.getPos().inti()][m.getPos().intj()] = " m ";
+                m.moveMonster(20000);
+                if(m.entrerDansBase())
+                {
+                    m.whenMonsterEnterBase();
+                    monsters.remove(m);
+                }
+                else
+                {
+                    tab[m.getPos().inti()][m.getPos().intj()] = " m ";
+                }
             }
         }
         return tab ;
