@@ -35,12 +35,12 @@ public class Jeu {
         towerList.add(new Archer(1 )) ;
         towerList.add(new Archer(2 )) ;
         towerList.add(new Archer(3 )) ;
-        towerList.add(new Arme(1 )) ;
-        towerList.add(new Arme(2 )) ;
-        towerList.add(new Arme(3 )) ;
-        towerList.add(new Artillerie(1 )) ;
-        towerList.add(new Artillerie(2 )) ;
-        towerList.add(new Artillerie(3 )) ;
+        towerList.add(new Soldat(1 )) ;
+        towerList.add(new Soldat(2 )) ;
+        towerList.add(new Soldat(3 )) ;
+        towerList.add(new Catapulte(1 )) ;
+        towerList.add(new Catapulte(2 )) ;
+        towerList.add(new Catapulte(3 )) ;
         towerList.add(new Canon(1 )) ;
         towerList.add(new Canon(2 )) ;
         towerList.add(new Canon(3 )) ;
@@ -61,9 +61,9 @@ public class Jeu {
     public void addTower( String name , int level , int x , int y ) {
         switch (name){
             case "archer"  : toursInGame.add(new Archer( level , x , y )) ; break ;
-            case "artillerie" : toursInGame.add(new Artillerie( level , x, y )) ; break ;
+            case "catapulte" : toursInGame.add(new Catapulte( level , x, y )) ; break ;
             case "canon" : toursInGame.add((new Canon( level , x , y ))) ; break ;
-            case "arme" : toursInGame.add(new Arme( level , x , y )) ; break ;
+            case "soldat" : toursInGame.add(new Soldat( level , x , y )) ; break ;
         }
     }
 
