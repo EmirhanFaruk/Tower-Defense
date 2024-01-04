@@ -120,6 +120,17 @@ public class Monster {
         }
     }
 
+    public void updateMonster(long delta_time, ArrayList<Monster> monsters)
+    {
+        moveMonster(delta_time);
+        if(entrerDansBase())
+        {
+            whenMonsterEnterBase();
+            monsters.remove(this);
+        }
+    }
+
+
     /**
      * Faire degats a la monstre en prenant compte de type, resistance et difficulté
      * @param degats de tour
@@ -139,6 +150,7 @@ public class Monster {
             case "HARD" : live -= degats * 0.5; break;
         }
     }
+
     public void whenMonsterEnterBase() {
         System.out.println("Before: Character live = " + character.getLive());
         if (character != null) {

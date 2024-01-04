@@ -72,7 +72,10 @@ public class Plateau {
     // une fonction qui fait l'apparition des monstres
     public void apparitionMonster(){
         this.monsterSpawner.startWaves();
-        if (this.monsterSpawner.getInWave()) this.monsterSpawner.update(20000 , monsters);
+        if (this.monsterSpawner.getInWave())
+        {
+            this.monsterSpawner.update(20000, monsters);
+        }
     }
 
     // une fonction qui affiche comment le jeu est à cette instance
@@ -105,12 +108,10 @@ public class Plateau {
     public String[][] tableauWithMonster (String[][] tab){
         apparitionMonster();
         if (this.monsters != null) {
-            for (Monster m : this.monsters) {
-                if ( m.entrerDansBase()) {
-                    m.whenMonsterEnterBase();
-                } else {
-                    tab[m.getPos().inti()][m.getPos().intj()] = " m ";
-                }
+            for (Monster m : this.monsters)
+            {
+                m.updateMonster(20000, monsters);
+                tab[m.getPos().inti()][m.getPos().intj()] = " m ";
             }
         }
         return tab ;
