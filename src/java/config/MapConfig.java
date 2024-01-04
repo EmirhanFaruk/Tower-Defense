@@ -19,9 +19,9 @@ public class MapConfig {
         String path = System.getProperty("user.dir") ;
         File file;
         try {
-            file =new File(path+"/src/resources/"+s);
+            file =new File(path+"/src/resources/maps/"+s);
         } catch (Exception e ){
-            file =new File(path+"\\src\\resources\\"+s);
+            file =new File(path+"\\src\\resources\\maps\\"+s);
         }
         int longueur =0 ;
         Scanner scanner = new Scanner( file ) ;
@@ -38,9 +38,9 @@ public class MapConfig {
         String path = System.getProperty("user.dir") ;
         File file;
         try {
-            file =new File(path+"/src/resources/"+s);
+            file =new File(path+"/src/resources/maps/"+s);
         } catch (Exception e ){
-            file =new File(path+"\\src\\resources\\"+s);
+            file =new File(path+"\\src\\resources\\maps\\"+s);
         }
         int longueur =0 ;
         Scanner scanner = new Scanner( file ) ;
@@ -52,9 +52,9 @@ public class MapConfig {
         String path = System.getProperty("user.dir");
         File file;
         try {
-            file = new File(path + "/src/resources/" + s);
+            file = new File(path + "/src/resources/maps/" + s);
         } catch (Exception e) {
-            file = new File(path + "\\src\\resources\\" + s);
+            file = new File(path + "\\src\\resources\\maps\\" + s);
         }
 
         int lignes = compteLigne(s);

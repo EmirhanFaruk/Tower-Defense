@@ -15,6 +15,7 @@ public class Caro extends Paintable
         super(p, width, height, scale_width, scale_height);
         type = t;
         setImage();
+
     }
 
     private static String findSlash(String p)
@@ -56,8 +57,6 @@ public class Caro extends Paintable
         try
         {
             image = ImageIO.read(new File(full_path));
-            width = image.getWidth();
-            height = image.getHeight();
         }
         catch (Exception ignored)
         {

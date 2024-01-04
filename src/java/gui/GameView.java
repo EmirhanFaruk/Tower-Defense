@@ -1,11 +1,14 @@
 package gui;
 
+import config.MapConfig;
 import gui.game.Game;
+import gui.game.GameScreen;
 import gui.mainmenu.Menu;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.Map;
 
 public class GameView extends JFrame
 {
@@ -39,8 +42,20 @@ public class GameView extends JFrame
 
 
         // On commence par menu
+        /*
         menu = new Menu(width, height, this);
         this.add(menu);
+         */
+
+        try
+        {
+            MapConfig mapConfig = new MapConfig(MapConfig.grid("Map1.txt"));
+            this.add(new GameScreen(getWidth(), getHeight(), mapConfig));
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
 
         this.setVisible(true);
         // On ne peut pas produire game encore car on n'a pas encore choisit le map.

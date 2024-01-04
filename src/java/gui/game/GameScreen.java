@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class GameScreen extends JPanel
 {
-    ArrayList<Caro> caros;
+    Caro[][] caros;
     ArrayList<MonsterPaintable> monster_aff;
     ArrayList<TourPaintable> tour_aff;
 
@@ -23,20 +23,23 @@ public class GameScreen extends JPanel
 
     public GameScreen(int width, int height, MapConfig map_config)
     {
-        caros = new ArrayList<>();
         monster_aff = new ArrayList<>();
         tour_aff = new ArrayList<>();
         scale_width = (double) width / 16;
         scale_height = (double) height / 8;
 
+        setLayout(new BorderLayout());
+        map_panel = new JPanel();
+        button_panel = makeButton_panel();
+
+        add(map_panel, BorderLayout.CENTER);
+        add(button_panel, BorderLayout.SOUTH);
+
         makeCaros(map_config);
+
+
     }
 
-    private JPanel makeMap_panel()
-    {
-        JPanel res = new JPanel();
-        return res;
-    }
 
 
     private JLabel makeMessagePanel()
@@ -71,13 +74,24 @@ public class GameScreen extends JPanel
         return res;
     }
 
-    private JPanel makeButtonPanel()
+    private JPanel makeMenuButtonPanel()
     {
         JPanel res = new JPanel();
-        res.setLayout(new GridLayout(1, 3));
+        res.setLayout(new GridLayout(1, 2));
 
-        // Button
+        // Tour achat button
+        JButton ta = new JButton("Acheter Tour");
+        JButton menu = new JButton("Menu");
+        JButton[] temp = {ta, menu};
+        for(JButton button : temp)
+        {
+            button.setBackground(new Color(102, 61, 20));
+            button.setForeground(Color.ORANGE);
+        }
 
+
+        res.add(ta);
+        res.add(menu);
 
         return res;
     }
@@ -101,7 +115,7 @@ public class GameScreen extends JPanel
 
         res.add(makeMessagePanel());
         res.add(makeBrownPanel());
-        res.add(makeButtonPanel());
+        res.add(makeMenuButtonPanel());
 
         return res;
     }
@@ -110,11 +124,13 @@ public class GameScreen extends JPanel
     private void makeCaros(MapConfig map_config)
     {
         Cellule[][] tab = map_config.getGrid();
+        caros = new Caro[tab.length][tab[0].length];
         for(int i = 0; i < tab.length; i++)
         {
-            for(int j = 0; j < tab[i].length; i++)
+            for(int j = 0; j < tab[i].length; j++)
             {
-                caros.add(new Caro(new Coordinate(i, j), 1, 1, scale_width, scale_height, tab[i][j].getType()));
+                System.out.println(scale_width + "-" + scale_height);
+                caros[i][j] = new Caro(new Coordinate(i * scale_width, j * scale_height), 1, 1, scale_width, scale_height, tab[i][j].getType());
             }
         }
     }
@@ -143,4 +159,11 @@ public class GameScreen extends JPanel
         }
     }
 
+
+    @Override
+    protected void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+        g.drawImage()
+    }
 }

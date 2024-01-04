@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.print.Printable;
 
-public class Paintable extends JPanel
+public class Paintable
 {
     protected Coordinate pos;
 
@@ -23,15 +23,17 @@ public class Paintable extends JPanel
 
     public void setPanelImage()
     {
-        setSize(width, height);
         Image scaled_image = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-
-        removeAll();
-        add(new JLabel(new ImageIcon(scaled_image)));
     }
 
     public void updatePos(Coordinate p)
     {
         pos.set(p);
     }
+
+    public Coordinate getPos() {return pos;}
+    public int getWidth() {return width;}
+    public int getHeight() {return height;}
+
+    public BufferedImage getImage() {return image;}
 }
