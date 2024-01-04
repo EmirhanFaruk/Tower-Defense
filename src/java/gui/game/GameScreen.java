@@ -31,9 +31,9 @@ public class GameScreen extends JPanel
         setBackground(new Color(66, 40, 14));
 
         tile_width = getWidth() / 16;
-        tile_height = getHeight() / 9;
+        tile_height = getHeight() / 8;
 
-        tile_offset_width = (getWidth() - tile_width * 16);
+        tile_offset_width = getWidth() - (tile_width * 16);
 
 
         makeCaros(map_config);
@@ -47,7 +47,7 @@ public class GameScreen extends JPanel
         {
             for(int j = 0; j < tab[i].length; j++)
             {
-                Coordinate temp_coord = new Coordinate(tile_offset_width + i * tile_width, j * tile_height);
+                Coordinate temp_coord = new Coordinate(i * tile_height, j * tile_width);
                 caros.add(new Caro(temp_coord, tile_width, tile_height, tab[i][j].getType()));
             }
         }
