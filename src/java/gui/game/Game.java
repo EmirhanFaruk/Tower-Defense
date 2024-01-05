@@ -61,6 +61,7 @@ public class Game
         monster_spawner = new MonsterSpawner(in_serie_timer_max, between_wave_timer_max, wave_count_max, monster_timer_max, map_config, character);
         monsters = new ArrayList<>();
         tours = new ArrayList<>();
+        apparitionMonster();
     }
 
     /**
@@ -97,6 +98,13 @@ public class Game
         }
     }
 
+    public void apparitionMonster(){
+        this.monster_spawner.startWaves();
+        if (this.monster_spawner.getInWave())
+        {
+            this.monster_spawner.update(20000, monsters);
+        }
+    }
 
     public MapConfig getMap_config() {return map_config;}
 }

@@ -162,6 +162,7 @@ public class GameView extends JFrame
     }
 
 
+
     public GraphicsDevice getDevice()
     {
         return device;
