@@ -1,15 +1,11 @@
 package gui;
 
-import config.MapConfig;
 import gui.game.Game;
-import gui.game.GameScreen;
-import gui.game.GameWholeScreen;
 import gui.mainmenu.Menu;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.Map;
 
 public class GameView extends JFrame
 {

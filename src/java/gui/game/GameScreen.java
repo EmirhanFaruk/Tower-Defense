@@ -3,10 +3,8 @@ package gui.game;
 import config.Cellule;
 import config.MapConfig;
 import gui.Coordinate;
+import gui.game.paint.*;
 import gui.GameView;
-import gui.game.paint.Caro;
-import gui.game.paint.MonsterPaintable;
-import gui.game.paint.TourPaintable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,6 +20,7 @@ public class GameScreen extends JPanel
 
     private int tile_offset_width, tile_offset_height;
 
+    JPanel map_panel, button_panel;
 
 
     public GameScreen(int width, int height)
@@ -45,6 +44,14 @@ public class GameScreen extends JPanel
 
         makeCaros(map_config);
     }
+
+    private void makeMap_panel()
+    {
+        JPanel res = new JPanel();
+
+    }
+
+
 
     private void makeCaros(MapConfig map_config)
     {
