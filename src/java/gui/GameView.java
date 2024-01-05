@@ -63,7 +63,7 @@ public class GameView extends JFrame
     }
 
 
-    public void startGame(String map, String difficulty, String mode)
+    public void startGame(String map, String difficulty, String mode, String character)
     {
         int wave_count_max = 4;
         switch (difficulty)
@@ -74,8 +74,17 @@ public class GameView extends JFrame
         }
         if(mode.equals("MARATHON")){ wave_count_max = -1;}
 
+        // Defaulf character
+        Character game_character = new Character("villageois", 200, 5);
+        switch (character)
+        {
+            case "COMMANDANT": game_character = new Character("commandant", 300, 10); break;
+            case "SOLDAT": game_character = new Character("artilleur", 250, 7); break;
+            case "ARCHER": game_character = new Character("archer", 250, 7); break;
+            case "VILLAGEOIS" : game_character = new Character("villageois", 200, 5); break;
+        }
 
-        game = new GameWholeScreen(getWidth(), getHeight(), map, difficulty, wave_count_max, new Character("Villegois", 100, 10));
+        game = new GameWholeScreen(getWidth(), getHeight(), map, difficulty, wave_count_max, game_character);
 
 
         main_panel.add(ingame_screen_s, game);
@@ -88,10 +97,13 @@ public class GameView extends JFrame
     public void setSize(int width, int height)
     {
         super.setSize(width, height);
+        /*
         if(main_panel != null)
         {
             main_panel.setSize(width, height);
         }
+
+         */
     }
 
     /**

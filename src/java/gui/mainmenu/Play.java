@@ -16,8 +16,9 @@ public class Play extends JPanel
     private JLabel level_name_tag;
     private JLabel difficulty_tag;
     private JLabel mode_tag;
+    private JLabel character_tag;
 
-    private GameView frame;
+    private final GameView frame;
 
     public Play(GameView frame)
     {
@@ -189,16 +190,48 @@ public class Play extends JPanel
         return opts;
     }
 
+
+    private JPanel makeCharacterOptions()
+    {
+        JPanel opts = new JPanel();
+        opts.setBackground(Color.BLACK);
+        opts.setForeground(Color.GRAY);
+        opts.setLayout(new GridLayout(2, 2));
+
+        String[] character_list = {"VILLAGEOIS", "ARCHER", "SOLDAT", "COMMANDANT"};
+        for(String ch : character_list)
+        {
+            JButton button = new JButton(ch);
+            button.setBackground(Color.BLACK);
+            button.setForeground(Color.GRAY);
+            button.addActionListener(
+                    new ActionListener()
+                    {
+                        @Override
+                        public void actionPerformed(ActionEvent e)
+                        {
+                            character_tag.setText(ch);
+                        }
+                    });
+            opts.add(button);
+        }
+
+        return opts;
+    }
+
+
     private JPanel makeDifficultyPanel()
     {
         JPanel res = new JPanel();
         res.setBackground(Color.BLACK);
         res.setForeground(Color.GRAY);
 
-        // diffs, mode, texts
-        res.setLayout(new GridLayout(3, 1));
+        // diffs, mode, character, texts
+        res.setLayout(new GridLayout(4, 1));
 
         res.add(makeDifficultyOptions());
+
+        res.add(makeCharacterOptions());
 
         res.add(makeModeOptions());
 
@@ -209,7 +242,7 @@ public class Play extends JPanel
         JPanel texts_capsule = new JPanel();
         texts_capsule.setBackground(Color.BLACK);
         texts_capsule.setForeground(Color.GRAY);
-        texts_capsule.setLayout(new GridLayout(3, 1));
+        texts_capsule.setLayout(new GridLayout(4, 1));
 
         JPanel lnt_capsule = new JPanel(); // level name tag capsule
         lnt_capsule.setBackground(Color.BLACK);
@@ -252,6 +285,19 @@ public class Play extends JPanel
         mt_capsule.add(mode_tag);
         texts_capsule.add(mt_capsule);
 
+        JPanel ct_capsule = new JPanel(); // mode tag capsule
+        ct_capsule.setBackground(Color.BLACK);
+        ct_capsule.setForeground(Color.GRAY);
+
+        character_tag = new JLabel("VILLAGEOIS");
+        character_tag.setHorizontalTextPosition(SwingConstants.CENTER);
+        character_tag.setVerticalTextPosition(SwingConstants.CENTER);
+        character_tag.setBackground(Color.BLACK);
+        character_tag.setForeground(Color.GRAY);
+
+        ct_capsule.add(character_tag);
+        texts_capsule.add(ct_capsule);
+
 
         res.add(texts_capsule);
 
@@ -276,7 +322,7 @@ public class Play extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                frame.startGame(level_name_tag.getText(), difficulty_tag.getText(), mode_tag.getText());
+                frame.startGame(level_name_tag.getText(), difficulty_tag.getText(), mode_tag.getText(), character_tag.getText());
             }
         });
 
