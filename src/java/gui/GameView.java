@@ -1,6 +1,8 @@
 package gui;
 
+import config.MapConfig;
 import gui.game.Game;
+import gui.game.GameWholeScreen;
 import gui.mainmenu.Menu;
 
 import javax.swing.*;
