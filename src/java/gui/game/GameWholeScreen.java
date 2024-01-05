@@ -37,6 +37,13 @@ public class GameWholeScreen extends JPanel
         main_panel.make(game.getMap_config());
     }
 
+
+    public void update(long delta_time)
+    {
+        game.updateEnts(delta_time);
+
+    }
+
     private JLabel makeMessagePanel()
     {
         JLabel message_panel = new JLabel("Welcome to the game!");
