@@ -105,6 +105,11 @@ public class Menu extends JPanel
         this.add(main_panel);
     }
 
+    public void showMenu()
+    {
+        cardLayout.show(main_panel, home_mode);
+    }
+
     /**
      * Produire le panel avec les buttons.
      * @return JPanel des buttons

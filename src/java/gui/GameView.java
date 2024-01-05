@@ -58,6 +58,8 @@ public class GameView extends JFrame
 
         this.add(main_panel);
 
+        pack();
+
         this.setVisible(true);
 
     }
@@ -87,7 +89,7 @@ public class GameView extends JFrame
 
 
 
-        game = new GameWholeScreen(main_panel.getWidth(), main_panel.getHeight(), map, difficulty, wave_count_max, game_character);
+        game = new GameWholeScreen(main_panel.getWidth(), main_panel.getHeight(), map, difficulty, wave_count_max, game_character, this);
 
 
         main_panel.add(ingame_screen_s, game);
@@ -96,6 +98,13 @@ public class GameView extends JFrame
         cardLayout.show(main_panel, ingame_screen_s);
 
     }
+
+    public void quitMainMenu()
+    {
+        cardLayout.show(main_panel, main_menu_screen_s);
+        menu.showMenu();
+    }
+
 
     @Override
     public void setSize(int width, int height)
