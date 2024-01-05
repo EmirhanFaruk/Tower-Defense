@@ -84,15 +84,14 @@ public class GameView extends JFrame
             case "VILLAGEOIS" : game_character = new Character("villageois", 200, 5); break;
         }
 
-        pack();
-        getDevice().setFullScreenWindow(this);
-        setSize(width, height);
+
 
 
         game = new GameWholeScreen(main_panel.getWidth(), main_panel.getHeight(), map, difficulty, wave_count_max, game_character);
 
 
         main_panel.add(ingame_screen_s, game);
+        pack();
         game.make();
         cardLayout.show(main_panel, ingame_screen_s);
 
