@@ -5,6 +5,7 @@ import gui.game.Game;
 import gui.game.GameScreen;
 import gui.game.GameWholeScreen;
 import gui.mainmenu.Menu;
+import model.Character;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,16 +65,19 @@ public class GameView extends JFrame
 
     public void startGame(int width, int height, String map, String difficulty, String mode)
     {
-        MapConfig mapConfig = null;
-        try {
-            mapConfig = new MapConfig(MapConfig.grid(map + ".txt"));
-        } catch (Exception e) {
-            e.printStackTrace();
+        int wave_count_max = 4;
+        switch (difficulty)
+        {
+            case "EASY": wave_count_max = 4; break;
+            case "NORMAL": wave_count_max = 6; break;
+            case "HARD": wave_count_max = 8; break;
         }
-        game = new GameWholeScreen(width, height);
+        if(mode.equals("MARATHON")){ wave_count_max = -1;}
+
+        game = new GameWholeScreen(width, height, map, difficulty, wave_count_max, new Character("Villegois", 100, 10));
         main_panel.add(ingame_screen_s, game);
         pack();
-        game.make(mapConfig);
+        game.make();
         cardLayout.show(main_panel, ingame_screen_s);
     }
 

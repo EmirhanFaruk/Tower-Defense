@@ -46,11 +46,7 @@ public class Menu extends JPanel
         }
     }
 
-    private String map_choisi;
-    private String difficulte;
-
     private int width, height;
-    private boolean fullscreen = false;
 
 
     // Les panels principales
@@ -74,7 +70,7 @@ public class Menu extends JPanel
 
 
     // Le JFrame
-    private GameView frame;
+    private final GameView frame;
 
     /**
      * Constructeur de Menu.
