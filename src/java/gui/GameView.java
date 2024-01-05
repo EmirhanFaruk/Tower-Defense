@@ -4,6 +4,7 @@ import config.MapConfig;
 import gui.game.Game;
 import gui.game.GameWholeScreen;
 import gui.mainmenu.Menu;
+import model.Character;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,16 +22,21 @@ public class GameView extends JFrame
 
     private double scale;
 
+    // Pour changer le mode
     private JPanel main_panel;
+    private final CardLayout cardLayout = new CardLayout();
+
+    private final String main_menu_screen_s = "MAIN MENU", ingame_screen_s = "INGAME";
 
     private gui.mainmenu.Menu menu;
-    private Game game;
+    private GameWholeScreen game;
 
 
     /**
      * Constructeur de GameView, assigner les attributs
      */
-    public GameView(int width, int height) throws Exception {
+    public GameView(int width, int height)
+    {
         // Les attributs de JPanel
         this.setTitle("Tower Defense");
         this.setSize(width, height);
@@ -40,19 +46,37 @@ public class GameView extends JFrame
 
 
         // On commence par menu
-        /*
+        // On ne peut pas produire game encore car on n'a pas encore choisit le map.
         menu = new Menu(width, height, this);
-        this.add(menu);
-         */
 
-        MapConfig mapConfig = new MapConfig(MapConfig.grid("Map4.txt"));
-        GameWholeScreen temp = new GameWholeScreen(width, height);
-        this.add(temp);
-        pack();
-        temp.make(mapConfig);
+        main_panel = new JPanel();
+        main_panel.setLayout(cardLayout);
+        main_panel.add(main_menu_screen_s, menu);
+        cardLayout.show(main_panel, main_menu_screen_s);
+
+        this.add(main_panel);
 
         this.setVisible(true);
-        // On ne peut pas produire game encore car on n'a pas encore choisit le map.
+
+    }
+
+
+    public void startGame(int width, int height, String map, String difficulty, String mode)
+    {
+        int wave_count_max = 4;
+        switch (difficulty)
+        {
+            case "EASY": wave_count_max = 4; break;
+            case "NORMAL": wave_count_max = 6; break;
+            case "HARD": wave_count_max = 8; break;
+        }
+        if(mode.equals("MARATHON")){ wave_count_max = -1;}
+
+        game = new GameWholeScreen(width, height, map, difficulty, wave_count_max, new Character("Villegois", 100, 10));
+        main_panel.add(ingame_screen_s, game);
+        pack();
+        game.make();
+        cardLayout.show(main_panel, ingame_screen_s);
     }
 
     /**
