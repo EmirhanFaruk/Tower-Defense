@@ -4,7 +4,8 @@ import config.Cellule;
 import config.MapConfig;
 import gui.Coordinate;
 import gui.game.paint.*;
-import gui.GameView;
+import model.monster.Monster;
+import model.tour.Tour;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,8 +14,8 @@ import java.util.ArrayList;
 public class GameScreen extends JPanel
 {
     ArrayList<Caro> caros;
-    ArrayList<MonsterGraphics> monster_aff;
-    ArrayList<TourGraphics> tour_aff;
+    ArrayList<Monster> monster_aff;
+    ArrayList<Tour> tour_aff;
 
     private static int tile_width, tile_height;
 
@@ -71,22 +72,26 @@ public class GameScreen extends JPanel
 
     public void update()
     {
-
+        updateMonsters();
     }
 
     public void updateTours()
     {
+        for ( Tour t :tour_aff){
+            TourGraphics tg = new TourGraphics(t) ;
 
+        }
     }
 
-    public void updateMonsters(Graphics g)
+    public void updateMonsters()
     {
-        for(MonsterGraphics mp : monster_aff)
+        for(Monster m : monster_aff)
         {
-            mp.update(g);
+            MonsterGraphics mp = new MonsterGraphics(m) ;
+            mp.update();
             if(mp.getMonster().isDead())
             {
-                monster_aff.remove(mp);
+                monster_aff.remove(m);
             }
         }
     }
@@ -105,5 +110,13 @@ public class GameScreen extends JPanel
         }
 
         g2.dispose();
+    }
+
+    public static int getTile_height() {
+        return tile_height;
+    }
+
+    public static int getTile_width() {
+        return tile_width;
     }
 }

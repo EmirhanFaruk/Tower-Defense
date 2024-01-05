@@ -1,5 +1,6 @@
 package gui.game.paint;
 
+import gui.game.GameScreen;
 import model.monster.Monster ;
 
 import javax.swing.*;
@@ -12,13 +13,15 @@ public class MonsterGraphics extends JComponent {
     private final String[] monsterRed = {"MonsterRed1.gif" , "MonsterRed2.gif" , "MonsterRed3.gif"} ;
     private final String[] monsterGreen = {"MonsterGreen1.gif" , "MonsterGreen2.gif" , "MonsterGreen3.gif"} ;
     private final String [] monsterGray = {"MonsterGray1.gif" , "MonsterGray2.gif" , "MonsterGray3.gif"} ;
+    int width, height;
     private Monster monster;
     private ImageIcon monsterImage;
 
     public MonsterGraphics(Monster monster) {
         this.monster = monster;
         this.monsterImage = loadImage(chooseMonsterIcon());
-
+        this.height = GameScreen.getTile_height() ;
+        this.width = GameScreen.getTile_width() ;
     }
 
     /**
@@ -102,14 +105,13 @@ public class MonsterGraphics extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(monsterImage.getImage(), (int)monster.getPos().i(), (int)monster.getPos().j(), null);
+        g.drawImage(monsterImage.getImage(), monster.getPos().intj(), monster.getPos().inti(),width, height, null);
     }
 
     /**
-     * Une fonction le nouvel endroit où est l'image
-     * @param g the <code>Graphics</code> context in which to paint
+     * Une fonction renouvelle endroit où est l'image
      */
-    public void update(Graphics g){
+    public void update(){
         move();
         repaint();
     }

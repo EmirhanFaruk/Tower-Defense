@@ -150,7 +150,7 @@ public class GameView extends JFrame
      */
     private void drawGame()
     {
-
+        game.update(16);
     }
 
     /**

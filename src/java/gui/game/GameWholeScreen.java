@@ -40,6 +40,7 @@ public class GameWholeScreen extends JPanel
 
     public void update(long delta_time)
     {
+        main_panel.update();
         game.updateEnts(delta_time);
 
     }
