@@ -2,6 +2,7 @@ package gui;
 
 import config.MapConfig;
 import gui.game.Game;
+import gui.game.GameScreen;
 import gui.game.GameWholeScreen;
 import gui.mainmenu.Menu;
 import model.Character;
@@ -9,6 +10,7 @@ import model.Character;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.Map;
 
 public class GameView extends JFrame
 {
@@ -163,7 +165,7 @@ public class GameView extends JFrame
      */
     private void drawGame()
     {
-        game.update(16);
+
     }
 
     /**
