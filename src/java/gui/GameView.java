@@ -47,8 +47,8 @@ public class GameView extends JFrame
         this.add(menu);
          */
 
-        MapConfig mapConfig = new MapConfig(MapConfig.grid("Map1.txt"));
-        GameWholeScreen temp = new GameWholeScreen(width, height, this);
+        MapConfig mapConfig = new MapConfig(MapConfig.grid("Map4.txt"));
+        GameWholeScreen temp = new GameWholeScreen(width, height);
         this.add(temp);
         pack();
         temp.make(mapConfig);

@@ -22,12 +22,10 @@ public class GameScreen extends JPanel
 
     private int tile_offset_width, tile_offset_height;
 
-    private GameView frame;
 
 
-    public GameScreen(int width, int height, GameView frame)
+    public GameScreen(int width, int height)
     {
-        this.frame = frame;
         caros = new ArrayList<>();
         monster_aff = new ArrayList<>();
         tour_aff = new ArrayList<>();
@@ -43,8 +41,6 @@ public class GameScreen extends JPanel
 
         tile_offset_width = (getWidth() - (tile_width * 16));
         tile_offset_height = (getHeight() - (tile_height * 8));
-
-        System.out.println(tile_offset_width + "-" + tile_offset_height);
 
 
         makeCaros(map_config);

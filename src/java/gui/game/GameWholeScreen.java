@@ -8,22 +8,18 @@ import java.awt.*;
 
 public class GameWholeScreen extends JPanel
 {
-    int width, height;
+    private GameScreen main_panel;
+    private JPanel button_panel;
 
-    GameScreen main_panel;
-    JPanel button_panel;
+    private JPanel mid_button_panel;
 
-    private GameView frame;
 
-    public GameWholeScreen(int width, int height, GameView frame)
+    public GameWholeScreen(int width, int height)
     {
-        this.width = width;
-        this.height = height;
-
         setLayout(new BorderLayout());
 
 
-        main_panel = new GameScreen(width, height, frame);
+        main_panel = new GameScreen(width, height);
         button_panel = makeButton_panel();
 
         add(main_panel, BorderLayout.CENTER);
