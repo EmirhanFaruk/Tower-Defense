@@ -3,18 +3,29 @@ package gui.game.paint;
 import gui.Coordinate;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-public class Caro extends Paintable
+public class Caro
 {
+    Coordinate pos;
+
+    int width, height;
+
     int type;
 
-    public Caro(Coordinate p, int width, int height , double scale_width, double scale_height, int t)
+    BufferedImage image;
+
+
+    public Caro(Coordinate p, int width, int height, int t)
     {
-        super(p, width, height, scale_width, scale_height);
+        pos = p;
+        this.width = width;
+        this.height = height;
         type = t;
         setImage();
+
     }
 
     private static String findSlash(String p)
@@ -56,14 +67,16 @@ public class Caro extends Paintable
         try
         {
             image = ImageIO.read(new File(full_path));
-            width = image.getWidth();
-            height = image.getHeight();
         }
         catch (Exception ignored)
         {
             System.out.println("Couldn't read file " + full_path + ". Cannot set the image.");
         }
 
-        setPanelImage();
+    }
+
+    public void paint(Graphics2D g2)
+    {
+        g2.drawImage(image, pos.intj(), pos.inti(), width, height, null);
     }
 }
