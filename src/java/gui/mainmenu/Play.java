@@ -18,7 +18,7 @@ public class Play extends JPanel
     private JLabel mode_tag;
     private JLabel character_tag;
 
-    private final GameView frame;
+    private GameView frame;
 
     public Play(GameView frame)
     {
@@ -322,7 +322,7 @@ public class Play extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                frame.startGame(level_name_tag.getText(), difficulty_tag.getText(), mode_tag.getText(), character_tag.getText());
+                frame.startGame(frame.getWidth(), frame.getHeight(), level_name_tag.getText(), difficulty_tag.getText(), mode_tag.getText(), character_tag.getText());
             }
         });
 

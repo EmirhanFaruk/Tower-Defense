@@ -63,7 +63,7 @@ public class GameView extends JFrame
     }
 
 
-    public void startGame(String map, String difficulty, String mode, String character)
+    public void startGame(int width, int height, String map, String difficulty, String mode, String character)
     {
         int wave_count_max = 4;
         switch (difficulty)
@@ -84,26 +84,28 @@ public class GameView extends JFrame
             case "VILLAGEOIS" : game_character = new Character("villageois", 200, 5); break;
         }
 
-        game = new GameWholeScreen(getWidth(), getHeight(), map, difficulty, wave_count_max, game_character);
+        pack();
+        getDevice().setFullScreenWindow(this);
+        setSize(width, height);
+
+
+        game = new GameWholeScreen(main_panel.getWidth(), main_panel.getHeight(), map, difficulty, wave_count_max, game_character);
 
 
         main_panel.add(ingame_screen_s, game);
-
         game.make();
         cardLayout.show(main_panel, ingame_screen_s);
+
     }
 
     @Override
     public void setSize(int width, int height)
     {
         super.setSize(width, height);
-        /*
         if(main_panel != null)
         {
             main_panel.setSize(width, height);
         }
-
-         */
     }
 
     /**
