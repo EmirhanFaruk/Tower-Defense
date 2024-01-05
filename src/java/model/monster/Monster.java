@@ -187,6 +187,12 @@ public class Monster {
     public ArrayList<Coordinate> getPath() {return path;}
     public void popPath() { if(!path.isEmpty()) path.remove(0);}
 
+    public int getNiveau() {
+        return niveau;
+    }
+    public String getResistance() {
+        return resistance;
+    }
     public String getDirection() {return direction;}
     public void setDirection(String direction) {this.direction = direction;}
 

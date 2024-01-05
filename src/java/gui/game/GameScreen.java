@@ -3,18 +3,17 @@ package gui.game;
 import config.Cellule;
 import config.MapConfig;
 import gui.Coordinate;
-import gui.game.paint.Caro;
-import gui.game.paint.MonsterPaintable;
-import gui.game.paint.TourPaintable;
+import gui.game.paint.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class GameScreen extends JPanel
 {
     ArrayList<Caro> caros;
-    ArrayList<MonsterPaintable> monster_aff;
-    ArrayList<TourPaintable> tour_aff;
+    ArrayList<MonsterGraphics> monster_aff;
+    ArrayList<TourGraphics> tour_aff;
 
     double scale_width, scale_height;
 
@@ -63,11 +62,11 @@ public class GameScreen extends JPanel
 
     }
 
-    public void updateMonsters()
+    public void updateMonsters(Graphics g)
     {
-        for(MonsterPaintable mp : monster_aff)
+        for(MonsterGraphics mp : monster_aff)
         {
-            mp.update();
+            mp.update(g);
             if(mp.getMonster().isDead())
             {
                 monster_aff.remove(mp);
