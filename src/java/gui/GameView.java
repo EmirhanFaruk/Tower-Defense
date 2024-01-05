@@ -42,16 +42,17 @@ public class GameView extends JFrame
 
 
         // On commence par menu
-        /*
         menu = new Menu(width, height, this);
         this.add(menu);
-         */
 
+        /*
         MapConfig mapConfig = new MapConfig(MapConfig.grid("Map4.txt"));
         GameWholeScreen temp = new GameWholeScreen(width, height);
         this.add(temp);
         pack();
         temp.make(mapConfig);
+
+         */
 
         this.setVisible(true);
         // On ne peut pas produire game encore car on n'a pas encore choisit le map.

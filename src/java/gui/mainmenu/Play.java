@@ -11,11 +11,9 @@ import java.util.Objects;
 
 public class Play extends JPanel
 {
-
-    private String difficulty = "EASY";
-
     private JLabel level_name_tag;
     private JLabel difficulty_tag;
+    private JLabel mode_tag;
 
     public Play(int width, int height)
     {
@@ -129,10 +127,14 @@ public class Play extends JPanel
      * START OF DIFFICULTY PANEL FUNCTIONS
      */
 
-    private JPanel makeDifficultyPanel()
+
+    private JPanel makeDifficultyOptions()
     {
-        JPanel res = new JPanel();
-        res.setLayout(new GridLayout(5, 1));
+        JPanel diffs = new JPanel();
+        diffs.setBackground(Color.BLACK);
+        diffs.setForeground(Color.GRAY);
+        diffs.setLayout(new GridLayout(3, 1));
+
         String[] diff_list = {"EASY", "NORMAL", "HARD"};
         for(String diff : diff_list)
         {
@@ -141,46 +143,117 @@ public class Play extends JPanel
             button.setForeground(Color.GRAY);
             button.addActionListener(
                     new ActionListener()
-                {
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    difficulty = diff;
-                    difficulty_tag.setText(diff);
-                }
-            });
-            res.add(button);
+                    {
+                        @Override
+                        public void actionPerformed(ActionEvent e)
+                        {
+                            difficulty_tag.setText(diff);
+                        }
+                    });
+            diffs.add(button);
         }
 
-        JPanel lnt_capsule = new JPanel();
+        return diffs;
+    }
+
+    private JPanel makeModeOptions()
+    {
+        JPanel opts = new JPanel();
+        opts.setBackground(Color.BLACK);
+        opts.setForeground(Color.GRAY);
+        opts.setLayout(new GridLayout(1, 2));
+
+        String[] mode_list = {"NORMAL", "MARATHON"};
+        for(String mode : mode_list)
+        {
+            JButton button = new JButton(mode);
+            button.setBackground(Color.BLACK);
+            button.setForeground(Color.GRAY);
+            button.addActionListener(
+                    new ActionListener()
+                    {
+                        @Override
+                        public void actionPerformed(ActionEvent e)
+                        {
+                            mode_tag.setText(mode);
+                        }
+                    });
+            opts.add(button);
+        }
+
+        return opts;
+    }
+
+    private JPanel makeDifficultyPanel()
+    {
+        JPanel res = new JPanel();
+        res.setBackground(Color.BLACK);
+        res.setForeground(Color.GRAY);
+
+        // diffs, mode, texts
+        res.setLayout(new GridLayout(3, 1));
+
+        res.add(makeDifficultyOptions());
+
+        res.add(makeModeOptions());
+
+
+
+        // Tried to use a function but it didnt work, so gotta do it like this
+
+        JPanel texts_capsule = new JPanel();
+        texts_capsule.setBackground(Color.BLACK);
+        texts_capsule.setForeground(Color.GRAY);
+        texts_capsule.setLayout(new GridLayout(3, 1));
+
+        JPanel lnt_capsule = new JPanel(); // level name tag capsule
         lnt_capsule.setBackground(Color.BLACK);
         lnt_capsule.setForeground(Color.GRAY);
 
-        level_name_tag = new JLabel("");
+        level_name_tag = new JLabel("Map1");
         level_name_tag.setHorizontalTextPosition(SwingConstants.CENTER);
         level_name_tag.setVerticalTextPosition(SwingConstants.CENTER);
         level_name_tag.setBackground(Color.BLACK);
         level_name_tag.setForeground(Color.GRAY);
 
         lnt_capsule.add(level_name_tag);
-        res.add(lnt_capsule);
+        texts_capsule.add(lnt_capsule);
 
 
-        JPanel dt_capsule = new JPanel();
+        JPanel dt_capsule = new JPanel(); // difficulty tag capsule
         dt_capsule.setBackground(Color.BLACK);
         dt_capsule.setForeground(Color.GRAY);
 
-        difficulty_tag = new JLabel(difficulty);
+        difficulty_tag = new JLabel("EASY");
         difficulty_tag.setHorizontalTextPosition(SwingConstants.CENTER);
         difficulty_tag.setVerticalTextPosition(SwingConstants.CENTER);
         difficulty_tag.setBackground(Color.BLACK);
         difficulty_tag.setForeground(Color.GRAY);
 
         dt_capsule.add(difficulty_tag);
-        res.add(dt_capsule);
+        texts_capsule.add(dt_capsule);
+
+
+        JPanel mt_capsule = new JPanel(); // mode tag capsule
+        mt_capsule.setBackground(Color.BLACK);
+        mt_capsule.setForeground(Color.GRAY);
+
+        mode_tag = new JLabel("NORMAL");
+        mode_tag.setHorizontalTextPosition(SwingConstants.CENTER);
+        mode_tag.setVerticalTextPosition(SwingConstants.CENTER);
+        mode_tag.setBackground(Color.BLACK);
+        mode_tag.setForeground(Color.GRAY);
+
+        mt_capsule.add(mode_tag);
+        texts_capsule.add(mt_capsule);
+
+
+        res.add(texts_capsule);
 
         return res;
     }
+
+
 
     private JPanel makePlayButton()
     {
@@ -198,7 +271,7 @@ public class Play extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-
+                // Start the game
             }
         });
 
