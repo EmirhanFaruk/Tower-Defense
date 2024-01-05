@@ -23,16 +23,21 @@ public class GameView extends JFrame
 
     private double scale;
 
+    // Pour changer le mode
     private JPanel main_panel;
+    private final CardLayout cardLayout = new CardLayout();
+
+    private final String main_menu_screen_s = "MAIN MENU", ingame_screen_s = "INGAME";
 
     private gui.mainmenu.Menu menu;
-    private Game game;
+    private GameWholeScreen game;
 
 
     /**
      * Constructeur de GameView, assigner les attributs
      */
-    public GameView(int width, int height) throws Exception {
+    public GameView(int width, int height)
+    {
         // Les attributs de JPanel
         this.setTitle("Tower Defense");
         this.setSize(width, height);
@@ -42,20 +47,34 @@ public class GameView extends JFrame
 
 
         // On commence par menu
+        // On ne peut pas produire game encore car on n'a pas encore choisit le map.
         menu = new Menu(width, height, this);
-        this.add(menu);
 
-        /*
-        MapConfig mapConfig = new MapConfig(MapConfig.grid("Map4.txt"));
-        GameWholeScreen temp = new GameWholeScreen(width, height);
-        this.add(temp);
-        pack();
-        temp.make(mapConfig);
+        main_panel = new JPanel();
+        main_panel.setLayout(cardLayout);
+        main_panel.add(main_menu_screen_s, menu);
+        cardLayout.show(main_panel, main_menu_screen_s);
 
-         */
+        this.add(main_panel);
 
         this.setVisible(true);
-        // On ne peut pas produire game encore car on n'a pas encore choisit le map.
+
+    }
+
+
+    public void startGame(int width, int height)
+    {
+        MapConfig mapConfig = null;
+        try {
+            mapConfig = new MapConfig(MapConfig.grid("Map4.txt"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        game = new GameWholeScreen(width, height);
+        main_panel.add(ingame_screen_s, game);
+        pack();
+        game.make(mapConfig);
+        cardLayout.show(main_panel, ingame_screen_s);
     }
 
     /**

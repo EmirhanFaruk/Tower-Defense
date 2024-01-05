@@ -1,5 +1,7 @@
 package gui.mainmenu;
 
+import gui.GameView;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,8 +17,11 @@ public class Play extends JPanel
     private JLabel difficulty_tag;
     private JLabel mode_tag;
 
-    public Play(int width, int height)
+    private GameView frame;
+
+    public Play(GameView frame)
     {
+        this.frame = frame;
         makePlay();
     }
 
@@ -271,7 +276,7 @@ public class Play extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                // Start the game
+                frame.startGame(getWidth(), getHeight());
             }
         });
 

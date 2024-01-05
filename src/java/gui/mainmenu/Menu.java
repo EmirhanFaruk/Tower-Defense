@@ -172,7 +172,7 @@ public class Menu extends JPanel
      */
     private JPanel makePlay()
     {
-        return new Play(width, height);
+        return new Play(this.frame);
     }
 
     /**
