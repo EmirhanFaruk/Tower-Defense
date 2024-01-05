@@ -3,9 +3,9 @@ package gui.game;
 import config.Cellule;
 import config.MapConfig;
 import gui.Coordinate;
-import gui.GameView;
 import gui.game.paint.Caro;
-import gui.game.paint.MonsterPaintable;
+import gui.game.paint.MonsterGraphics;
+import gui.game.paint.TourGraphics;
 import gui.game.paint.TourPaintable;
 
 import javax.swing.*;
@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public class GameScreen extends JPanel
 {
     ArrayList<Caro> caros;
-    ArrayList<MonsterPaintable> monster_aff;
-    ArrayList<TourPaintable> tour_aff;
+    ArrayList<MonsterGraphics> monster_aff;
+    ArrayList<TourGraphics> tour_aff;
 
     private static int tile_width, tile_height;
 
@@ -64,7 +64,7 @@ public class GameScreen extends JPanel
 
     public void update()
     {
-
+        updateMonsters();
     }
 
     public void updateTours()
@@ -74,8 +74,9 @@ public class GameScreen extends JPanel
 
     public void updateMonsters()
     {
-        for(MonsterPaintable mp : monster_aff)
+        for(MonsterGraphics mp : monster_aff)
         {
+            mp.update();
             if(mp.getMonster().isDead())
             {
                 monster_aff.remove(mp);
@@ -95,7 +96,21 @@ public class GameScreen extends JPanel
         {
             caro.paint(g2);
         }
+        for (MonsterGraphics monsterGraphics : monster_aff){
+            monsterGraphics.paint(g2);
+        }
+        for ( TourGraphics tourGraphics : tour_aff){
+            tourGraphics.paint(g2);
+        }
 
         g2.dispose();
+    }
+
+    public static int getTile_height() {
+        return tile_height;
+    }
+
+    public static int getTile_width() {
+        return tile_width;
     }
 }
