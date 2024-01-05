@@ -14,7 +14,6 @@ public class GameWholeScreen extends JPanel
 
     private JPanel mid_button_panel;
 
-
     private Game game;
 
 
