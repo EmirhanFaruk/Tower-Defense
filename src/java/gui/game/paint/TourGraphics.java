@@ -1,14 +1,16 @@
 package gui.game.paint;
 
+import config.MapConfig;
+import gui.game.GameScreen;
 import model.tour.Tour;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Map;
 
 public class TourGraphics extends JComponent {
     private final String path = System.getProperty("user.dir") ;
     String s = findSlash(path);
-
     private final String[][] towerArcher =
             {{"TowerArcherBack1.png","TowerArcherBack2.png" ,"TowerArcherBack3.png"},
             {"TowerArcherFront1.png","TowerArcherFront2.png","TowerArcherFront3.png"},
@@ -34,11 +36,15 @@ public class TourGraphics extends JComponent {
 
     int width , height ;
     private Tour tour ;
+    private MapConfig mapConfig ;
     private ImageIcon tourImage;
 
-    public TourGraphics( Tour tour) {
+    public TourGraphics(Tour tour , MapConfig mapConfig) {
         this.tour = tour ;
         this.tourImage = loadImage(chooseTowerIcon());
+        this.mapConfig = mapConfig ;
+        this.height = GameScreen.getTile_height() ;
+        this.width = GameScreen.getTile_width() ;
     }
     private String chooseTowerIcon() {
         try {
@@ -63,7 +69,49 @@ public class TourGraphics extends JComponent {
         return null ;
     }
 
+    public boolean roadPositionRight (){
+        for ( int i = this.tour.getCoordinates().inti() ; i < mapConfig.getGrid().length ; i++ ) {
+           if ( mapConfig.getGrid()[ this.tour.getCoordinates().intj() ][ i].getType() == 1 ){
+               return true ;
+           }
+        }
+        return false ;
+    }
+
+    public boolean roadPositionDown (){
+        for ( int j = this.tour.getCoordinates().intj() ; j < mapConfig.getGrid().length ; j++ ) {
+            if ( mapConfig.getGrid()[ j ][ this.tour.getCoordinates().inti()].getType() == 1 ){
+                return true ;
+            }
+        }
+        return false ;
+    }
+
+    public int goodTowerImage (){
+        if (  roadPositionRight() ) {
+            return 3 ; // personnage orienté vers la droite
+        } else if ( ! roadPositionRight()){
+            return 2 ; // personnage orienté vers la gauche
+        } else if ( roadPositionDown() ) {
+            return 1 ; // personnage orienté vers le bas
+        } else {
+            return 0 ; // personnage orienté vers le haut
+        }
+    }
+
+
+
     public String towerFile (){
+        int niveau = this.tour.getLevel() -1 ;
+        if ( towerType().equals("Archer" )){
+            return towerArcher[goodTowerImage()][niveau] ;
+        } else if ( towerType().equals("Cannon" )){
+            return towerCannon[goodTowerImage()][niveau] ;
+        } else if ( towerType().equals("Catapulte" )){
+            return towerCatapulte[goodTowerImage()][niveau] ;
+        } else if ( towerType().equals("Soldiat" )){
+            return towerSoldat[goodTowerImage()][niveau] ;
+        }
         return null ;
     }
     private String findSlash(String p)
@@ -78,11 +126,7 @@ public class TourGraphics extends JComponent {
         }
         return "/";
     }
-
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(tourImage.getImage(), this.tour.getCoordinates().intj(), this.tour.getCoordinates().inti(), width , height , null); // Dessiner l'image à la position (0, 0) pour cet exemple
+    public void paint(Graphics2D g) {
+        g.drawImage(tourImage.getImage(), tour.getCoordinates().intj(), tour.getCoordinates().inti(), width, height, null);
     }
 }

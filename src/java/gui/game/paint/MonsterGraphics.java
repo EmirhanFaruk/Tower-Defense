@@ -98,14 +98,8 @@ public class MonsterGraphics extends JComponent {
         }
     }
 
-    /**
-     * Permet d'update l'image en fonction de la position
-     * @param g the <code>Graphics</code> object to protect
-     */
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(monsterImage.getImage(), monster.getPos().intj(), monster.getPos().inti(),width, height, null);
+    public void paint(Graphics2D g) {
+        g.drawImage(monsterImage.getImage(), monster.getPos().intj(), monster.getPos().inti(), width, height, null);
     }
 
     /**
