@@ -62,11 +62,11 @@ public class GameView extends JFrame
     }
 
 
-    public void startGame(int width, int height)
+    public void startGame(int width, int height, String map, String difficulty, String mode)
     {
         MapConfig mapConfig = null;
         try {
-            mapConfig = new MapConfig(MapConfig.grid("Map4.txt"));
+            mapConfig = new MapConfig(MapConfig.grid(map + ".txt"));
         } catch (Exception e) {
             e.printStackTrace();
         }
