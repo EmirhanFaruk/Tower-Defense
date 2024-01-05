@@ -20,6 +20,7 @@ public class GameWholeScreen extends JPanel
 
     public GameWholeScreen(int width, int height, String map, String difficulty, int wave_count_max, Character character)
     {
+        setSize(width, height);
         game = new Game(map, difficulty, wave_count_max, character);
 
         setLayout(new BorderLayout());

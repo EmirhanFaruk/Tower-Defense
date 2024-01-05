@@ -74,11 +74,24 @@ public class GameView extends JFrame
         }
         if(mode.equals("MARATHON")){ wave_count_max = -1;}
 
-        game = new GameWholeScreen(width, height, map, difficulty, wave_count_max, new Character("Villegois", 100, 10));
+
+        game = new GameWholeScreen(getWidth(), getHeight(), map, difficulty, wave_count_max, new Character("Villegois", 100, 10));
+
+
         main_panel.add(ingame_screen_s, game);
-        pack();
+
         game.make();
         cardLayout.show(main_panel, ingame_screen_s);
+    }
+
+    @Override
+    public void setSize(int width, int height)
+    {
+        super.setSize(width, height);
+        if(main_panel != null)
+        {
+            main_panel.setSize(width, height);
+        }
     }
 
     /**
