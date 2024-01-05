@@ -76,10 +76,6 @@ public class Menu extends JPanel
     // Le JFrame
     private GameView frame;
 
-
-
-
-
     /**
      * Constructeur de Menu.
      * @param width largueur

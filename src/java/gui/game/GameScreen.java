@@ -3,7 +3,10 @@ package gui.game;
 import config.Cellule;
 import config.MapConfig;
 import gui.Coordinate;
-import gui.game.paint.*;
+import gui.GameView;
+import gui.game.paint.Caro;
+import gui.game.paint.MonsterPaintable;
+import gui.game.paint.TourPaintable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,37 +18,44 @@ public class GameScreen extends JPanel
     ArrayList<MonsterGraphics> monster_aff;
     ArrayList<TourGraphics> tour_aff;
 
-    double scale_width, scale_height;
+    private static int tile_width, tile_height;
 
-    JPanel map_panel, button_panel;
+    private int tile_offset_width, tile_offset_height;
 
-    public GameScreen(int width, int height, MapConfig map_config)
+
+
+    public GameScreen(int width, int height)
     {
         caros = new ArrayList<>();
         monster_aff = new ArrayList<>();
         tour_aff = new ArrayList<>();
-        scale_width = (double) width / 16;
-        scale_height = (double) height / 8;
+
+        setSize(width, height);
+        setBackground(new Color(66, 40, 14));
+    }
+
+    public void make(MapConfig map_config)
+    {
+        tile_width = getWidth() / 16; // normalement 16, c'est pour etre sur d'avoir toutes les caros
+        tile_height = getHeight() / 8; // // normalement 8, c'est pour etre sur d'avoir toutes les caros
+
+        tile_offset_width = (getWidth() - (tile_width * 16));
+        tile_offset_height = (getHeight() - (tile_height * 8));
+
 
         makeCaros(map_config);
     }
-
-    private void makeMap_panel()
-    {
-        JPanel res = new JPanel();
-
-    }
-
-
 
     private void makeCaros(MapConfig map_config)
     {
         Cellule[][] tab = map_config.getGrid();
         for(int i = 0; i < tab.length; i++)
         {
-            for(int j = 0; j < tab[i].length; i++)
+            for(int j = 0; j < tab[i].length; j++)
             {
-                caros.add(new Caro(new Coordinate(i, j), 1, 1, scale_width, scale_height, tab[i][j].getType()));
+                // i = height, j = width
+                Coordinate temp_coord = new Coordinate(tile_offset_height + i * tile_height, tile_offset_width + j * tile_width);
+                caros.add(new Caro(temp_coord, tile_width, tile_height, tab[i][j].getType()));
             }
         }
     }
@@ -74,4 +84,19 @@ public class GameScreen extends JPanel
         }
     }
 
+
+    @Override
+    protected void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+
+        // Everything to draw goes here using g2
+        for (Caro caro : caros)
+        {
+            caro.paint(g2);
+        }
+
+        g2.dispose();
+    }
 }

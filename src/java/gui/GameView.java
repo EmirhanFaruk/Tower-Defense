@@ -1,11 +1,15 @@
 package gui;
 
+import config.MapConfig;
 import gui.game.Game;
+import gui.game.GameScreen;
+import gui.game.GameWholeScreen;
 import gui.mainmenu.Menu;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.Map;
 
 public class GameView extends JFrame
 {
@@ -28,8 +32,7 @@ public class GameView extends JFrame
     /**
      * Constructeur de GameView, assigner les attributs
      */
-    public GameView(int width, int height)
-    {
+    public GameView(int width, int height) throws Exception {
         // Les attributs de JPanel
         this.setTitle("Tower Defense");
         this.setSize(width, height);
@@ -39,8 +42,16 @@ public class GameView extends JFrame
 
 
         // On commence par menu
+        /*
         menu = new Menu(width, height, this);
         this.add(menu);
+         */
+
+        MapConfig mapConfig = new MapConfig(MapConfig.grid("Map4.txt"));
+        GameWholeScreen temp = new GameWholeScreen(width, height);
+        this.add(temp);
+        pack();
+        temp.make(mapConfig);
 
         this.setVisible(true);
         // On ne peut pas produire game encore car on n'a pas encore choisit le map.
