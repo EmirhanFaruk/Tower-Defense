@@ -84,10 +84,9 @@ public class GameView extends JFrame
      */
     public void run()
     {
-        while(running)
-        {
+        do {
             mainLoop();
-        }
+        } while (running) ;
     }
 
     /**
@@ -153,12 +152,22 @@ public class GameView extends JFrame
         game.update(16);
     }
 
+    private  void drawGameOver(){
+        game.getGameOverScreen() ;
+    }
+
     /**
      * Partie logique du jeu
      */
     private void logicGame()
     {
-
+        if (game.getGame().gameOverCondition()){
+            drawGameOver();
+            System.out.println("game over");
+        } else {
+            in_main_menu = false ;
+            in_game = true ;
+        }
     }
 
 

@@ -10,10 +10,10 @@ import java.awt.*;
 public class GameWholeScreen extends JPanel
 {
     private GameScreen main_panel;
+    private GameOverScreen gameOverScreen ;
     private JPanel button_panel;
 
     private JPanel mid_button_panel;
-
 
     private Game game;
 
@@ -24,6 +24,7 @@ public class GameWholeScreen extends JPanel
 
         setLayout(new BorderLayout());
         main_panel = new GameScreen(width, height);
+        gameOverScreen = new GameOverScreen() ;
         button_panel = makeButton_panel();
 
         add(main_panel, BorderLayout.CENTER);
@@ -42,7 +43,7 @@ public class GameWholeScreen extends JPanel
     {
         main_panel.update();
         game.updateEnts(delta_time);
-
+        main_panel.updateMonsters() ;
     }
 
     private JLabel makeMessagePanel()
@@ -121,5 +122,12 @@ public class GameWholeScreen extends JPanel
         res.add(makeMenuButtonPanel());
 
         return res;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+    public GameOverScreen getGameOverScreen() {
+        return gameOverScreen;
     }
 }

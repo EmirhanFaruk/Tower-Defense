@@ -16,6 +16,7 @@ public class Game
     private MonsterSpawner monster_spawner;
 
     private ArrayList<Monster> monsters;
+    private Character character ;
 
     // Les tours seront encapsulé dans les cellules, cette liste va avoir leurs references
     private ArrayList<Tour> tours;
@@ -31,6 +32,7 @@ public class Game
         try
         {
             map_config = MapConfig.make(map + ".txt");
+            this.character = character ;
         }
         catch (Exception e)
         {
@@ -104,6 +106,14 @@ public class Game
         {
             this.monster_spawner.update(20000, monsters);
         }
+    }
+
+    public boolean gameOverCondition() {
+        return this.character.getLive() <= 0 ;
+    }
+
+    public void resetGame(){
+
     }
 
     public MapConfig getMap_config() {return map_config;}
