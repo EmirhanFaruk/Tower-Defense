@@ -276,7 +276,7 @@ public class Play extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                frame.startGame(frame.getWidth(), frame.getHeight(), level_name_tag.getText(), difficulty_tag.getText(), mode_tag.getText());
+                frame.startGame(level_name_tag.getText(), difficulty_tag.getText(), mode_tag.getText());
             }
         });
 

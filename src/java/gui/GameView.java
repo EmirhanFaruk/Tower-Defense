@@ -63,7 +63,7 @@ public class GameView extends JFrame
     }
 
 
-    public void startGame(int width, int height, String map, String difficulty, String mode)
+    public void startGame(String map, String difficulty, String mode)
     {
         int wave_count_max = 4;
         switch (difficulty)
