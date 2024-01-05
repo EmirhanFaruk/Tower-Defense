@@ -14,7 +14,7 @@ public class MonsterSpawner
     private final double between_wave_timer_max;
 
     private boolean in_wave = false;
-    private int serie_count_max = 2;
+    private final int serie_count_max = 2;
     private int serie_count = 0;
     private int wave_count;
     private final int wave_count_max; // pour refaire toutes les vagues
@@ -23,14 +23,14 @@ public class MonsterSpawner
     private double monster_timer;
     private final double monster_timer_max;
 
-    private int niveau = 1; // Entre 1-4
+    private int niveau = 0; // Entre 0-3
 
-    private MapConfig map_config;
+    private final MapConfig map_config;
 
-    private Character character ;
+    private final Character character;
 
     /**
-     * Constructeur de MonsterSpawner. Initialisation des attributs.
+     * Constructeur de MonsterSpawner. Initialisation des attributs. wave_count_max = -1 for mode marathon.
      * @param in_serie_timer_max le temps max pour faire apparaitre et tuer les monstres
      * @param between_wave_timer_max le temps max pour attendre le prochain vague
      * @param wave_count_max maximum nombre de vagues
@@ -111,6 +111,10 @@ public class MonsterSpawner
                     between_wave_timer = between_wave_timer_max;
                     serie_count = 0;
                     wave_count++;
+                    if(niveau < 3)
+                    {
+                        niveau++;
+                    }
                 }
             }
         }
@@ -162,7 +166,13 @@ public class MonsterSpawner
         Random random = new Random();
         int type = random.nextInt(3);
         int money = random.nextInt(20);
-        monsters.add(new Monster("Monster of wave " + wave_count, 20 * niveau, 5, money, niveau, type , character , map_config));
+        double live = 20 * niveau + (wave_count * 5);
+        double speed = 5 + (wave_count * 0.1);
+        if(speed > 6)
+        {
+            speed = 6;
+        }
+        monsters.add(new Monster("Monster of wave " + wave_count, live, speed, money, niveau, type, character, map_config));
     }
 
     public boolean getInWave(){
