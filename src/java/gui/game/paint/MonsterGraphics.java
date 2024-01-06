@@ -65,8 +65,8 @@ public class MonsterGraphics {
     public static void paint(Graphics2D g, Monster monster)
     {
         BufferedImage image = getImage(monster);
-        int x = monster.getPos().intj() * width;
-        int y = monster.getPos().inti() * height;
+        int x = (int)( monster.getPos().j() * width );
+        int y = ( int ) (monster.getPos().i() * height );
         g.drawImage(image, x, y, width, height, null);
     }
 
