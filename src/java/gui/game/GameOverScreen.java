@@ -7,11 +7,14 @@ import java.awt.event.ActionListener;
 
 public class GameOverScreen extends JPanel {
 
+    GameOver gameOver ;
     private JLabel gameOverLabel;
     private JButton restartButton;
     private JButton exitButton;
 
     public GameOverScreen() {
+
+        gameOver = new GameOver() ;
 
         // Message de fin de jeu
         gameOverLabel = new JLabel("Game Over!");
@@ -23,7 +26,7 @@ public class GameOverScreen extends JPanel {
         restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Ajoutez ici le code pour redémarrer le jeu
+                gameOver.resetGame();
             }
         });
         add(restartButton);
@@ -33,8 +36,7 @@ public class GameOverScreen extends JPanel {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Ajoutez ici le code pour quitter le jeu
-
+                gameOver.endGame();
             }
         });
         add(exitButton);

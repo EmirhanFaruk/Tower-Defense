@@ -10,7 +10,6 @@ import java.awt.*;
 public class GameWholeScreen extends JPanel
 {
     private GameScreen main_panel;
-    private GameOverScreen gameOverScreen ;
     private JPanel button_panel;
 
     private JPanel mid_button_panel;
@@ -24,7 +23,6 @@ public class GameWholeScreen extends JPanel
 
         setLayout(new BorderLayout());
         main_panel = new GameScreen(width, height);
-        gameOverScreen = new GameOverScreen() ;
         button_panel = makeButton_panel();
 
         add(main_panel, BorderLayout.CENTER);
@@ -126,8 +124,5 @@ public class GameWholeScreen extends JPanel
 
     public Game getGame() {
         return game;
-    }
-    public GameOverScreen getGameOverScreen() {
-        return gameOverScreen;
     }
 }

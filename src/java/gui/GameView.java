@@ -153,7 +153,6 @@ public class GameView extends JFrame
     }
 
     private  void drawGameOver(){
-        game.getGameOverScreen() ;
     }
 
     /**
