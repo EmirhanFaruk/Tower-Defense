@@ -81,11 +81,10 @@ public class MonsterSpawner
      */
     private void timerHandler(double delta_time)
     {
-        double delta_double = (double)delta_time/1000;
         if(between_wave_timer > 0)
         {
             // Not in serie
-            between_wave_timer -= delta_double;
+            between_wave_timer -= delta_time;
             if(between_wave_timer <= 0)
             {
                 between_wave_timer = 0;
@@ -97,8 +96,8 @@ public class MonsterSpawner
         {
             // In serie
             System.out.println("In serie");
-            in_serie_timer -= delta_double;
-            monster_timer -= delta_double;
+            in_serie_timer -= delta_time;
+            monster_timer -= delta_time;
             if(in_serie_timer <= 0)
             {
                 // serie out

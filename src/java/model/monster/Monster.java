@@ -146,8 +146,9 @@ public class Monster {
         System.out.println("Before: Character live = " + character.getLive());
         if (character != null) {
             character.setLive((int) (character.getLive() - getLive()));
+            System.out.println("After: Character live = " + character.getLive());
         }
-        System.out.println("After: Character live = " + character.getLive());
+
         setLive(0);
     }
 
@@ -179,7 +180,7 @@ public class Monster {
     }
 
     public double getLive() {return live;}
-    public double getSpeed(double delta) {return speed * (double)delta/1000;}
+    public double getSpeed(double delta) {return speed * delta;}
     public int getMoney() {return money;}
     public void setLive(double lives) { live = lives ; }
     public boolean isDead () {return this.live <=0;}

@@ -95,15 +95,30 @@ public class Game
     private void updateMonsters(double delta_time)
     {
         System.out.println(delta_time);
-        for(Monster monster : monsters)
+        try
         {
-
-            monster.moveMonster(delta_time);
-            if(monster.entrerDansBase())
+            for (Monster monster : monsters)
             {
-                monster.whenMonsterEnterBase();
-                monsters.remove(monster);
+                monster.moveMonster(delta_time);
+                if (monster.entrerDansBase())
+                {
+                    monster.whenMonsterEnterBase();
+                    try
+                    {
+                        monsters.remove(monster);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                        monster.setDirection("NONE");
+                        monster.setPos(monster.getPos().inti(), monster.getPos().intj());
+                    }
+                }
             }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
 
