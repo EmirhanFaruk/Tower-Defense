@@ -44,8 +44,6 @@ public class GameWholeScreen extends JPanel
 
         add(main_panel, BorderLayout.CENTER);
         add(button_panel, BorderLayout.SOUTH);
-
-
     }
 
     public void make()
@@ -60,6 +58,7 @@ public class GameWholeScreen extends JPanel
         if(playing)
         {
             game.updateEnts(delta_time);
+            repaint();
         }
 
     }
