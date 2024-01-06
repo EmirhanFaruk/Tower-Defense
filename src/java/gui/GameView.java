@@ -121,15 +121,15 @@ public class GameView extends JFrame implements Runnable
         double end = required_fps;
         while(running)
         {
-            start = System.nanoTime();
-            if(end >= required_fps)
+            start = System.currentTimeMillis();
+            if(end >= (double)60/1000)
             {
-                game.update(end/1000000000);
-                end = System.nanoTime() - start;
+                game.update(end);
+                end = System.currentTimeMillis() - start;
             }
             else
             {
-                end += System.nanoTime() - start;
+                end += System.currentTimeMillis() - start;
             }
 
         }
