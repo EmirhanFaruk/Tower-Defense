@@ -45,6 +45,7 @@ public class GameScreen extends JPanel
 
 
         makeCaros(map_config);
+        MonsterGraphics.setWH(tile_width , tile_height);
     }
 
     private void makeCaros(MapConfig map_config)

@@ -20,6 +20,12 @@ public class MonsterGraphics {
 
     public MonsterGraphics( ) {
     }
+    public static void setWH(int w, int h)
+    {
+        width = w;
+        height = h;
+    }
+
     public static ImageIcon loadImage(String imagePath) {
         return new ImageIcon(imagePath);
     }
