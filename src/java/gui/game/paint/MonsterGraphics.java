@@ -69,5 +69,4 @@ public class MonsterGraphics {
         int y = ( int ) (monster.getPos().i() * height );
         g.drawImage(image, x, y, width, height, null);
     }
-
 }
