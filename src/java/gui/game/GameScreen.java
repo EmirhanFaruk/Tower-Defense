@@ -5,6 +5,7 @@ import config.MapConfig;
 import gui.Coordinate;
 import gui.GameView;
 import gui.game.paint.*;
+import model.monster.Monster;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,10 +20,11 @@ public class GameScreen extends JPanel
     private static int tile_width, tile_height;
 
     private int tile_offset_width, tile_offset_height;
+    private GameWholeScreen gameWholeScreen;
 
 
 
-    public GameScreen(int width, int height)
+    public GameScreen(int width, int height ,  GameWholeScreen ghs)
     {
         caros = new ArrayList<>();
         monster_aff = new ArrayList<>();
@@ -72,12 +74,12 @@ public class GameScreen extends JPanel
 
     public void updateMonsters(Graphics2D g)
     {
-        for(MonsterGraphics mp : monster_aff)
-        {
-            mp.update(g);
-            if(mp.getMonster().isDead())
-            {
-                monster_aff.remove(mp);
+        if (  ! gameWholeScreen.getGame().getMonsters().isEmpty()) {
+            for (Monster monster : gameWholeScreen.getGame().getMonsters()) {
+                MonsterGraphics.paint(g, monster);
+                if (monster.isDead()) {
+                    gameWholeScreen.getGame().getMonsters().remove(monster);
+                }
             }
         }
     }

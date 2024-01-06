@@ -126,4 +126,8 @@ public class Game
     }
 
     public MapConfig getMap_config() {return map_config;}
+
+    public ArrayList<Monster> getMonsters() {
+        return monsters;
+    }
 }
