@@ -93,7 +93,9 @@ public class GameView extends JFrame
 
 
         main_panel.add(ingame_screen_s, game);
+        setMinimumSize(getSize());
         pack();
+        setMinimumSize(null);
         game.make();
         cardLayout.show(main_panel, ingame_screen_s);
 
