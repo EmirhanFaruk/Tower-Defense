@@ -100,7 +100,7 @@ public class MonsterPathFinding
      * @param mons le monstre
      * @return si assez proche ou pas
      */
-    private static boolean closeToTarget(Monster mons, long delta)
+    private static boolean closeToTarget(Monster mons, double delta)
     {
         Coordinate pos = mons.getPos();
         Coordinate target = mons.getPath().get(0);
@@ -111,7 +111,7 @@ public class MonsterPathFinding
      * Faire bouger le monstre en fonction de son direction
      * @param mons le monstre
      */
-    public static void moveMonster(Monster mons, long delta)
+    public static void moveMonster(Monster mons, double delta)
     {
         setMonsterDirection(mons);
         if(!mons.getDirection().equals("NONE"))

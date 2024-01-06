@@ -69,11 +69,16 @@ public class Game
     /**
      * Mise a jour des tours et des monstres
      */
-    public void updateEnts(long delta_time)
+    public void updateEnts(double delta_time)
     {
         monster_spawner.update(delta_time, monsters);
         updateTours();
         updateMonsters(delta_time);
+        System.out.println("===================");
+        for (Monster monster : monsters)
+        {
+            System.out.println(monster);
+        }
     }
 
     /**
@@ -87,10 +92,12 @@ public class Game
         }
     }
 
-    private void updateMonsters(long delta_time)
+    private void updateMonsters(double delta_time)
     {
+        System.out.println(delta_time);
         for(Monster monster : monsters)
         {
+
             monster.moveMonster(delta_time);
             if(monster.entrerDansBase())
             {

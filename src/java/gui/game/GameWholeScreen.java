@@ -54,7 +54,7 @@ public class GameWholeScreen extends JPanel
     }
 
 
-    public void update(long delta_time)
+    public void update(double delta_time)
     {
         // Playing = unpaused
         if(playing)

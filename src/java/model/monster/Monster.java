@@ -155,7 +155,7 @@ public class Monster {
         character.setMoney(character.getMoney()+getMoney());
     }
 
-    public void moveMonster(long delta) {MonsterPathFinding.moveMonster(this, delta);}
+    public void moveMonster(double delta) {MonsterPathFinding.moveMonster(this, delta);}
 
     // une fonction qui retourne un boolean si le montre est rentré dans la base
     public boolean entrerDansBase(){
@@ -179,7 +179,7 @@ public class Monster {
     }
 
     public double getLive() {return live;}
-    public double getSpeed(long delta) {return speed * (double)delta/1000;}
+    public double getSpeed(double delta) {return speed * (double)delta/1000;}
     public int getMoney() {return money;}
     public void setLive(double lives) { live = lives ; }
     public boolean isDead () {return this.live <=0;}

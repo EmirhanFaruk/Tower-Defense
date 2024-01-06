@@ -64,7 +64,7 @@ public class MonsterSpawner
      * @param delta_time delta time
      * @param monsters liste de monstre a ajouter
      */
-    public void update(long delta_time, ArrayList<Monster> monsters)
+    public void update(double delta_time, ArrayList<Monster> monsters)
     {
         if (in_wave)
         {
@@ -79,7 +79,7 @@ public class MonsterSpawner
      * | between_wave_timer | in_serie_timer && serie count | repeat
      * @param delta_time delta time
      */
-    private void timerHandler(long delta_time)
+    private void timerHandler(double delta_time)
     {
         double delta_double = (double)delta_time/1000;
         if(between_wave_timer > 0)
