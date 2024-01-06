@@ -25,8 +25,8 @@ public class Monster {
     private final static double[][][] mulp =
             {
                     {{1, 1}, {1.5, 1.1}, {1.8, 1.3}},
-                    {{1, 0.9}, {1.5, 0.9}, {1.8, 0.85}},
-                    {{1, 1.6}, {1.5, 1.45}, {1.8, 1.3}}
+                    {{1, 0.9}, {1.6, 0.9}, {2, 0.85}},
+                    {{1, 1.6}, {1.5, 1.45}, {1.8, 1.45}}
             }; // live, speed. Exemples a changer
 
     private final static int[][] resistance_pourcentage_avoir =
@@ -93,7 +93,9 @@ public class Monster {
         choixResistance();
         this.mapConfig = mapConfig;
         path = MonsterPathFinding.makeMonster_path(mapConfig);
-        this.pos = path.get(0);
+        Coordinate temp = path.get(0);
+        temp.add(0, -1);
+        this.pos = temp.copy();
         this.character = character ;
     }
 
@@ -141,12 +143,11 @@ public class Monster {
         }
     }
 
-    public void whenMonsterEnterBase() {
-        System.out.println("Before: Character live = " + character.getLive());
+    public void whenMonsterEnterBase()
+    {
         if (character != null) {
             character.minusLive((int) getLive());
         }
-        System.out.println("After: Character live = " + character.getLive());
 
         setLive(0);
     }

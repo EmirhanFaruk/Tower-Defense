@@ -164,8 +164,8 @@ public class MonsterSpawner
         Random random = new Random();
         int type = random.nextInt(3);
         int money = random.nextInt(20);
-        double live = 20 * niveau + (wave_count * 5);
-        double speed = 5 + (wave_count * 0.1);
+        double live = 20 * (niveau + 1) + ((wave_count + 1) * 5);
+        double speed = 5 + ((wave_count + 1) * 0.1);
         if(speed > 6)
         {
             speed = 6;
