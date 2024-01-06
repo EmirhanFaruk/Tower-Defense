@@ -39,10 +39,10 @@ public class MonsterGraphics {
     public static ImageIcon getImage(Monster monster){
         int pos = monster.getNiveau() ;
         switch (monster.getResistance()){
-            case " NONE" : return monsterGrayImage[pos] ;
-            case " BULLET" : return monsterBlueImage[pos] ;
-            case  "ARROW" : return monsterGreenImage[pos] ;
-            case " FIRE" : return monsterRedImage[pos] ;
+            case "NONE" : return monsterGrayImage[pos] ;
+            case "BULLET" : return monsterBlueImage[pos] ;
+            case "ARROW" : return monsterGreenImage[pos] ;
+            case "FIRE" : return monsterRedImage[pos] ;
         }
         return null ;
     }
@@ -50,12 +50,11 @@ public class MonsterGraphics {
     public static void paint(Graphics2D g, Monster monster)
     {
         Image image = getImage(monster).getImage();
+        System.err.println(height);
+        System.err.println(width);
         int x = monster.getPos().intj() * width;
         int y = monster.getPos().inti() * height;
         g.drawImage(image, x, y, width, height, null);
     }
 
-    public void update() {
-        repaint();
-    }
 }

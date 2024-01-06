@@ -64,12 +64,8 @@ public class GameWholeScreen extends JPanel {
     }
 
     private JLabel makeMessagePanel() {
-        JLabel message_panel;
-        if (game.gameOverCondition()) {
-            message_panel = new JLabel("Game Over ");
-        } else {
-            message_panel = new JLabel("Welcome to the game!");
-        }
+        JLabel message_panel ;
+        message_panel = new JLabel("Welcome to the game!");
         // Brown background
         message_panel.setBackground(new Color(102, 61, 20));
         message_panel.setForeground(Color.ORANGE);

@@ -99,7 +99,7 @@ public class GameScreen extends JPanel
         }
         updateMonsters(g2);
         updateTours();
-
+        repaint();
         g2.dispose();
     }
 
