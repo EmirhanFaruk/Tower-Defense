@@ -65,13 +65,6 @@ public class GameScreen extends JPanel
         }
     }
 
-
-
-    public void update()
-    {
-        //updateMonsters();
-    }
-
     public void updateTours(Graphics2D g2)
     {
         for(Tour tour : gameWholeScreen.getGame().getTours())
@@ -102,13 +95,5 @@ public class GameScreen extends JPanel
         updateMonsters(g2);
         updateTours(g2);
         g2.dispose();
-    }
-
-    public static int getTile_height() {
-        return tile_height;
-    }
-
-    public static int getTile_width() {
-        return tile_width;
     }
 }
