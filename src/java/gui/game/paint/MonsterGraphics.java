@@ -105,9 +105,9 @@ public class MonsterGraphics extends JComponent {
     /**
      * Une fonction renouvelle endroit où est l'image
      */
-    public void update(){
+    public void update(Graphics2D g){
+        paint(g);
         move();
-        repaint();
     }
 
     /* getteurs et setteur */

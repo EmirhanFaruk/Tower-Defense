@@ -62,7 +62,7 @@ public class GameScreen extends JPanel
 
     public void update()
     {
-        updateMonsters();
+        //updateMonsters();
     }
 
     public void updateTours()
@@ -70,10 +70,11 @@ public class GameScreen extends JPanel
 
     }
 
-    public void updateMonsters()
+    public void updateMonsters(Graphics2D g)
     {
         for(MonsterGraphics mp : monster_aff)
         {
+            mp.update(g);
             if(mp.getMonster().isDead())
             {
                 monster_aff.remove(mp);
@@ -93,7 +94,7 @@ public class GameScreen extends JPanel
         {
             caro.paint(g2);
         }
-        updateMonsters();
+        updateMonsters(g2);
         updateTours();
 
         g2.dispose();
