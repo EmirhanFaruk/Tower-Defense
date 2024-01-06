@@ -68,5 +68,8 @@ public class MonsterGraphics {
         int x = (int)( monster.getPos().j() * width );
         int y = ( int ) (monster.getPos().i() * height );
         g.drawImage(image, x, y, width, height, null);
+        double live_perc = monster.getLive() / monster.getMax_live();
+        Rectangle health_bar = new Rectangle(x, y + height + 2, (int) (width * live_perc), height/5);
+        g.draw(health_bar);
     }
 }
