@@ -12,7 +12,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Map;
 
-public class GameView extends JFrame
+public class GameView extends JFrame implements Runnable
 {
     public static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
 
@@ -32,6 +32,8 @@ public class GameView extends JFrame
 
     private gui.mainmenu.Menu menu;
     private GameWholeScreen game;
+
+    private Thread game_thread;
 
 
     /**
@@ -98,13 +100,30 @@ public class GameView extends JFrame
         setMinimumSize(null);
         game.make();
         cardLayout.show(main_panel, ingame_screen_s);
-
+        running = true;
+        startGame_thread();
     }
 
-    public void quitMainMenu()
+    private void startGame_thread()
     {
-        cardLayout.show(main_panel, main_menu_screen_s);
-        menu.showMenu();
+        game_thread = new Thread(this);
+        game_thread.start();
+    }
+
+    /**
+     * Une func qui fait rouler le mainLoop
+     */
+    @Override
+    public void run()
+    {
+        long start = System.currentTimeMillis();
+        long end = 1000;
+        while(running)
+        {
+            start = System.currentTimeMillis();
+            game.update(end);
+            end = System.currentTimeMillis() - start;
+        }
     }
 
 
@@ -118,87 +137,13 @@ public class GameView extends JFrame
         }
     }
 
-    /**
-     * Une func qui fait rouler le mainLoop
-     */
-    public void run()
+    public void quitMainMenu()
     {
-        while(running)
-        {
-            mainLoop();
-        }
+        cardLayout.show(main_panel, main_menu_screen_s);
+        menu.showMenu();
+        running = false;
     }
 
-    /**
-     * Une func qui contient les mise a jours de code et de graphics de jeu
-     */
-    private void mainLoop()
-    {
-        updateCode();
-        updateGraphs();
-    }
-
-    /**
-     * Une function qui ensemble les mise a jours de monstres, les tours...
-     */
-    private void updateCode()
-    {
-        if(in_main_menu)
-        {
-            logicMenu();
-        }
-        else if(in_game)
-        {
-            logicGame();
-        }
-    }
-
-    /**
-     * Mettre a jour le panel pour afficher les elements de jeu
-     */
-    private void updateGraphs()
-    {
-        if(in_main_menu)
-        {
-            drawMenu();
-        }
-        else if(in_game)
-        {
-            drawGame();
-        }
-    }
-
-    /**
-     * Afficher le menu
-     */
-    private void drawMenu()
-    {
-
-    }
-
-    /**
-     * Partie logique de Menu
-     */
-    private void logicMenu()
-    {
-
-    }
-
-    /**
-     * Afficher le jeu
-     */
-    private void drawGame()
-    {
-
-    }
-
-    /**
-     * Partie logique du jeu
-     */
-    private void logicGame()
-    {
-
-    }
 
 
     public GraphicsDevice getDevice()
