@@ -55,6 +55,8 @@ public class MonsterSpawner
 
         this.map_config = map_config;
         this.character = character ;
+        
+        MonsterPathFinding.makeNewMonster_path(map_config);
     }
 
     public void startWaves() {in_wave = true;}

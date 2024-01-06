@@ -29,20 +29,33 @@ public class Game
      */
     public Game(String map, String difficulty, int wave_count_max, Character character)
     {
+        setMap_config(map);
+        this.character = character;
+
+        makeMonsterSpawner(difficulty, wave_count_max);
+
+        monsters = new ArrayList<>();
+        tours = new ArrayList<>();
+        apparitionMonster();
+    }
+
+    public void setMap_config(String map)
+    {
         try
         {
             map_config = MapConfig.make(map + ".txt");
-            this.character = character ;
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+    }
 
-
+    public void makeMonsterSpawner(String difficulty, int wave_count_max)
+    {
         // Default values, same as NORMAL
         int in_serie_timer_max = 20,
-        between_wave_timer_max = 5;
+                between_wave_timer_max = 5;
         double monster_timer_max = 1;
 
         switch (difficulty)
@@ -61,10 +74,9 @@ public class Game
 
 
         monster_spawner = new MonsterSpawner(in_serie_timer_max, between_wave_timer_max, wave_count_max, monster_timer_max, map_config, character);
-        monsters = new ArrayList<>();
-        tours = new ArrayList<>();
-        apparitionMonster();
+
     }
+
 
     /**
      * Mise a jour des tours et des monstres
