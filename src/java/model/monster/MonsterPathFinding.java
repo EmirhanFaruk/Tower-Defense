@@ -95,23 +95,25 @@ public class MonsterPathFinding
         }
     }
 
+
     /**
      * Vérifie si la vitesse de monstre est plus grand de son prochain place à aller
      * @param mons le monstre
      * @return si assez proche ou pas
      */
-    private static boolean closeToTarget(Monster mons, long delta)
+    private static boolean closeToTarget(Monster mons, double delta)
     {
         Coordinate pos = mons.getPos();
         Coordinate target = mons.getPath().get(0);
-        return Math.abs(pos.i() - target.i()) < mons.getSpeed(delta) && Math.abs(pos.j() - target.j()) < mons.getSpeed(delta);
+        boolean bool = Math.abs(pos.i() - target.i()) < 0.01 && Math.abs(pos.j() - target.j()) < 0.01;
+        return bool || Math.abs(pos.i() - target.i()) < mons.getSpeed(delta) && Math.abs(pos.j() - target.j()) < mons.getSpeed(delta);
     }
 
     /**
      * Faire bouger le monstre en fonction de son direction
      * @param mons le monstre
      */
-    public static void moveMonster(Monster mons, long delta)
+    public static void moveMonster(Monster mons, double delta)
     {
         setMonsterDirection(mons);
         if(!mons.getDirection().equals("NONE"))
@@ -123,12 +125,13 @@ public class MonsterPathFinding
             }
             else
             {
+                double speed = mons.getSpeed(delta);
                 switch (mons.getDirection())
                 {
-                    case "NORTH": mons.addPos(mons.getSpeed(delta), 0);
-                    case "SOUTH": mons.addPos(-mons.getSpeed(delta), 0);
-                    case "EAST": mons.addPos(0, mons.getSpeed(delta));
-                    case "WEST": mons.addPos(0, -mons.getSpeed(delta));
+                    case "NORTH": mons.addPos(speed, 0); break;
+                    case "SOUTH": mons.addPos(-speed, 0); break;
+                    case "EAST": mons.addPos(0, speed); break;
+                    case "WEST": mons.addPos(0, -speed); break;
                 }
             }
         }

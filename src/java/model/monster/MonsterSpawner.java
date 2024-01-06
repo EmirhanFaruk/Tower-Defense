@@ -64,7 +64,7 @@ public class MonsterSpawner
      * @param delta_time delta time
      * @param monsters liste de monstre a ajouter
      */
-    public void update(long delta_time, ArrayList<Monster> monsters)
+    public void update(double delta_time, ArrayList<Monster> monsters)
     {
         if (in_wave)
         {
@@ -79,13 +79,12 @@ public class MonsterSpawner
      * | between_wave_timer | in_serie_timer && serie count | repeat
      * @param delta_time delta time
      */
-    private void timerHandler(long delta_time)
+    private void timerHandler(double delta_time)
     {
-        double delta_double = (double)delta_time/1000;
         if(between_wave_timer > 0)
         {
             // Not in serie
-            between_wave_timer -= delta_double;
+            between_wave_timer -= delta_time;
             if(between_wave_timer <= 0)
             {
                 between_wave_timer = 0;
@@ -97,8 +96,8 @@ public class MonsterSpawner
         {
             // In serie
             System.out.println("In serie");
-            in_serie_timer -= delta_double;
-            monster_timer -= delta_double;
+            in_serie_timer -= delta_time;
+            monster_timer -= delta_time;
             if(in_serie_timer <= 0)
             {
                 // serie out
@@ -172,7 +171,7 @@ public class MonsterSpawner
         {
             speed = 6;
         }
-        monsters.add(new Monster("Monster of wave " + wave_count, live, speed, money, niveau, type, character, map_config));
+        monsters.add(new Monster("Monster of wave " + wave_count + ", count " + monster_per_serie, live, speed, money, niveau, type, character, map_config));
     }
 
     public boolean getInWave(){

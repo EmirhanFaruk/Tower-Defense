@@ -116,13 +116,22 @@ public class GameView extends JFrame implements Runnable
     @Override
     public void run()
     {
-        long start = System.currentTimeMillis();
-        long end = 1000;
+        double start;
+        double required_fps = (double) 1000000000/60;
+        double end = required_fps;
         while(running)
         {
-            start = System.currentTimeMillis();
-            game.update(end);
-            end = System.currentTimeMillis() - start;
+            start = System.nanoTime();
+            if(end >= required_fps)
+            {
+                game.update(end/1000000000);
+                end = System.nanoTime() - start;
+            }
+            else
+            {
+                end += System.nanoTime() - start;
+            }
+
         }
     }
 
