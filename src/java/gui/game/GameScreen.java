@@ -23,8 +23,6 @@ public class GameScreen extends JPanel
     private int tile_offset_width, tile_offset_height;
     private GameWholeScreen gameWholeScreen;
 
-    private GameWholeScreen gameWholeScreen;
-
 
 
     public GameScreen(int width, int height, GameWholeScreen ghs)
@@ -84,14 +82,8 @@ public class GameScreen extends JPanel
 
     public void updateMonsters(Graphics2D g)
     {
-        if (  ! gameWholeScreen.getGame().getMonsters().isEmpty()) {
-            for (Monster monster : gameWholeScreen.getGame().getMonsters()) {
-                if (monster.isDead()) {
-                    gameWholeScreen.getGame().getMonsters().remove(monster);
-                } else {
-                    MonsterGraphics.paint(g, monster);
-                }
-            }
+        for (Monster monster : gameWholeScreen.getGame().getMonsters()) {
+            MonsterGraphics.paint(g, monster);
         }
     }
 
