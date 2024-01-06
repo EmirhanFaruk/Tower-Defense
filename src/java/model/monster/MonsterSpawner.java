@@ -95,7 +95,6 @@ public class MonsterSpawner
         else
         {
             // In serie
-            System.out.println("In serie");
             in_serie_timer -= delta_time;
             monster_timer -= delta_time;
             if(in_serie_timer <= 0)
@@ -177,4 +176,8 @@ public class MonsterSpawner
     public boolean getInWave(){
         return this.in_wave ;
     }
+
+    public int getWave_count() {return wave_count;}
+
+    public int getWave_count_max() {return wave_count_max;}
 }

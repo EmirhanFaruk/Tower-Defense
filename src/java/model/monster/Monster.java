@@ -145,9 +145,9 @@ public class Monster {
     public void whenMonsterEnterBase() {
         System.out.println("Before: Character live = " + character.getLive());
         if (character != null) {
-            character.setLive((int) (character.getLive() - getLive()));
-            System.out.println("After: Character live = " + character.getLive());
+            character.minusLive((int) getLive());
         }
+        System.out.println("After: Character live = " + character.getLive());
 
         setLive(0);
     }

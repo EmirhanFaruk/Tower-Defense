@@ -60,6 +60,28 @@ public class GameWholeScreen extends JPanel
         if(playing)
         {
             game.updateEnts(delta_time);
+            String message;
+            if(game.gameOverCondition())
+            {
+                message = "Game Over!";
+                playing = false;
+            }
+            else
+            {
+                Character character = game.getCharacter();
+                int wc = game.getMonster_spawner().getWave_count();
+                message = "Money: " + character.getMoney() + ", Live: " + character.getLive() + ", Wave: " + wc + "/";
+                int wcm = game.getMonster_spawner().getWave_count_max();
+                if(wcm != -1)
+                {
+                    message = message + wcm;
+                }
+                else
+                {
+                    message = message + "infinite";
+                }
+            }
+            updateMessage(message);
             repaint();
         }
 
@@ -68,11 +90,7 @@ public class GameWholeScreen extends JPanel
     private JLabel makeMessagePanel()
     {
         JLabel message_panel ;
-        if (game.gameOverCondition()){
-            message_panel = new JLabel("Game Over ");
-        } else {
-            message_panel = new JLabel("Welcome to the game!");
-        }
+        message_panel = new JLabel("Welcome to the game!");
         // Brown background
         message_panel.setBackground(new Color(102, 61, 20));
         message_panel.setForeground(Color.ORANGE);
@@ -250,7 +268,14 @@ public class GameWholeScreen extends JPanel
         return res;
     }
 
-    public Game getGame() {
-        return game;
+    public void updateMessage(String text)
+    {
+        if (message_panel != null) {
+            SwingUtilities.invokeLater(() -> {
+                message_panel.setText(text);
+            });
+        }
     }
+
+    public Game getGame() {return game;}
 }

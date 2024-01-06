@@ -74,11 +74,6 @@ public class Game
         monster_spawner.update(delta_time, monsters);
         updateTours();
         updateMonsters(delta_time);
-        System.out.println("===================");
-        for (Monster monster : monsters)
-        {
-            System.out.println(monster);
-        }
     }
 
     /**
@@ -117,6 +112,8 @@ public class Game
         }
     }
 
+    public MonsterSpawner getMonster_spawner() {return monster_spawner;}
+
     public boolean gameOverCondition() {
         return this.character.getLive() <= 0 ;
     }
@@ -124,6 +121,8 @@ public class Game
     public void resetGame(){
 
     }
+
+    public Character getCharacter() {return character;}
 
     public MapConfig getMap_config() {return map_config;}
 }
