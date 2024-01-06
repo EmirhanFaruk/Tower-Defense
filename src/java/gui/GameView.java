@@ -116,8 +116,9 @@ public class GameView extends JFrame implements Runnable
     @Override
     public void run()
     {
-        long start = System.currentTimeMillis();
-        long end = 1000;
+        double start;
+        double required_fps = (double) 1000000000/60;
+        double end = required_fps;
         while(running)
         {
             start = System.currentTimeMillis();
@@ -152,6 +153,37 @@ public class GameView extends JFrame implements Runnable
         running = false;
     }
 
+    /**
+     * Afficher le menu
+     */
+    private void drawMenu()
+    {
+
+    }
+
+    /**
+     * Partie logique de Menu
+     */
+    private void logicMenu()
+    {
+
+    }
+
+    /**
+     * Afficher le jeu
+     */
+    private void drawGame()
+    {
+
+    }
+
+    /**
+     * Partie logique du jeu
+     */
+    private void logicGame()
+    {
+
+    }
 
 
     public GraphicsDevice getDevice()

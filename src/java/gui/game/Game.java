@@ -16,6 +16,7 @@ public class Game
     private MonsterSpawner monster_spawner;
 
     private ArrayList<Monster> monsters;
+    private Character character ;
 
     // Les tours seront encapsulé dans les cellules, cette liste va avoir leurs references
     private ArrayList<Tour> tours;
@@ -31,6 +32,7 @@ public class Game
         try
         {
             map_config = MapConfig.make(map + ".txt");
+            this.character = character ;
         }
         catch (Exception e)
         {
@@ -61,16 +63,22 @@ public class Game
         monster_spawner = new MonsterSpawner(in_serie_timer_max, between_wave_timer_max, wave_count_max, monster_timer_max, map_config, character);
         monsters = new ArrayList<>();
         tours = new ArrayList<>();
+        apparitionMonster();
     }
 
     /**
      * Mise a jour des tours et des monstres
      */
-    public void updateEnts(long delta_time)
+    public void updateEnts(double delta_time)
     {
         monster_spawner.update(delta_time, monsters);
         updateTours();
         updateMonsters(delta_time);
+        System.out.println("===================");
+        for (Monster monster : monsters)
+        {
+            System.out.println(monster);
+        }
     }
 
     /**
@@ -84,19 +92,39 @@ public class Game
         }
     }
 
-    private void updateMonsters(long delta_time)
+    private void updateMonsters(double delta_time)
     {
-        for(Monster monster : monsters)
-        {
+        ArrayList<Monster> monstersToRemove = new ArrayList<>();
+
+        for (Monster monster : monsters) {
             monster.moveMonster(delta_time);
-            if(monster.entrerDansBase())
-            {
+
+            if (monster.entrerDansBase()) {
                 monster.whenMonsterEnterBase();
-                monsters.remove(monster);
+                monstersToRemove.add(monster);
             }
         }
+
+        // Remove monsters outside the loop to avoid concurrent modification
+        monsters.removeAll(monstersToRemove);
+    }
+
+    public void apparitionMonster(){
+        this.monster_spawner.startWaves();
+        if (this.monster_spawner.getInWave())
+        {
+            this.monster_spawner.update(20000, monsters);
+        }
+    }
+
+    public boolean gameOverCondition() {
+        return this.character.getLive() <= 0 ;
     }
 
 
     public MapConfig getMap_config() {return map_config;}
+
+    public ArrayList<Monster> getMonsters() {
+        return monsters;
+    }
 }

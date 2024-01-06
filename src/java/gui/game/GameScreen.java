@@ -4,9 +4,8 @@ import config.Cellule;
 import config.MapConfig;
 import gui.Coordinate;
 import gui.GameView;
-import gui.game.paint.Caro;
-import gui.game.paint.MonsterPaintable;
-import gui.game.paint.TourPaintable;
+import gui.game.paint.*;
+import model.monster.Monster;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,17 +14,19 @@ import java.util.ArrayList;
 public class GameScreen extends JPanel
 {
     ArrayList<Caro> caros;
-    ArrayList<MonsterPaintable> monster_aff;
-    ArrayList<TourPaintable> tour_aff;
+    ArrayList<MonsterGraphics> monster_aff;
+    ArrayList<TourGraphics> tour_aff;
 
     private static int tile_width, tile_height;
 
     private int tile_offset_width, tile_offset_height;
+    private GameWholeScreen gameWholeScreen;
 
 
 
-    public GameScreen(int width, int height)
+    public GameScreen(int width, int height ,  GameWholeScreen ghs)
     {
+        gameWholeScreen = ghs ;
         caros = new ArrayList<>();
         monster_aff = new ArrayList<>();
         tour_aff = new ArrayList<>();
@@ -44,6 +45,7 @@ public class GameScreen extends JPanel
 
 
         makeCaros(map_config);
+        MonsterGraphics.setWH(tile_width , tile_height);
     }
 
     private void makeCaros(MapConfig map_config)
@@ -64,7 +66,7 @@ public class GameScreen extends JPanel
 
     public void update()
     {
-
+        //updateMonsters();
     }
 
     public void updateTours()
@@ -72,13 +74,15 @@ public class GameScreen extends JPanel
 
     }
 
-    public void updateMonsters()
+    public void updateMonsters(Graphics2D g)
     {
-        for(MonsterPaintable mp : monster_aff)
-        {
-            if(mp.getMonster().isDead())
-            {
-                monster_aff.remove(mp);
+        if (  ! gameWholeScreen.getGame().getMonsters().isEmpty()) {
+            for (Monster monster : gameWholeScreen.getGame().getMonsters()) {
+                if (monster.isDead()) {
+                    gameWholeScreen.getGame().getMonsters().remove(monster);
+                } else {
+                    MonsterGraphics.paint(g, monster);
+                }
             }
         }
     }
@@ -95,9 +99,16 @@ public class GameScreen extends JPanel
         {
             caro.paint(g2);
         }
-        updateMonsters();
+        updateMonsters(g2);
         updateTours();
-
         g2.dispose();
+    }
+
+    public static int getTile_height() {
+        return tile_height;
+    }
+
+    public static int getTile_width() {
+        return tile_width;
     }
 }
