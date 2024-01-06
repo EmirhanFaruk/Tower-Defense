@@ -39,7 +39,7 @@ public class GameWholeScreen extends JPanel
         game = new Game(map, difficulty, wave_count_max, character);
 
         setLayout(new BorderLayout());
-        main_panel = new GameScreen(width, height);
+        main_panel = new GameScreen(width, height, this);
         button_panel = makeButton_panel();
 
         add(main_panel, BorderLayout.CENTER);

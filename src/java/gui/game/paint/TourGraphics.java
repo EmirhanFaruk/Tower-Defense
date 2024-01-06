@@ -8,9 +8,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
 
-public class TourGraphics extends JComponent {
+public class TourGraphics
+{
     private static final String path = System.getProperty("user.dir") ;
-    static String s = findSlash(path);
+    private static final String s = findSlash(path);
     private static final String[][] towerArcher =
             {{"TowerArcherBack1.png","TowerArcherBack2.png" ,"TowerArcherBack3.png"},
             {"TowerArcherFront1.png","TowerArcherFront2.png","TowerArcherFront3.png"},
@@ -38,11 +39,9 @@ public class TourGraphics extends JComponent {
     private static final ImageIcon[][] towerCatapulteIm = new ImageIcon[towerCatapulte.length][towerCatapulte[0].length];
     private static final ImageIcon[][] towerSoldatIm = new ImageIcon[towerSoldat.length][towerSoldat[0].length];
 
-    static int width , height ;
+    private static int width , height ;
 
     public TourGraphics() {
-        height = GameScreen.getTile_height() ;
-        width = GameScreen.getTile_width() ;
     }
 
     public static void setWH(int w, int h)
@@ -50,16 +49,9 @@ public class TourGraphics extends JComponent {
         width = w;
         height = h;
     }
-    private static String chooseTowerIcon(Tour tour) {
-        try {
-            return path + s + "src" + s + "resources" + s + "images" + s + "Tower" + s + towerType(tour) + s + towerFile();
-        } catch (Exception e){
-            e.fillInStackTrace() ;
-            return null ;
-        }
 
-    }
-    public ImageIcon loadImage(String imagePath) {
+
+    public static ImageIcon loadImage(String imagePath) {
         return new ImageIcon(imagePath);
     }
 
@@ -74,7 +66,7 @@ public class TourGraphics extends JComponent {
             {
                 for(int j = 0; j < lists[l][0].length; j++)
                 {
-                    lists[l][i][j] = new ImageIcon(fp + st_lists[l][i][j]);
+                    lists[l][i][j] = loadImage(fp + st_lists[l][i][j]);
                 }
             }
         }
@@ -122,19 +114,19 @@ public class TourGraphics extends JComponent {
 
 
 
-    public static String towerFile (Tour tour, MapConfig mapConfig){
+    public static ImageIcon getImage(Tour tour, MapConfig mapConfig){
         int niveau = tour.getLevel() -1 ;
         switch (towerType(tour))
         {
-            case "Archer" : return towerArcher[goodTowerImage(tour, mapConfig)][niveau];
-            case "Cannon" : return towerCannon[goodTowerImage(tour, mapConfig)][niveau];
-            case "Catapulte" : return towerCatapulte[goodTowerImage(tour, mapConfig)][niveau];
-            case "Soldat" : return towerSoldat[goodTowerImage(tour, mapConfig)][niveau];
+            case "Archer" : return towerArcherIm[goodTowerImage(tour, mapConfig)][niveau];
+            case "Cannon" : return towerCannonIm[goodTowerImage(tour, mapConfig)][niveau];
+            case "Catapulte" : return towerCatapulteIm[goodTowerImage(tour, mapConfig)][niveau];
+            case "Soldat" : return towerSoldatIm[goodTowerImage(tour, mapConfig)][niveau];
 
         }
-        return towerArcher[goodTowerImage(tour, mapConfig)][niveau];
+        return towerArcherIm[goodTowerImage(tour, mapConfig)][niveau];
     }
-    private String findSlash(String p)
+    private static String findSlash(String p)
     {
         for(int i = 0; i < p.length(); i++)
         {
@@ -146,7 +138,11 @@ public class TourGraphics extends JComponent {
         }
         return "/";
     }
-    public void paint(Graphics2D g) {
-        g.drawImage(tourImage.getImage(), tour.getCoordinates().intj(), tour.getCoordinates().inti(), width, height, null);
+    public static void paint(Graphics2D g, Tour tour, MapConfig mapConfig)
+    {
+        Image image = getImage(tour, mapConfig).getImage();
+        int x = tour.getCoordinates().intj() * width;
+        int y = tour.getCoordinates().inti() * height;
+        g.drawImage(image, x, y, width, height, null);
     }
 }

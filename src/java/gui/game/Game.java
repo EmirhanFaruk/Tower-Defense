@@ -125,4 +125,8 @@ public class Game
     public Character getCharacter() {return character;}
 
     public MapConfig getMap_config() {return map_config;}
+
+    public ArrayList<Monster> getMonsters() {return monsters;}
+
+    public ArrayList<Tour> getTours() {return tours;}
 }
