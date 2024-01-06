@@ -23,7 +23,7 @@ public class MonsterSpawner
     private double monster_timer;
     private final double monster_timer_max;
 
-    private int niveau = 0; // Entre 0-3
+    private int niveau = 1; // Entre 1-3
 
     private final MapConfig map_config;
 
