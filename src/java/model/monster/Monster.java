@@ -63,7 +63,7 @@ public class Monster {
         this.name = name;
         this.live = live * mulp[type][niveau][0];
         this.speed = speed * mulp[type][niveau][1];
-        this.niveau = niveau; // niveau est entre 1-3
+        this.niveau = niveau; // niveau est entre 0-2
         this.money = money;
         this.type  = type;
         choixResistance();
