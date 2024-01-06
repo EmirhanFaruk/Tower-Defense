@@ -94,7 +94,6 @@ public class Game
 
     private void updateMonsters(double delta_time)
     {
-        System.out.println(delta_time);
         try
         {
             for (Monster monster : monsters)

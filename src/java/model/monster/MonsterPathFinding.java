@@ -95,6 +95,7 @@ public class MonsterPathFinding
         }
     }
 
+
     /**
      * Vérifie si la vitesse de monstre est plus grand de son prochain place à aller
      * @param mons le monstre
@@ -104,7 +105,8 @@ public class MonsterPathFinding
     {
         Coordinate pos = mons.getPos();
         Coordinate target = mons.getPath().get(0);
-        return Math.abs(pos.i() - target.i()) < mons.getSpeed(delta) && Math.abs(pos.j() - target.j()) < mons.getSpeed(delta);
+        boolean bool = Math.abs(pos.i() - target.i()) < 0.01 && Math.abs(pos.j() - target.j()) < 0.01;
+        return bool || Math.abs(pos.i() - target.i()) < mons.getSpeed(delta) && Math.abs(pos.j() - target.j()) < mons.getSpeed(delta);
     }
 
     /**

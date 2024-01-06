@@ -171,7 +171,7 @@ public class MonsterSpawner
         {
             speed = 6;
         }
-        monsters.add(new Monster("Monster of wave " + wave_count, live, speed, money, niveau, type, character, map_config));
+        monsters.add(new Monster("Monster of wave " + wave_count + ", count " + monster_per_serie, live, speed, money, niveau, type, character, map_config));
     }
 
     public boolean getInWave(){
