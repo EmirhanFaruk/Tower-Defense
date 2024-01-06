@@ -2,16 +2,18 @@ package gui.game;
 
 import config.MapConfig;
 import gui.GameView;
+import gui.game.paint.MonsterGraphics;
 import model.Character;
+import model.monster.Monster;
 import model.tour.Catapulte;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-public class GameWholeScreen extends JPanel
-{
+public class GameWholeScreen extends JPanel {
     private GameScreen main_panel;
     private JPanel button_panel;
 
@@ -31,8 +33,7 @@ public class GameWholeScreen extends JPanel
     private GameView frame;
 
 
-    public GameWholeScreen(int width, int height, String map, String difficulty, int wave_count_max, Character character, GameView frame)
-    {
+    public GameWholeScreen(int width, int height, String map, String difficulty, int wave_count_max, Character character, GameView frame) {
         this.frame = frame;
 
         setSize(width, height);
@@ -48,17 +49,14 @@ public class GameWholeScreen extends JPanel
 
     }
 
-    public void make()
-    {
+    public void make() {
         main_panel.make(game.getMap_config());
     }
 
 
-    public void update(double delta_time)
-    {
+    public void update(double delta_time) {
         // Playing = unpaused
-        if(playing)
-        {
+        if (playing) {
             game.updateEnts(delta_time);
             String message;
             if(game.gameOverCondition())
@@ -87,8 +85,7 @@ public class GameWholeScreen extends JPanel
 
     }
 
-    private JLabel makeMessagePanel()
-    {
+    private JLabel makeMessagePanel() {
         JLabel message_panel ;
         message_panel = new JLabel("Welcome to the game!");
         // Brown background
@@ -100,10 +97,10 @@ public class GameWholeScreen extends JPanel
 
     /**
      * "Placehoder" pour le menu d'achat de tour
+     *
      * @return
      */
-    private JPanel makeBrownPanel()
-    {
+    private JPanel makeBrownPanel() {
         JPanel res = new JPanel();
         // Brown background
         res.setBackground(new Color(102, 61, 20));
@@ -111,8 +108,7 @@ public class GameWholeScreen extends JPanel
         return res;
     }
 
-    private JPanel makeMenuPanel()
-    {
+    private JPanel makeMenuPanel() {
         JPanel res = new JPanel();
         // Brown background
         res.setBackground(new Color(102, 61, 20));
@@ -123,17 +119,14 @@ public class GameWholeScreen extends JPanel
                 menu_button = new JButton("Quit to Main Menu");
 
         JButton[] menu_list = {pause_button, menu_button};
-        for(JButton button : menu_list)
-        {
+        for (JButton button : menu_list) {
             button.setBackground(new Color(102, 61, 20));
             button.setForeground(Color.ORANGE);
         }
 
-        pause_button.addActionListener(new ActionListener()
-        {
+        pause_button.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
                 playing = !playing;
 
                 String message;
@@ -163,11 +156,9 @@ public class GameWholeScreen extends JPanel
             }
         });
 
-        menu_button.addActionListener(new ActionListener()
-        {
+        menu_button.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
                 frame.quitMainMenu();
             }
         });
@@ -178,8 +169,7 @@ public class GameWholeScreen extends JPanel
         return res;
     }
 
-    private JPanel makeTourPanel()
-    {
+    private JPanel makeTourPanel() {
         JPanel res = new JPanel();
         // Brown background
         res.setBackground(new Color(102, 61, 20));
@@ -187,28 +177,21 @@ public class GameWholeScreen extends JPanel
         res.setLayout(new GridLayout(1, 5));
 
         String[] tour_list = {"Archer", "Canon", "Catapulte", "Soldat", "Upgrade"};
-        for(String choice : tour_list)
-        {
+        for (String choice : tour_list) {
             JButton button = new JButton(choice);
             button.setBackground(new Color(102, 61, 20));
             button.setForeground(Color.ORANGE);
-            if(!choice.equals("Upgrade")) {
-                ActionListener listener = new ActionListener()
-                {
+            if (!choice.equals("Upgrade")) {
+                ActionListener listener = new ActionListener() {
                     @Override
-                    public void actionPerformed(ActionEvent e)
-                    {
+                    public void actionPerformed(ActionEvent e) {
                         // Upgrade Tour
                     }
                 };
-            }
-            else
-            {
-                ActionListener listener = new ActionListener()
-                {
+            } else {
+                ActionListener listener = new ActionListener() {
                     @Override
-                    public void actionPerformed(ActionEvent e)
-                    {
+                    public void actionPerformed(ActionEvent e) {
                         // Add Tour
                     }
                 };
@@ -220,10 +203,7 @@ public class GameWholeScreen extends JPanel
     }
 
 
-
-
-    private JPanel makeMenuButtonPanel()
-    {
+    private JPanel makeMenuButtonPanel() {
         JPanel res = new JPanel();
         res.setLayout(new GridLayout(1, 2));
 
@@ -231,26 +211,21 @@ public class GameWholeScreen extends JPanel
         JButton ta = new JButton("Acheter Tour");
         JButton menu = new JButton("Menu");
         JButton[] temp = {ta, menu};
-        for(JButton button : temp)
-        {
+        for (JButton button : temp) {
             button.setBackground(new Color(102, 61, 20));
             button.setForeground(Color.ORANGE);
         }
 
-        ta.addActionListener(new ActionListener()
-        {
+        ta.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
                 cardLayout.show(mid_button_panel, menu_tour);
             }
         });
 
-        menu.addActionListener(new ActionListener()
-        {
+        menu.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
                 cardLayout.show(mid_button_panel, menu_menu);
             }
         });
@@ -265,10 +240,10 @@ public class GameWholeScreen extends JPanel
 
     /**
      * Faire le panel des buttons qui contient acheter, pause et quit
+     *
      * @return
      */
-    private JPanel makeButton_panel()
-    {
+    private JPanel makeButton_panel() {
         JPanel res = new JPanel();
         res.setBackground(new Color(66, 40, 14));
 

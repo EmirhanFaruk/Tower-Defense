@@ -6,6 +6,7 @@ import gui.Coordinate;
 import gui.GameView;
 import gui.game.paint.*;
 import model.tour.Tour;
+import model.monster.Monster;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,8 +21,10 @@ public class GameScreen extends JPanel
     private static int tile_width, tile_height;
 
     private int tile_offset_width, tile_offset_height;
+    private GameWholeScreen gameWholeScreen;
 
     private GameWholeScreen gameWholeScreen;
+
 
 
     public GameScreen(int width, int height, GameWholeScreen ghs)
@@ -47,6 +50,7 @@ public class GameScreen extends JPanel
         TourGraphics.setWH(tile_width, tile_height);
         TourGraphics.setImages();
         makeCaros(map_config);
+        MonsterGraphics.setWH(tile_width , tile_height);
     }
 
     private void makeCaros(MapConfig map_config)
@@ -80,12 +84,13 @@ public class GameScreen extends JPanel
 
     public void updateMonsters(Graphics2D g)
     {
-        for(MonsterGraphics mp : monster_aff)
-        {
-            mp.update(g);
-            if(mp.getMonster().isDead())
-            {
-                monster_aff.remove(mp);
+        if (  ! gameWholeScreen.getGame().getMonsters().isEmpty()) {
+            for (Monster monster : gameWholeScreen.getGame().getMonsters()) {
+                if (monster.isDead()) {
+                    gameWholeScreen.getGame().getMonsters().remove(monster);
+                } else {
+                    MonsterGraphics.paint(g, monster);
+                }
             }
         }
     }
@@ -104,7 +109,6 @@ public class GameScreen extends JPanel
         }
         updateMonsters(g2);
         updateTours(g2);
-
         g2.dispose();
     }
 

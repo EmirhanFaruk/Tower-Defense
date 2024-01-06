@@ -118,9 +118,6 @@ public class Game
         return this.character.getLive() <= 0 ;
     }
 
-    public void resetGame(){
-
-    }
 
     public Character getCharacter() {return character;}
 
