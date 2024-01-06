@@ -145,7 +145,6 @@ public class Monster {
 
     public void whenMonsterEnterBase()
     {
-        System.out.println(live);
         if (character != null) {
             character.minusLive((int) getLive());
         }
