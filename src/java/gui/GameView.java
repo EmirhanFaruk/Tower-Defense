@@ -121,8 +121,16 @@ public class GameView extends JFrame implements Runnable
         while(running)
         {
             start = System.currentTimeMillis();
-            game.update(end);
-            end = System.currentTimeMillis() - start;
+            if(end >= (double)60/1000)
+            {
+                game.update(end);
+                end = System.currentTimeMillis() - start;
+            }
+            else
+            {
+                end += System.currentTimeMillis() - start;
+            }
+
         }
     }
 
