@@ -135,6 +135,31 @@ public class GameWholeScreen extends JPanel
             public void actionPerformed(ActionEvent e)
             {
                 playing = !playing;
+
+                String message;
+                if(game.gameOverCondition())
+                {
+                    message = "Game Over!";
+                    playing = false;
+                }
+                else
+                {
+                    Character character = game.getCharacter();
+                    int wc = game.getMonster_spawner().getWave_count();
+                    message = "Money: " + character.getMoney() + ", Live: " + character.getLive() + ", Wave: " + wc + "/";
+                    int wcm = game.getMonster_spawner().getWave_count_max();
+                    if(wcm != -1)
+                    {
+                        message = message + wcm;
+                    }
+                    else
+                    {
+                        message = message + "infinite";
+                    }
+                }
+
+                message = message + " PAUSED ";
+                updateMessage(message);
             }
         });
 
