@@ -93,6 +93,8 @@ public class GameScreen extends JPanel
         {
             caro.paint(g2);
         }
+        updateMonsters();
+        updateTours();
 
         g2.dispose();
     }

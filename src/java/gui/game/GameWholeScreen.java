@@ -45,6 +45,7 @@ public class GameWholeScreen extends JPanel
         add(main_panel, BorderLayout.CENTER);
         add(button_panel, BorderLayout.SOUTH);
 
+
     }
 
     public void make()
@@ -58,14 +59,15 @@ public class GameWholeScreen extends JPanel
         // Playing = unpaused
         if(playing)
         {
-            main_panel.update();
             game.updateEnts(delta_time);
+            repaint();
         }
 
     }
 
     private JLabel makeMessagePanel()
     {
+        JLabel message_panel ;
         if (game.gameOverCondition()){
             message_panel = new JLabel("Game Over ");
         } else {
