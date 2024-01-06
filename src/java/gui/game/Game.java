@@ -4,7 +4,7 @@ import config.MapConfig;
 import model.Character;
 import model.monster.Monster;
 import model.monster.MonsterSpawner;
-import model.tour.Tour;
+import model.tour.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -110,6 +110,46 @@ public class Game
         {
             this.monster_spawner.update(20000, monsters);
         }
+    }
+
+    public void placeTower(int mouseX, int mouseY, String towerType) {
+        int x = mouseX / GameScreen.getTile_width();
+        int y = mouseY / GameScreen.getTile_height() ;
+        if (getMap_config().getGrid()[y][x].getType() == 1) {
+            switch (towerType) {
+                case "Archer": if ( character.getMoney() >= findTower("archer" , 1 ).getPrix() ) {tours.add(new Archer(1, x, y));}
+                    break;
+                case "Soldat":
+                    if ( character.getMoney() >= findTower("soldat" , 1 ).getPrix() ) {tours.add(new Soldat(1, x, y));}
+                    break;
+                case "Cannon":
+                    if ( character.getMoney() >= findTower("canon" , 1 ).getPrix() ){tours.add(new Canon(1, x, y));}
+                    break;
+                case " Catapulte":
+                    if ( character.getMoney() >= findTower("archer" , 1 ).getPrix() ){tours.add(new Catapulte(1, x, y));}
+                    break;
+            }
+        } else {
+            // faire un message pour dire qu'on ne peut pas poser à cet endroit
+        }
+    }
+
+    private ArrayList<Tour> towerList (){
+        ArrayList<Tour> towerList = new ArrayList<>() ;
+        towerList.add(new Archer(1 )) ;
+        towerList.add(new Soldat(1 )) ;
+        towerList.add(new Catapulte(1 )) ;
+        towerList.add(new Canon(1 )) ;
+        return towerList ;
+    }
+    // UNe fonction qui cherche si la tour que le player à demande existe
+    public Tour findTower ( String str , int i ){
+        for ( Tour t : towerList()){
+            if (t.getName().equals(str) && i == t.getLevel()) {
+                return t ;
+            }
+        }
+        return null ;
     }
 
     public MonsterSpawner getMonster_spawner() {return monster_spawner;}
