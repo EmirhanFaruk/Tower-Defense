@@ -184,15 +184,17 @@ public class Monster {
     public void setLive(double lives) { live = lives ; }
     public boolean isDead () {return this.live <=0;}
 
-    public ArrayList<Coordinate> getPath() {return path;}
-    public void popPath() { if(!path.isEmpty()) path.remove(0);}
-
     public int getNiveau() {
         return niveau;
     }
+
     public String getResistance() {
         return resistance;
     }
+
+    public ArrayList<Coordinate> getPath() {return path;}
+    public void popPath() { if(!path.isEmpty()) path.remove(0);}
+
     public String getDirection() {return direction;}
     public void setDirection(String direction) {this.direction = direction;}
 

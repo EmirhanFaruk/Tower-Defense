@@ -45,7 +45,6 @@ public class GameWholeScreen extends JPanel
         add(main_panel, BorderLayout.CENTER);
         add(button_panel, BorderLayout.SOUTH);
 
-
     }
 
     public void make()
@@ -61,14 +60,17 @@ public class GameWholeScreen extends JPanel
         {
             main_panel.update();
             game.updateEnts(delta_time);
-            main_panel.updateMonsters() ;
         }
 
     }
 
     private JLabel makeMessagePanel()
     {
-        JLabel message_panel = new JLabel("Welcome to the game!");
+        if (game.gameOverCondition()){
+            message_panel = new JLabel("Game Over ");
+        } else {
+            message_panel = new JLabel("Welcome to the game!");
+        }
         // Brown background
         message_panel.setBackground(new Color(102, 61, 20));
         message_panel.setForeground(Color.ORANGE);

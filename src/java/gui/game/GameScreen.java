@@ -3,10 +3,8 @@ package gui.game;
 import config.Cellule;
 import config.MapConfig;
 import gui.Coordinate;
-import gui.game.paint.Caro;
-import gui.game.paint.MonsterGraphics;
-import gui.game.paint.TourGraphics;
-import gui.game.paint.TourPaintable;
+import gui.GameView;
+import gui.game.paint.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -76,7 +74,6 @@ public class GameScreen extends JPanel
     {
         for(MonsterGraphics mp : monster_aff)
         {
-            mp.update();
             if(mp.getMonster().isDead())
             {
                 monster_aff.remove(mp);
@@ -95,12 +92,6 @@ public class GameScreen extends JPanel
         for (Caro caro : caros)
         {
             caro.paint(g2);
-        }
-        for (MonsterGraphics monsterGraphics : monster_aff){
-            monsterGraphics.paint(g2);
-        }
-        for ( TourGraphics tourGraphics : tour_aff){
-            tourGraphics.paint(g2);
         }
 
         g2.dispose();
