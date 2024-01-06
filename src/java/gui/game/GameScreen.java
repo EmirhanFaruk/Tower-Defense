@@ -78,9 +78,10 @@ public class GameScreen extends JPanel
     {
         if (  ! gameWholeScreen.getGame().getMonsters().isEmpty()) {
             for (Monster monster : gameWholeScreen.getGame().getMonsters()) {
-                MonsterGraphics.paint(g, monster);
                 if (monster.isDead()) {
                     gameWholeScreen.getGame().getMonsters().remove(monster);
+                } else {
+                    MonsterGraphics.paint(g, monster);
                 }
             }
         }
@@ -100,7 +101,6 @@ public class GameScreen extends JPanel
         }
         updateMonsters(g2);
         updateTours();
-        repaint();
         g2.dispose();
     }
 

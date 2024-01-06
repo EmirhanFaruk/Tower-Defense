@@ -121,9 +121,6 @@ public class Game
         return this.character.getLive() <= 0 ;
     }
 
-    public void resetGame(){
-
-    }
 
     public MapConfig getMap_config() {return map_config;}
 
