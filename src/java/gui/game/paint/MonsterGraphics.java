@@ -4,7 +4,7 @@ import model.monster.Monster;
 import javax.swing.*;
 import java.awt.*;
 
-public class MonsterGraphics extends JComponent {
+public class MonsterGraphics {
     private static final String path = System.getProperty("user.dir");
     private static final String s = findSlash(path);
     private static final String[] monsterBlue = { "MonsterBlue1.gif" , "MonsterBlue2.gif" , "MonsterBlue3.gif" } ;
@@ -37,7 +37,7 @@ public class MonsterGraphics extends JComponent {
     }
 
     public static ImageIcon getImage(Monster monster){
-        int pos = monster.getNiveau() -1  ;
+        int pos = monster.getNiveau() ;
         switch (monster.getResistance()){
             case " NONE" : return monsterGrayImage[pos] ;
             case " BULLET" : return monsterBlueImage[pos] ;

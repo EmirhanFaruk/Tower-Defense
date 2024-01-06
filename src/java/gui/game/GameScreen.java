@@ -26,6 +26,7 @@ public class GameScreen extends JPanel
 
     public GameScreen(int width, int height ,  GameWholeScreen ghs)
     {
+        gameWholeScreen = ghs ;
         caros = new ArrayList<>();
         monster_aff = new ArrayList<>();
         tour_aff = new ArrayList<>();
