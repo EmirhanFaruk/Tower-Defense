@@ -5,6 +5,7 @@ import config.MapConfig;
 import gui.Coordinate;
 import gui.GameView;
 import gui.game.paint.*;
+import model.tour.Tour;
 import model.monster.Monster;
 
 import javax.swing.*;
@@ -22,17 +23,20 @@ public class GameScreen extends JPanel
     private int tile_offset_width, tile_offset_height;
     private GameWholeScreen gameWholeScreen;
 
+    private GameWholeScreen gameWholeScreen;
 
 
-    public GameScreen(int width, int height ,  GameWholeScreen ghs)
+
+    public GameScreen(int width, int height, GameWholeScreen ghs)
     {
-        gameWholeScreen = ghs ;
+        gameWholeScreen = ghs;
         caros = new ArrayList<>();
         monster_aff = new ArrayList<>();
         tour_aff = new ArrayList<>();
 
         setSize(width, height);
         setBackground(new Color(66, 40, 14));
+
     }
 
     public void make(MapConfig map_config)
@@ -43,7 +47,8 @@ public class GameScreen extends JPanel
         tile_offset_width = (getWidth() - (tile_width * 16));
         tile_offset_height = (getHeight() - (tile_height * 8));
 
-
+        TourGraphics.setWH(tile_width, tile_height);
+        TourGraphics.setImages();
         makeCaros(map_config);
         MonsterGraphics.setWH(tile_width , tile_height);
     }
@@ -69,9 +74,12 @@ public class GameScreen extends JPanel
         //updateMonsters();
     }
 
-    public void updateTours()
+    public void updateTours(Graphics2D g2)
     {
-
+        for(Tour tour : gameWholeScreen.getGame().getTours())
+        {
+            TourGraphics.paint(g2, tour, gameWholeScreen.getGame().getMap_config());
+        }
     }
 
     public void updateMonsters(Graphics2D g)
@@ -100,7 +108,7 @@ public class GameScreen extends JPanel
             caro.paint(g2);
         }
         updateMonsters(g2);
-        updateTours();
+        updateTours(g2);
         g2.dispose();
     }
 

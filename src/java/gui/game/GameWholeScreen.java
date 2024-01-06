@@ -40,7 +40,7 @@ public class GameWholeScreen extends JPanel {
         game = new Game(map, difficulty, wave_count_max, character);
 
         setLayout(new BorderLayout());
-        main_panel = new GameScreen(width, height , this);
+        main_panel = new GameScreen(width, height, this);
         button_panel = makeButton_panel();
 
         add(main_panel, BorderLayout.CENTER);
@@ -58,6 +58,28 @@ public class GameWholeScreen extends JPanel {
         // Playing = unpaused
         if (playing) {
             game.updateEnts(delta_time);
+            String message;
+            if(game.gameOverCondition())
+            {
+                message = "Game Over!";
+                playing = false;
+            }
+            else
+            {
+                Character character = game.getCharacter();
+                int wc = game.getMonster_spawner().getWave_count();
+                message = "Money: " + character.getMoney() + ", Live: " + character.getLive() + ", Wave: " + wc + "/";
+                int wcm = game.getMonster_spawner().getWave_count_max();
+                if(wcm != -1)
+                {
+                    message = message + wcm;
+                }
+                else
+                {
+                    message = message + "infinite";
+                }
+            }
+            updateMessage(message);
             repaint();
         }
 
@@ -106,6 +128,31 @@ public class GameWholeScreen extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 playing = !playing;
+
+                String message;
+                if(game.gameOverCondition())
+                {
+                    message = "Game Over!";
+                    playing = false;
+                }
+                else
+                {
+                    Character character = game.getCharacter();
+                    int wc = game.getMonster_spawner().getWave_count();
+                    message = "Money: " + character.getMoney() + ", Live: " + character.getLive() + ", Wave: " + wc + "/";
+                    int wcm = game.getMonster_spawner().getWave_count_max();
+                    if(wcm != -1)
+                    {
+                        message = message + wcm;
+                    }
+                    else
+                    {
+                        message = message + "infinite";
+                    }
+                }
+
+                message = message + " PAUSED ";
+                updateMessage(message);
             }
         });
 
@@ -221,7 +268,14 @@ public class GameWholeScreen extends JPanel {
         return res;
     }
 
-    public Game getGame() {
-        return game;
+    public void updateMessage(String text)
+    {
+        if (message_panel != null) {
+            SwingUtilities.invokeLater(() -> {
+                message_panel.setText(text);
+            });
+        }
     }
+
+    public Game getGame() {return game;}
 }

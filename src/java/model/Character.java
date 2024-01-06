@@ -34,6 +34,8 @@ public class Character {
     public void setLive(int live) {
         this.live = live;
     }
+
+    public void minusLive(int live) {this.live -= live;}
     public void setMoney(int money) {
          this.money = money;
     }
