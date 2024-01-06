@@ -188,6 +188,7 @@ public class Monster {
     public int getNiveau() {
         return niveau;
     }
+    public String getName() {return name;}
 
     public String getResistance() {
         return resistance;

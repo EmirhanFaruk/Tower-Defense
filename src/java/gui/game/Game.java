@@ -94,31 +94,19 @@ public class Game
 
     private void updateMonsters(double delta_time)
     {
-        try
-        {
-            for (Monster monster : monsters)
-            {
-                monster.moveMonster(delta_time);
-                if (monster.entrerDansBase())
-                {
-                    monster.whenMonsterEnterBase();
-                    try
-                    {
-                        monsters.remove(monster);
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                        monster.setDirection("NONE");
-                        monster.setPos(monster.getPos().inti(), monster.getPos().intj());
-                    }
-                }
+        ArrayList<Monster> monstersToRemove = new ArrayList<>();
+
+        for (Monster monster : monsters) {
+            monster.moveMonster(delta_time);
+
+            if (monster.entrerDansBase()) {
+                monster.whenMonsterEnterBase();
+                monstersToRemove.add(monster);
             }
         }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+
+        // Remove monsters outside the loop to avoid concurrent modification
+        monsters.removeAll(monstersToRemove);
     }
 
     public void apparitionMonster(){

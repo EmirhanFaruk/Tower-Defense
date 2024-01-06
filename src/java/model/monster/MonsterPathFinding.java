@@ -125,12 +125,13 @@ public class MonsterPathFinding
             }
             else
             {
+                double speed = mons.getSpeed(delta);
                 switch (mons.getDirection())
                 {
-                    case "NORTH": mons.addPos(mons.getSpeed(delta), 0);
-                    case "SOUTH": mons.addPos(-mons.getSpeed(delta), 0);
-                    case "EAST": mons.addPos(0, mons.getSpeed(delta));
-                    case "WEST": mons.addPos(0, -mons.getSpeed(delta));
+                    case "NORTH": mons.addPos(speed, 0); break;
+                    case "SOUTH": mons.addPos(-speed, 0); break;
+                    case "EAST": mons.addPos(0, speed); break;
+                    case "WEST": mons.addPos(0, -speed); break;
                 }
             }
         }
