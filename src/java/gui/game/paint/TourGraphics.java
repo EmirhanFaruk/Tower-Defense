@@ -236,7 +236,5 @@ public class TourGraphics
         int x = (int) tour.getCoordinates().j() * width;
         int y = (int) tour.getCoordinates().i() * height;
         g.drawImage(image, x, y, width, height, null);
-
-        g.draw(new Rectangle((int) (x + width*0.5 - tour.getRange()*width), (int) (y + height*0.5 - tour.getRange()*height), tour.getRange() * width * 2, tour.getRange() * height * 2));
     }
 }

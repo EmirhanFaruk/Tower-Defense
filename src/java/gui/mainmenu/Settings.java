@@ -12,7 +12,7 @@ public class Settings extends JPanel
 
     // Resolution
     private JComboBox<String> res_box;
-    private final int[][] resolutions = {{600, 400}, {800, 500}, {800, 600}, {1000, 800}, {1280, 720}, {1920, 1080}};
+    private final int[][] resolutions = {{800, 500}, {800, 600}, {1000, 800}, {1280, 720}, {1920, 1080}};
 
 
     // Fullscreen

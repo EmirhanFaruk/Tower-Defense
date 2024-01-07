@@ -69,18 +69,18 @@ public class MonsterGraphics {
         int y = ( int ) (monster.getPos().i() * height );
         g.drawImage(image, x, y, width, height, null);
 
-        Rectangle health_bar_cover = new Rectangle(x, y , width, height/5);
+        Rectangle health_bar_cover = new Rectangle(x + 4, y + 4, width - 4, height/5);
         g.setColor(Color.RED);
         g.fill(health_bar_cover);
         g.draw(health_bar_cover);
 
         double live_perc = monster.getLive() / monster.getMax_live();
-        Rectangle health_bar = new Rectangle(x, y , (int) (width * live_perc), height/5);
+        Rectangle health_bar = new Rectangle(x + 4, y + 4, (int) (width * live_perc) - 4, height/5);
         g.setColor(Color.GREEN);
         g.fill(health_bar);
         g.draw(health_bar);
 
-        Rectangle health_bar_line = new Rectangle(x, y , width, height/5);
+        Rectangle health_bar_line = new Rectangle(x + 4, y + 4, width - 4, height/5);
         g.setColor(Color.BLACK);
         g.draw(health_bar_line);
     }

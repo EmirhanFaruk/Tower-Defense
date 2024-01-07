@@ -51,7 +51,7 @@ public class GameWholeScreen extends JPanel {
         messageTimer = new Timer(3000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updateMessage(" "); // Mettez à jour le message avec une chaîne vide ou un espace
+                messageTimer.stop(); // Mettez à jour le message avec une chaîne vide ou un espace
             }
         });
 
@@ -67,28 +67,21 @@ public class GameWholeScreen extends JPanel {
         // Playing = unpaused
         if (playing) {
             game.updateEnts(delta_time);
-            String message;
+            String message = makeMessagePanelMessage();
             if(game.gameOverCondition())
             {
-                message = "Game Over!";
+                message += " Game Over!";
                 playing = false;
             }
-            else
+            else if(game.gameWinCondition())
             {
-                Character character = game.getCharacter();
-                int wc = game.getMonster_spawner().getWave_count();
-                message = "Money: " + character.getMoney() + ", Live: " + character.getLive() + ", Wave: " + wc + "/";
-                int wcm = game.getMonster_spawner().getWave_count_max();
-                if(wcm != -1)
-                {
-                    message = message + wcm;
-                }
-                else
-                {
-                    message = message + "infinite";
-                }
+                message += " You've won! You may return to main menu.";
             }
-            updateMessage(message);
+            if(!messageTimer.isRunning())
+            {
+                updateMessage(message);
+                messageTimer.stop();
+            }
             repaint();
         }
 
@@ -160,6 +153,11 @@ public class GameWholeScreen extends JPanel {
                 if(game.gameOverCondition())
                 {
                     message = "Game Over!";
+                    playing = false;
+                }
+                else if(game.gameWinCondition())
+                {
+                    message = "You've won! You may return to main menu.";
                     playing = false;
                 }
                 else

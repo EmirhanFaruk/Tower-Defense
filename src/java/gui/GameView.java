@@ -9,6 +9,7 @@ import model.Character;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.Map;
 
@@ -88,9 +89,6 @@ public class GameView extends JFrame implements Runnable
             case "VILLAGEOIS" : game_character = new Character("villageois", 200, 5); break;
         }
 
-
-
-
         game = null;
         game = new GameWholeScreen(main_panel.getWidth(), main_panel.getHeight(), map, difficulty, wave_count_max, game_character, this);
 
@@ -151,6 +149,11 @@ public class GameView extends JFrame implements Runnable
         cardLayout.show(main_panel, main_menu_screen_s);
         menu.showMenu();
         running = false;
+    }
+
+    public void quitGame()
+    {
+        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 
     public GraphicsDevice getDevice()

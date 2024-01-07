@@ -126,7 +126,17 @@ public class Menu extends JPanel
         JButton settings = new JButton("SETTINGS");
         settings.addActionListener(sbl);
 
-        JButton[] bl = {home, play, settings};
+        JButton quit = new JButton("QUIT");
+        quit.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                frame.quitGame();
+            }
+        });
+
+        JButton[] bl = {home, play, settings, quit};
         for (JButton button : bl)
         {
             button.setBorderPainted(false);
@@ -137,6 +147,7 @@ public class Menu extends JPanel
         res.add(home);
         res.add(play);
         res.add(settings);
+        res.add(quit);
 
         return res;
     }

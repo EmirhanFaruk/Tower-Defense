@@ -6,6 +6,7 @@ import model.monster.Monster;
 import model.monster.MonsterSpawner;
 import model.tour.*;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Game
@@ -121,7 +122,6 @@ public class Game
             }
         }
 
-        // Remove monsters outside the loop to avoid concurrent modification
         monsters.removeAll(monstersToRemove);
     }
 
@@ -136,21 +136,12 @@ public class Game
     public void placeTower(int mouseX, int mouseY, String towerType) {
         int x = mouseX / GameScreen.getTile_width();
         int y = mouseY / GameScreen.getTile_height();
-        System.out.println("Coordonnées: " + y + ", " + x);
-        if (map_config.getGrid()[y][x].getType() == 0 && noTOwerInThisCoordinates(y , x )) {
+        if (map_config.getGrid()[y][x].getType() == 0 && noTowerInThisCoordinates(y , x )) {
             switch (towerType) {
                 case "Archer": buyTower("archer" , y, x);break;
                 case "Soldat": buyTower("arme" ,y, x);break;
                 case "Canon": buyTower("canon" , y, x);break;
                 case "Catapulte": buyTower("catapulte" , y, x); break;
-            }
-            if(main_panel != null)
-            {
-                if (main_panel.getMessage_panel() != null)
-                {
-                    String message = main_panel.makeMessagePanelMessage() + " " + towerType + " can be put here. x: " + x + ", y: " + y;
-                    main_panel.updateMessage(message);
-                }
             }
         } else {
             if(main_panel != null)
@@ -158,10 +149,9 @@ public class Game
                 if (main_panel.getMessage_panel() != null)
                 {
                     String message = main_panel.makeMessagePanelMessage() + " " + towerType + " cannot be put here.";
-                    main_panel.updateMessage(message);
+                    updateMessage(message);
                 }
             }
-            System.err.println("La tour ne peut pas etre poser.");
         }
     }
 
@@ -178,24 +168,21 @@ public class Game
                 case "canon" :tours.add(new Canon(1 , i, j)) ; break;
             }
             this.character.setMoney(this.character.getMoney() - towerCost );
-            System.err.println("Tour acheter") ;
         } else {
             if(main_panel != null)
             {
                 if (main_panel.getMessage_panel() != null)
                 {
                     String message = main_panel.makeMessagePanelMessage() + " Not enough money for " + towerName + ". Cost: " + towerCost;
-                    main_panel.updateMessage(message);
+                    updateMessage(message);
                 }
             }
-            System.err.println("Pas assez d'argent");
         }
     }
 
-    public boolean noTOwerInThisCoordinates ( int i , int j){
+    public boolean noTowerInThisCoordinates(int i , int j){
         for ( Tour tour : tours){
             if ( ( int ) tour.getCoordinates().i() == i && ( int ) tour.getCoordinates().j() == j  ){
-                System.err.println("Une tour sur cette coordonnée");
                 return false ;
             }
         }
@@ -213,10 +200,10 @@ public class Game
                 {
                     switch (tour.getName())
                     {
-                        case "arme" : tours.add(new Soldat(tour.getLevel()+1, x , y )); tours.remove(tour); break;
-                        case "catapulte" : tours.add(new Catapulte(tour.getLevel()+1, x , y )); tours.remove(tour); break;
-                        case "canon" : tours.add(new Canon(tour.getLevel()+1, x , y )); tours.remove(tour); break;
-                        case "archer" : tours.add(new Archer(tour.getLevel()+1, x , y )); tours.remove(tour); break;
+                        case "arme" : tours.add(new Soldat(tour.getLevel()+1, x, y)); tours.remove(tour); break;
+                        case "catapulte" : tours.add(new Catapulte(tour.getLevel()+1, x, y)); tours.remove(tour); break;
+                        case "canon" : tours.add(new Canon(tour.getLevel()+1, x, y)); tours.remove(tour); break;
+                        case "archer" : tours.add(new Archer(tour.getLevel()+1, x, y)); tours.remove(tour); break;
                     }
                     this.character.setMoney(this.character.getMoney() - upgradePrice);
                 }
@@ -227,10 +214,9 @@ public class Game
                         if (main_panel.getMessage_panel() != null)
                         {
                             String message = main_panel.makeMessagePanelMessage() + " Not enough money for upgrade. Cost: " + upgradePrice;
-                            main_panel.updateMessage(message);
+                            updateMessage(message);
                         }
                     }
-                    System.err.println("Pas assez d'argent pour upgrade");
                 }
             }
             else
@@ -242,19 +228,15 @@ public class Game
                         if ( tour.getLevel()== 3)
                         {
                             String message = main_panel.makeMessagePanelMessage() + " Tower max level";
-                            main_panel.updateMessage(message);
-                            System.err.println("Tour upgrade max");
+                            updateMessage(message);
                         }
                         else
                         {
-                            String message = main_panel.makeMessagePanelMessage() + " No towers at (" + x + ", " + y + ").";
-                            main_panel.updateMessage(message);
-                            System.err.println("Pas de tour a cette endroit");
+                            String message = main_panel.makeMessagePanelMessage() + " No towers at (" + y + ", " + x + ").";
+                            updateMessage(message);
                         }
                     }
                 }
-
-
             }
         }
     }
@@ -285,12 +267,23 @@ public class Game
         return null ;
     }
 
+    public void updateMessage(String text) {
+        if (main_panel != null) {
+            SwingUtilities.invokeLater(() -> {
+                main_panel.getMessage_panel().setText(text);
+                main_panel.startMessageTimer();
+            });
+        }
+    }
+
     public MonsterSpawner getMonster_spawner() {return monster_spawner;}
 
     public boolean gameOverCondition() {
         return this.character.getLive() <= 0 ;
     }
 
+    public boolean gameWinCondition() {return !this.monster_spawner.getInWave()
+            || monster_spawner.getWave_count_max() == monster_spawner.getWave_count();}
 
     public Character getCharacter() {return character;}
 
