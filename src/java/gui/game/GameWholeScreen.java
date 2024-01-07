@@ -73,6 +73,11 @@ public class GameWholeScreen extends JPanel {
                 message = "Game Over!";
                 playing = false;
             }
+            else if(game.gameWinCondition())
+            {
+                message = "You've won! You may return to main menu.";
+                playing = false;
+            }
             else
             {
                 Character character = game.getCharacter();
