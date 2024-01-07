@@ -137,7 +137,7 @@ public class Game
         int x = mouseX / GameScreen.getTile_width();
         int y = mouseY / GameScreen.getTile_height();
         System.out.println("Coordonnées: " + y + ", " + x);
-        if (map_config.getGrid()[y][x].getType() == 0 ) {
+        if (map_config.getGrid()[y][x].getType() == 0 && noTOwerInThisCoordinates(y , x )) {
             switch (towerType) {
                 case "Archer": buyTower("archer" , y, x);break;
                 case "Soldat": buyTower("arme" ,y, x);break;
@@ -190,6 +190,16 @@ public class Game
             }
             System.err.println("Pas assez d'argent");
         }
+    }
+
+    public boolean noTOwerInThisCoordinates ( int i , int j){
+        for ( Tour tour : tours){
+            if ( ( int ) tour.getCoordinates().i() == i && ( int ) tour.getCoordinates().j() == j  ){
+                System.err.println("Une tour sur cette coordonnée");
+                return false ;
+            }
+        }
+        return true ;
     }
 
     public void upgradeTower(int mouseX, int mouseY)
