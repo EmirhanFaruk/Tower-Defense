@@ -114,25 +114,68 @@ public class Game
 
     public void placeTower(int mouseX, int mouseY, String towerType) {
         int x = mouseX / GameScreen.getTile_width();
-        int y = mouseY / GameScreen.getTile_height() ;
-        if (getMap_config().getGrid()[y][x].getType() == 0 ) {
+        int y = mouseY / GameScreen.getTile_height();
+        if (map_config.getGrid()[y][x].getType() == 0 ) {
             switch (towerType) {
-                case "Archer": if ( character.getMoney() >= findTower("archer" , 1 ).getPrix() ) {tours.add(new Archer(1, x, y));}
-                    break;
-                case "Soldat":
-                    if ( character.getMoney() >= findTower("arme" , 1 ).getPrix() ) {tours.add(new Soldat(1, x, y));}
-                    break;
-                case "Cannon":
-                    if ( character.getMoney() >= findTower("canon" , 1 ).getPrix() ){tours.add(new Canon(1, x, y));}
-                    break;
-                case " Catapulte":
-                    if ( character.getMoney() >= findTower("archer" , 1 ).getPrix() ){tours.add(new Catapulte(1, x, y));}
-                    break;
+                case "Archer": buyTower("archer" , x , y );break;
+                case "Soldat": buyTower("arme" , x , y );break;
+                case "Cannon": buyTower("canon" , x , y );break;
+                case " Catapulte": buyTower("catapulte" , x , y ); break;
             }
-            System.err.println("La tour ajouter a la liste");
+            System.err.println("la tour peut etre poser");
         } else {
-            // faire un message pour dire qu'on ne peut pas poser à cet endroit
+            /** TODO
+             *   faire un message pour dire qu'il peut pas poser la tour ici
+             */
             System.err.println("La tour ne peut pas etre poser");
+        }
+    }
+
+    public void buyTower (String towerName , int x , int y){
+        int towerCost = findTower(towerName , 1 ).getPrix() ;
+        if ( character.getMoney() >=towerCost) {
+            switch (towerName) {
+                case "archer" : tours.add(new Archer(1, x, y));
+                case "arme" :tours.add(new Soldat(1 , x , y )) ;
+                case "catapulte" : tours.add(new Catapulte(1, x, y));
+                case "canon" :tours.add(new Canon(1 , x , y )) ;
+            }
+            this.character.setMoney(this.character.getMoney() - towerCost );
+            System.err.println("Tour acheter") ;
+        } else {
+            /** TODO
+             *   faire un message pour dire qu'il a pas assez d'argent
+             */
+            System.err.println("Pas assez d'argent");
+        }
+    }
+
+    public void upgradeTower(int mouseX, int mouseY){
+        int x = mouseX / GameScreen.getTile_width();
+        int y = mouseY / GameScreen.getTile_height() ;
+        for ( Tour tour : tours ){
+            if ( (int ) tour.getCoordinates().i() == x  && ( int ) tour.getCoordinates().j() == y ){
+                int upgradePrice = findTower(tour.getName(),tour.getLevel()+1).getPrix() ;
+                if ( this.character.getMoney() >= upgradePrice ) {
+                    switch (tour.getName()){
+                        case "arme" : tours.add(new Soldat(tour.getLevel(), x , y )); tours.remove(tour) ;
+                        case "catapulte" : tours.add(new Catapulte(tour.getLevel(), x , y )); tours.remove(tour) ;
+                        case "canon" : tours.add(new Canon(tour.getLevel(), x , y )); tours.remove(tour) ;
+                        case "archer" : tours.add(new Archer(tour.getLevel(), x , y )); tours.remove(tour) ;
+                    }
+                    this.character.setMoney(this.character.getMoney() - upgradePrice);
+                } else {
+                    /** TODO
+                     *   faire un message pour dire qu'il a pas assez d'argent
+                     */
+                    System.err.println("Pas assez d'argent pour upgrade");
+                }
+            } else {
+                /** TODO
+                 *   faire un message pour dire qu'il a pas de tour a cette place
+                 */System.err.println("Pas de tour a cette endroit");
+
+            }
         }
     }
 

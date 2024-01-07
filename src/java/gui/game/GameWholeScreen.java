@@ -193,6 +193,7 @@ public class GameWholeScreen extends JPanel {
                                 int mouseX = e.getX();
                                 int mouseY = e.getY();
                                 game.placeTower( mouseX , mouseY , choice );
+                                main_panel.removeMouseListener(this);
                             }
                         }) ;
                     }
@@ -206,7 +207,8 @@ public class GameWholeScreen extends JPanel {
                             public void mouseClicked(MouseEvent e) {
                                 int mouseX = e.getX();
                                 int mouseY = e.getY();
-                                System.out.println("Clic de souris à la position : (" + mouseX + ", " + mouseY + ")");
+                                game.upgradeTower(mouseX , mouseY);
+                                main_panel.removeMouseListener(this);
                             }
                         }) ;
                     }
