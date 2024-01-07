@@ -91,8 +91,8 @@ public class TourGraphics
     }
 
     public static boolean roadPositionRight (Tour tour, MapConfig mapConfig){
-        for ( int i = tour.getCoordinates().inti() ; i < mapConfig.getGrid().length ; i++ ) {
-           if ( mapConfig.getGrid()[ tour.getCoordinates().intj() ][ i].getType() == 1 ){
+        for ( int j = tour.getCoordinates().intj() ; j < mapConfig.getGrid().length ; j++ ) {
+           if ( mapConfig.getGrid()[ tour.getCoordinates().intj() ][ j].getType() == 1 ){
                return true ;
            }
         }
