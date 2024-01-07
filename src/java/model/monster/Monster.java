@@ -65,7 +65,14 @@ public class Monster {
         this.live = live * mulp[type][niveau][0];
         this.max_live = this.live;
         this.speed = speed * mulp[type][niveau][1];
-        this.niveau = niveau; // niveau est entre 0-2
+        if(niveau > 2)
+        {
+            this.niveau = 2;
+        }
+        else
+        {
+            this.niveau = niveau; // niveau est entre 0-2
+        }
         this.money = money;
         this.type  = type;
         choixResistance();
@@ -91,7 +98,14 @@ public class Monster {
         this.live = live * mulp[type][niveau][0];
         this.max_live = this.live;
         this.speed = speed * mulp[type][niveau][1];
-        this.niveau = niveau; // niveau est entre 0-3
+        if(niveau > 2)
+        {
+            this.niveau = 2;
+        }
+        else
+        {
+            this.niveau = niveau; // niveau est entre 0-2
+        }
         this.money = money;
         this.type  = type;
         choixResistance();
