@@ -24,9 +24,10 @@ public class Catapulte extends Tour {
             target(monsters); //attaque
             if(cible != null)
             {
+                double augmenteDegats= 1 + (double) character.getDegats() / 20 ;
                 // Ball and explosion damage
-                cible.monsterHurt((double) degats / 2, "BULLET", difficulty);
-                cible.monsterHurt((double) degats / 2, "EXPLOSION", difficulty);
+                cible.monsterHurt((double) degats / 2 * augmenteDegats, "BULLET", difficulty);
+                cible.monsterHurt((double) degats / 2 * augmenteDegats, "EXPLOSION", difficulty);
                 if(cible.isDead())
                 {
                     cible.winMoneyWhenMonsterDead();

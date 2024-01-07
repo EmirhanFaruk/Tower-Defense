@@ -23,7 +23,8 @@ public class Archer extends Tour {
             target(monsters); //attaque
             if(cible != null)
             {
-                cible.monsterHurt(degats, "ARROW", difficulty);
+                double augmenteDegats= 1 + (double) character.getDegats() / 20 ;
+                cible.monsterHurt(degats * augmenteDegats, "ARROW", difficulty);
                 if(cible.isDead())
                 {
                     cible.winMoneyWhenMonsterDead();
