@@ -112,6 +112,10 @@ public class Game
                 monster.whenMonsterEnterBase();
                 monstersToRemove.add(monster);
             }
+            if(monster.isDead())
+            {
+                monstersToRemove.add(monster);
+            }
         }
 
         // Remove monsters outside the loop to avoid concurrent modification
