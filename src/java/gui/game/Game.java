@@ -115,12 +115,12 @@ public class Game
     public void placeTower(int mouseX, int mouseY, String towerType) {
         int x = mouseX / GameScreen.getTile_width();
         int y = mouseY / GameScreen.getTile_height() ;
-        if (getMap_config().getGrid()[y][x].getType() == 1) {
+        if (getMap_config().getGrid()[y][x].getType() == 0 ) {
             switch (towerType) {
                 case "Archer": if ( character.getMoney() >= findTower("archer" , 1 ).getPrix() ) {tours.add(new Archer(1, x, y));}
                     break;
                 case "Soldat":
-                    if ( character.getMoney() >= findTower("soldat" , 1 ).getPrix() ) {tours.add(new Soldat(1, x, y));}
+                    if ( character.getMoney() >= findTower("arme" , 1 ).getPrix() ) {tours.add(new Soldat(1, x, y));}
                     break;
                 case "Cannon":
                     if ( character.getMoney() >= findTower("canon" , 1 ).getPrix() ){tours.add(new Canon(1, x, y));}
@@ -129,17 +129,27 @@ public class Game
                     if ( character.getMoney() >= findTower("archer" , 1 ).getPrix() ){tours.add(new Catapulte(1, x, y));}
                     break;
             }
+            System.err.println("La tour ajouter a la liste");
         } else {
             // faire un message pour dire qu'on ne peut pas poser à cet endroit
+            System.err.println("La tour ne peut pas etre poser");
         }
     }
 
     private ArrayList<Tour> towerList (){
         ArrayList<Tour> towerList = new ArrayList<>() ;
         towerList.add(new Archer(1 )) ;
+        towerList.add(new Archer(2 )) ;
+        towerList.add(new Archer(3 )) ;
         towerList.add(new Soldat(1 )) ;
+        towerList.add(new Soldat(2 )) ;
+        towerList.add(new Soldat(3 )) ;
         towerList.add(new Catapulte(1 )) ;
+        towerList.add(new Catapulte(2 )) ;
+        towerList.add(new Catapulte(3 )) ;
         towerList.add(new Canon(1 )) ;
+        towerList.add(new Canon(2 )) ;
+        towerList.add(new Canon(3 )) ;
         return towerList ;
     }
     // UNe fonction qui cherche si la tour que le player à demande existe
