@@ -121,7 +121,6 @@ public class MonsterSpawner
         if(wave_count == wave_count_max)
         {
             in_wave = false;
-            System.out.println("Wave done.");
         }
     }
 

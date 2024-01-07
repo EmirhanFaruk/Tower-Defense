@@ -147,7 +147,6 @@ public class Game
     public void placeTower(int mouseX, int mouseY, String towerType) {
         int x = mouseX / GameScreen.getTile_width();
         int y = mouseY / GameScreen.getTile_height();
-        System.out.println("Coordonnées: " + y + ", " + x);
         if (map_config.getGrid()[y][x].getType() == 0 ) {
             switch (towerType) {
                 case "Archer": buyTower("archer" , y, x);break;
@@ -180,7 +179,6 @@ public class Game
                 case "canon" :tours.add(new Canon(1 , i, j)) ; break;
             }
             this.character.setMoney(this.character.getMoney() - towerCost );
-            System.err.println("Tour acheter") ;
         } else {
             if(main_panel != null)
             {
@@ -232,7 +230,6 @@ public class Game
                         {
                             String message = main_panel.makeMessagePanelMessage() + " Tower max level";
                             updateMessage(message);
-                            System.err.println("Tour upgrade max");
                         }
                         else
                         {
