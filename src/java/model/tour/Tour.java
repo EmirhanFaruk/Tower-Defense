@@ -5,16 +5,17 @@ import model.monster.Monster;
 
 import java.util.ArrayList;
 
-public class Tour {
+public abstract class Tour {
     private final String name ;
     private final int prix ;
-    private final int degats ;
+    protected final int degats ;
     private int level ; // il y a que 3 niveaux
     private Coordinate coordinates ;
     private int range ; // la portée de la tour
     private final int type ; // le type de la tour
-    private long lastAttackTime;  // Temps de la dernière attaque
-    private final long cooldown;   // Temps de recharge en millisecondes
+    protected long lastAttackTime;  // Temps de la dernière attaque
+    protected final long cooldown;   // Temps de recharge en millisecondes
+    protected Monster cible;
     private final static int[][] mulp= { { 1 } , { 2 } , { 3 } };
 
     public Tour ( String name , int prix , int degats , int level , int x , int y , int range , int type ,  long time ){
@@ -41,15 +42,32 @@ public class Tour {
     }
 
     // une fonction qui attaque le monstre
-    public void target (ArrayList<Monster> monsters){
-        if (!monsters.isEmpty()) { // Vérifie que la liste n'est pas vide
-            Monster m = monsters.get(0); // attaque le premier monstre
-            if (monsterInRange(m)) { // vérifie s'il est à sa portée si oui
-                m.setLive(m.getLive() - this.degats); // perd de la vie
-                if (m.isDead()) { // vérifie si le monstre est mort
-                    m.winMoneyWhenMonsterDead(); // donne l'argent au character
-                    monsters.remove(0); // enlève le monstre de la liste
+    public void target (ArrayList<Monster> monsters)
+    {
+        // If no target choose target
+        if(cible == null)
+        {
+            // Get monsters in range
+            ArrayList<Monster> targets_in_range = new ArrayList<>();
+            for (Monster monster : monsters)
+            {
+                if (monsterInRange(monster))
+                {
+                    targets_in_range.add(monster);
                 }
+            }
+            // If any monsters in range, get "first"
+            if(!targets_in_range.isEmpty())
+            {
+                cible = targets_in_range.get(0);
+            }
+        }
+        else
+        {
+            // If somehow target is not alive then make cible null
+            if(cible.getLive() <= 0)
+            {
+                cible = null;
             }
         }
     }
@@ -60,14 +78,16 @@ public class Tour {
         // Vérifier si le cooldown est écoulé
         if (currentTime - lastAttackTime >= cooldown) {
             target(monsters); //attaque
+            cible.monsterHurt(degats, "NONE", "EASY");
             lastAttackTime = currentTime;  // Mettre à jour le temps de la dernière attaque
         }
     }
 
     // une fonction qui renvoie true si le montre est à la portée de la tour sinon non
     public boolean monsterInRange (Monster monster){
-        return Math.abs(monster.getPos().i() - this.coordinates.i() ) <= this.range
-                && Math.abs(monster.getPos().j() - this.coordinates.j() ) <= this.range ;
+        return Math.sqrt(
+                Math.pow(monster.getPos().i() - this.coordinates.i(), 2)
+        + Math.pow(monster.getPos().j() - this.coordinates.j(), 2)) <= this.range;
         // regarde la position de la tour et du montres est dans la portée
     }
 
@@ -86,6 +106,8 @@ public class Tour {
     public int getLevel() {
         return level;
     }
+
+    public abstract void attaquer(ArrayList<Monster> monsters, String difficulty);
 
     public int getType() {
         return type;

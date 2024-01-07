@@ -12,9 +12,21 @@ public class Catapulte extends Tour {
     public Catapulte(int level ) {
         super("catapulte", 80, 90 , level , 600 , 7 , 10000 );
     }
+
     @Override
-    public void attaquer(ArrayList<Monster> monsters) {
-        super.attaquer(monsters);
+    public void attaquer(ArrayList<Monster> monsters, String difficulty) {
+        long currentTime = System.currentTimeMillis();
+        // Vérifier si le cooldown est écoulé
+        if (currentTime - lastAttackTime >= cooldown) {
+            target(monsters); //attaque
+            if(cible != null)
+            {
+                // Ball and explosion damage
+                cible.monsterHurt((double) degats / 2, "BULLET", difficulty);
+                cible.monsterHurt((double) degats / 2, "EXPLOSION", difficulty);
+            }
+            lastAttackTime = currentTime;  // Mettre à jour le temps de la dernière attaque
+        }
     }
 
     public int getType() {

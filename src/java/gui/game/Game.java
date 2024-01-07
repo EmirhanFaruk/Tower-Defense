@@ -20,6 +20,8 @@ public class Game
     // Les tours seront encapsulé dans les cellules, cette liste va avoir leurs references
     private ArrayList<Tour> tours;
 
+    private String difficulty;
+
     /**
      * Constructeur de Game. Produire map_config depuis map(path) et
      * @param map path de map
@@ -30,6 +32,7 @@ public class Game
     {
         setMap_config(map);
         this.character = character;
+        this.difficulty = difficulty;
 
         makeMonsterSpawner(difficulty, wave_count_max);
 
@@ -94,7 +97,11 @@ public class Game
     {
         for(Tour tour : tours)
         {
-            tour.attaquer(monsters);
+            if(tour instanceof Soldat)
+            {
+                ((Soldat)tour).attaquer(monsters, difficulty);
+            }
+
         }
     }
 
@@ -131,7 +138,7 @@ public class Game
                 case "Archer": buyTower("archer" , x , y );break;
                 case "Soldat": buyTower("arme" , x , y );break;
                 case "Cannon": buyTower("canon" , x , y );break;
-                case " Catapulte": buyTower("catapulte" , x , y ); break;
+                case "Catapulte": buyTower("catapulte" , x , y ); break;
             }
             System.err.println("la tour peut etre poser");
         } else {

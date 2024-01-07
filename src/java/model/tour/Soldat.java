@@ -14,8 +14,17 @@ public class Soldat extends Tour {
     }
 
     @Override
-    public void attaquer(ArrayList<Monster> monsters) {
-        super.attaquer(monsters);
+    public void attaquer(ArrayList<Monster> monsters, String difficulty) {
+        long currentTime = System.currentTimeMillis();
+        // Vérifier si le cooldown est écoulé
+        if (currentTime - lastAttackTime >= cooldown) {
+            target(monsters); //attaque
+            if(cible != null)
+            {
+                cible.monsterHurt(degats, "BULLET", difficulty);
+            }
+            lastAttackTime = currentTime;  // Mettre à jour le temps de la dernière attaque
+        }
     }
 
     public int getType() {
