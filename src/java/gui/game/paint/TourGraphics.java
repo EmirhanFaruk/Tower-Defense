@@ -7,6 +7,7 @@ import model.tour.Tour;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -239,5 +240,7 @@ public class TourGraphics
         int x = (int) tour.getCoordinates().j() * width;
         int y = (int) tour.getCoordinates().i() * height;
         g.drawImage(image, x, y, width, height, null);
+
+        g.draw(new Rectangle(x - width/2, y - height/2, tour.getRange() * width * 2, tour.getRange() * height * 2));
     }
 }
