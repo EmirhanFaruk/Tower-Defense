@@ -4,9 +4,8 @@ import config.MapConfig;
 import model.Character;
 import model.monster.Monster;
 import model.monster.MonsterSpawner;
-import model.tour.Tour;
+import model.tour.*;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class Game
@@ -122,6 +121,99 @@ public class Game
         {
             this.monster_spawner.update(20000, monsters);
         }
+    }
+
+    public void placeTower(int mouseX, int mouseY, String towerType) {
+        int x = mouseX / GameScreen.getTile_width();
+        int y = mouseY / GameScreen.getTile_height();
+        if (map_config.getGrid()[y][x].getType() == 0 ) {
+            switch (towerType) {
+                case "Archer": buyTower("archer" , x , y );break;
+                case "Soldat": buyTower("arme" , x , y );break;
+                case "Cannon": buyTower("canon" , x , y );break;
+                case " Catapulte": buyTower("catapulte" , x , y ); break;
+            }
+            System.err.println("la tour peut etre poser");
+        } else {
+            /** TODO
+             *   faire un message pour dire qu'il peut pas poser la tour ici
+             */
+            System.err.println("La tour ne peut pas etre poser");
+        }
+    }
+
+    public void buyTower (String towerName , int x , int y){
+        int towerCost = findTower(towerName , 1 ).getPrix() ;
+        if ( character.getMoney() >=towerCost) {
+            switch (towerName) {
+                case "archer" : tours.add(new Archer(1, x, y));
+                case "arme" :tours.add(new Soldat(1 , x , y )) ;
+                case "catapulte" : tours.add(new Catapulte(1, x, y));
+                case "canon" :tours.add(new Canon(1 , x , y )) ;
+            }
+            this.character.setMoney(this.character.getMoney() - towerCost );
+            System.err.println("Tour acheter") ;
+        } else {
+            /** TODO
+             *   faire un message pour dire qu'il a pas assez d'argent
+             */
+            System.err.println("Pas assez d'argent");
+        }
+    }
+
+    public void upgradeTower(int mouseX, int mouseY){
+        int x = mouseX / GameScreen.getTile_width();
+        int y = mouseY / GameScreen.getTile_height() ;
+        for ( Tour tour : tours ){
+            if ( (int ) tour.getCoordinates().i() == x  && ( int ) tour.getCoordinates().j() == y ){
+                int upgradePrice = findTower(tour.getName(),tour.getLevel()+1).getPrix() ;
+                if ( this.character.getMoney() >= upgradePrice ) {
+                    switch (tour.getName()){
+                        case "arme" : tours.add(new Soldat(tour.getLevel(), x , y )); tours.remove(tour) ;
+                        case "catapulte" : tours.add(new Catapulte(tour.getLevel(), x , y )); tours.remove(tour) ;
+                        case "canon" : tours.add(new Canon(tour.getLevel(), x , y )); tours.remove(tour) ;
+                        case "archer" : tours.add(new Archer(tour.getLevel(), x , y )); tours.remove(tour) ;
+                    }
+                    this.character.setMoney(this.character.getMoney() - upgradePrice);
+                } else {
+                    /** TODO
+                     *   faire un message pour dire qu'il a pas assez d'argent
+                     */
+                    System.err.println("Pas assez d'argent pour upgrade");
+                }
+            } else {
+                /** TODO
+                 *   faire un message pour dire qu'il a pas de tour a cette place
+                 */System.err.println("Pas de tour a cette endroit");
+
+            }
+        }
+    }
+
+    private ArrayList<Tour> towerList (){
+        ArrayList<Tour> towerList = new ArrayList<>() ;
+        towerList.add(new Archer(1 )) ;
+        towerList.add(new Archer(2 )) ;
+        towerList.add(new Archer(3 )) ;
+        towerList.add(new Soldat(1 )) ;
+        towerList.add(new Soldat(2 )) ;
+        towerList.add(new Soldat(3 )) ;
+        towerList.add(new Catapulte(1 )) ;
+        towerList.add(new Catapulte(2 )) ;
+        towerList.add(new Catapulte(3 )) ;
+        towerList.add(new Canon(1 )) ;
+        towerList.add(new Canon(2 )) ;
+        towerList.add(new Canon(3 )) ;
+        return towerList ;
+    }
+    // UNe fonction qui cherche si la tour que le player à demande existe
+    public Tour findTower ( String str , int i ){
+        for ( Tour t : towerList()){
+            if (t.getName().equals(str) && i == t.getLevel()) {
+                return t ;
+            }
+        }
+        return null ;
     }
 
     public MonsterSpawner getMonster_spawner() {return monster_spawner;}

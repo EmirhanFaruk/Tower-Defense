@@ -5,12 +5,14 @@ import gui.GameView;
 import gui.game.paint.MonsterGraphics;
 import model.Character;
 import model.monster.Monster;
+import model.tour.Archer;
+import model.tour.Canon;
 import model.tour.Catapulte;
+import model.tour.Soldat;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class GameWholeScreen extends JPanel {
@@ -182,19 +184,35 @@ public class GameWholeScreen extends JPanel {
             button.setBackground(new Color(102, 61, 20));
             button.setForeground(Color.ORANGE);
             if (!choice.equals("Upgrade")) {
-                ActionListener listener = new ActionListener() {
+                button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        // Upgrade Tour
+                        main_panel.addMouseListener(new MouseAdapter() {
+                            @Override
+                            public void mouseClicked(MouseEvent e) {
+                                int mouseX = e.getX();
+                                int mouseY = e.getY();
+                                game.placeTower( mouseX , mouseY , choice );
+                                main_panel.removeMouseListener(this);
+                            }
+                        }) ;
                     }
-                };
+                });
             } else {
-                ActionListener listener = new ActionListener() {
+                button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        // Add Tour
+                        main_panel.addMouseListener(new MouseAdapter() {
+                            @Override
+                            public void mouseClicked(MouseEvent e) {
+                                int mouseX = e.getX();
+                                int mouseY = e.getY();
+                                game.upgradeTower(mouseX , mouseY);
+                                main_panel.removeMouseListener(this);
+                            }
+                        }) ;
                     }
-                };
+                });
             }
 
             res.add(button);
