@@ -71,7 +71,7 @@ public class Jeu {
     public void attaque (ArrayList<Monster> monsters){
         if ( toursInGame != null) {
             for (Tour t : toursInGame) {
-                t.attaquer(monsters);
+                t.attaquer(monsters, "EASY", character);
             }
         }
     }
