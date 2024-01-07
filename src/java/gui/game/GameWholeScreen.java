@@ -51,7 +51,7 @@ public class GameWholeScreen extends JPanel {
         messageTimer = new Timer(3000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updateMessage(" "); // Mettez à jour le message avec une chaîne vide ou un espace
+                updateMessage(makeMessagePanelMessage()); // Mettez à jour le message avec une chaîne vide ou un espace
             }
         });
 
@@ -88,7 +88,10 @@ public class GameWholeScreen extends JPanel {
                     message = message + "infinite";
                 }
             }
-            updateMessage(message);
+            if(!messageTimer.isRunning())
+            {
+                updateMessage(message);
+            }
             repaint();
         }
 

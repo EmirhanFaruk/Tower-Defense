@@ -288,7 +288,7 @@ public class Game
         if (main_panel != null) {
             SwingUtilities.invokeLater(() -> {
                 main_panel.getMessage_panel().setText(text);
-                messageTimer.restart();
+                main_panel.startMessageTimer();
             });
         }
     }
