@@ -122,7 +122,6 @@ public class Game
             }
         }
 
-        // Remove monsters outside the loop to avoid concurrent modification
         monsters.removeAll(monstersToRemove);
     }
 
@@ -150,7 +149,7 @@ public class Game
                 if (main_panel.getMessage_panel() != null)
                 {
                     String message = main_panel.makeMessagePanelMessage() + " " + towerType + " cannot be put here.";
-                    main_panel.updateMessage(message);
+                    updateMessage(message);
                 }
             }
         }
@@ -175,7 +174,7 @@ public class Game
                 if (main_panel.getMessage_panel() != null)
                 {
                     String message = main_panel.makeMessagePanelMessage() + " Not enough money for " + towerName + ". Cost: " + towerCost;
-                    main_panel.updateMessage(message);
+                    updateMessage(message);
                 }
             }
         }
@@ -201,10 +200,10 @@ public class Game
                 {
                     switch (tour.getName())
                     {
-                        case "arme" : tours.add(new Soldat(tour.getLevel()+1, x , y )); tours.remove(tour); break;
-                        case "catapulte" : tours.add(new Catapulte(tour.getLevel()+1, x , y )); tours.remove(tour); break;
-                        case "canon" : tours.add(new Canon(tour.getLevel()+1, x , y )); tours.remove(tour); break;
-                        case "archer" : tours.add(new Archer(tour.getLevel()+1, x , y )); tours.remove(tour); break;
+                        case "arme" : tours.add(new Soldat(tour.getLevel()+1, x, y)); tours.remove(tour); break;
+                        case "catapulte" : tours.add(new Catapulte(tour.getLevel()+1, x, y)); tours.remove(tour); break;
+                        case "canon" : tours.add(new Canon(tour.getLevel()+1, x, y)); tours.remove(tour); break;
+                        case "archer" : tours.add(new Archer(tour.getLevel()+1, x, y)); tours.remove(tour); break;
                     }
                     this.character.setMoney(this.character.getMoney() - upgradePrice);
                 }
@@ -233,7 +232,7 @@ public class Game
                         }
                         else
                         {
-                            String message = main_panel.makeMessagePanelMessage() + " No towers at (" + x + ", " + y + ").";
+                            String message = main_panel.makeMessagePanelMessage() + " No towers at (" + y + ", " + x + ").";
                             updateMessage(message);
                         }
                     }
