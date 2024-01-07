@@ -90,34 +90,119 @@ public class TourGraphics
         return null ;
     }
 
-    public static boolean roadPositionRight (Tour tour, MapConfig mapConfig){
-        for ( int i = tour.getCoordinates().inti() ; i < mapConfig.getGrid().length ; i++ ) {
-           if ( mapConfig.getGrid()[ tour.getCoordinates().intj() ][ i].getType() == 1 ){
-               return true ;
-           }
+    public static boolean roadPositionRight (Tour tour, MapConfig mapConfig)
+    {
+        int i = tour.getCoordinates().inti();
+        int j = tour.getCoordinates().intj();
+        if(i + 1 < mapConfig.getGrid().length)
+        {
+            boolean res = false;
+            if(j + 1 < mapConfig.getGrid()[i].length)
+            {
+                res = res || mapConfig.getGrid()[i + 1][j + 1].getType() == 1;
+            }
+            if(j < mapConfig.getGrid()[i].length)
+            {
+                res = res || mapConfig.getGrid()[i + 1][j].getType() == 1;
+            }
+            if(j - 1 > 0)
+            {
+                res = res || mapConfig.getGrid()[i + 1][j - 1].getType() == 1;
+            }
+            return res;
         }
         return false ;
     }
 
-    public static boolean roadPositionDown(Tour tour, MapConfig mapConfig){
-        for ( int j = tour.getCoordinates().intj() ; j < mapConfig.getGrid().length ; j++ ) {
-            if ( mapConfig.getGrid()[ j ][ tour.getCoordinates().inti()].getType() == 1 ){
-                return true ;
+    public static boolean roadPositionLeft (Tour tour, MapConfig mapConfig)
+    {
+        int i = tour.getCoordinates().inti();
+        int j = tour.getCoordinates().intj();
+        if(i - 1 > 0)
+        {
+            boolean res = false;
+            if(j + 1 < mapConfig.getGrid()[i].length)
+            {
+                res = res || mapConfig.getGrid()[i - 1][j + 1].getType() == 1;
+            }
+            if(j < mapConfig.getGrid()[i].length)
+            {
+                res = res || mapConfig.getGrid()[i - 1][j].getType() == 1;
+            }
+            if(j - 1 > 0)
+            {
+                res = res || mapConfig.getGrid()[i - 1][j - 1].getType() == 1;
+            }
+            return res;
+        }
+        return false ;
+    }
+
+    public static boolean roadPositionDown (Tour tour, MapConfig mapConfig)
+    {
+        int i = tour.getCoordinates().inti();
+        int j = tour.getCoordinates().intj();
+        if(j + 1 < mapConfig.getGrid()[i].length)
+        {
+            boolean res = false;
+            if(i + 1 < mapConfig.getGrid().length)
+            {
+                res = res || mapConfig.getGrid()[i + 1][j + 1].getType() == 1;
+            }
+            if(i < mapConfig.getGrid().length)
+            {
+                res = res || mapConfig.getGrid()[i][j + 1].getType() == 1;
+            }
+            if(i - 1 > 0)
+            {
+                res = res || mapConfig.getGrid()[i - 1][j + 1].getType() == 1;
+            }
+            return res;
+        }
+        return false ;
+    }
+
+    public static boolean roadPositionUp (Tour tour, MapConfig mapConfig)
+    {
+        int i = tour.getCoordinates().inti();
+        int j = tour.getCoordinates().intj();
+        if(j - 1 > 0)
+        {
+            boolean res = false;
+            if(i + 1 < mapConfig.getGrid().length)
+            {
+                res = res || mapConfig.getGrid()[i + 1][j - 1].getType() == 1;
+            }
+            if(i < mapConfig.getGrid().length)
+            {
+                res = res || mapConfig.getGrid()[i][j - 1].getType() == 1;
+            }
+            if(i - 1 > 0)
+            {
+                res = res || mapConfig.getGrid()[i - 1][j - 1].getType() == 1;
+            }
+            return res;
+        }
+        return false ;
+    }
+
+    public static int goodTowerImage (Tour tour, MapConfig mapConfig)
+    {
+        boolean[] tab =
+                {
+                    roadPositionRight(tour, mapConfig),
+                    roadPositionDown(tour, mapConfig),
+                    roadPositionLeft(tour, mapConfig),
+                    roadPositionUp(tour, mapConfig)
+                };
+        for(int i = 0; i < 4; i++)
+        {
+            if(tab[i])
+            {
+                return i;
             }
         }
-        return false ;
-    }
-
-    public static int goodTowerImage (Tour tour, MapConfig mapConfig){
-        if (  roadPositionRight(tour, mapConfig) ) {
-            return 3 ; // personnage orienté vers la droite
-        } else if ( ! roadPositionRight(tour, mapConfig)){
-            return 2 ; // personnage orienté vers la gauche
-        } else if ( roadPositionDown(tour, mapConfig) ) {
-            return 1 ; // personnage orienté vers le bas
-        } else {
-            return 0 ; // personnage orienté vers le haut
-        }
+        return 3;
     }
 
 

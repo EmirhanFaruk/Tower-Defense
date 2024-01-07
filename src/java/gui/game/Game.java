@@ -97,11 +97,7 @@ public class Game
     {
         for(Tour tour : tours)
         {
-            if(tour instanceof Soldat)
-            {
-                ((Soldat)tour).attaquer(monsters, difficulty);
-            }
-
+            tour.attaquer(monsters, difficulty);
         }
     }
 
@@ -133,30 +129,31 @@ public class Game
     public void placeTower(int mouseX, int mouseY, String towerType) {
         int x = mouseX / GameScreen.getTile_width();
         int y = mouseY / GameScreen.getTile_height();
+        System.out.println("Coordonnées: " + y + ", " + x);
         if (map_config.getGrid()[y][x].getType() == 0 ) {
             switch (towerType) {
-                case "Archer": buyTower("archer" , x , y );break;
-                case "Soldat": buyTower("arme" , x , y );break;
-                case "Cannon": buyTower("canon" , x , y );break;
-                case "Catapulte": buyTower("catapulte" , x , y ); break;
+                case "Archer": buyTower("archer" , y, x);break;
+                case "Soldat": buyTower("arme" ,y, x);break;
+                case "Cannon": buyTower("canon" , y, x);break;
+                case "Catapulte": buyTower("catapulte" , y, x); break;
             }
-            System.err.println("la tour peut etre poser");
+            System.err.println("la tour peut etre poser.");
         } else {
             /** TODO
              *   faire un message pour dire qu'il peut pas poser la tour ici
              */
-            System.err.println("La tour ne peut pas etre poser");
+            System.err.println("La tour ne peut pas etre poser.");
         }
     }
 
-    public void buyTower (String towerName , int x , int y){
+    public void buyTower (String towerName , int i , int j){
         int towerCost = findTower(towerName , 1 ).getPrix() ;
         if ( character.getMoney() >=towerCost) {
             switch (towerName) {
-                case "archer" : tours.add(new Archer(1, x, y));
-                case "arme" :tours.add(new Soldat(1 , x , y )) ;
-                case "catapulte" : tours.add(new Catapulte(1, x, y));
-                case "canon" :tours.add(new Canon(1 , x , y )) ;
+                case "archer" : tours.add(new Archer(1, i, j));
+                case "arme" :tours.add(new Soldat(1 , i, j)) ;
+                case "catapulte" : tours.add(new Catapulte(1, i, j));
+                case "canon" :tours.add(new Canon(1 , i, j)) ;
             }
             this.character.setMoney(this.character.getMoney() - towerCost );
             System.err.println("Tour acheter") ;
