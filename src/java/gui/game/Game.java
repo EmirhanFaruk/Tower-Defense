@@ -155,14 +155,6 @@ public class Game
                 case "Canon": buyTower("canon" , y, x);break;
                 case "Catapulte": buyTower("catapulte" , y, x); break;
             }
-            if(main_panel != null)
-            {
-                if (main_panel.getMessage_panel() != null)
-                {
-                    String message = main_panel.makeMessagePanelMessage() + " " + towerType + " can be put here. x: " + x + ", y: " + y;
-                    updateMessage(message);
-                }
-            }
         } else {
             if(main_panel != null)
             {
@@ -172,7 +164,6 @@ public class Game
                     updateMessage(message);
                 }
             }
-            System.err.println("La tour ne peut pas etre poser.");
         }
     }
 
@@ -199,7 +190,6 @@ public class Game
                     updateMessage(message);
                 }
             }
-            System.err.println("Pas assez d'argent");
         }
     }
 
@@ -230,7 +220,6 @@ public class Game
                             updateMessage(message);
                         }
                     }
-                    System.err.println("Pas assez d'argent pour upgrade");
                 }
             }
             else
@@ -249,12 +238,9 @@ public class Game
                         {
                             String message = main_panel.makeMessagePanelMessage() + " No towers at (" + x + ", " + y + ").";
                             updateMessage(message);
-                            System.err.println("Pas de tour a cette endroit");
                         }
                     }
                 }
-
-
             }
         }
     }
