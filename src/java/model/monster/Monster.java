@@ -25,14 +25,15 @@ public class Monster {
     private final MapConfig mapConfig ;
     private final static double[][][] mulp =
             {
-                    {{1, 1}, {1.5, 1.1}, {1.8, 1.3}},
-                    {{1, 0.9}, {1.6, 0.9}, {2, 0.85}},
-                    {{1, 1.6}, {1.5, 1.45}, {1.8, 1.45}}
+                    {{1, 1}, {1.5, 1.1}, {1.8, 1.3}, {2, 1.5}},
+                    {{1, 0.9}, {1.5, 0.9}, {1.8, 0.85}, {2, 0.8}},
+                    {{1, 1.6}, {1.5, 1.45}, {1.8, 1.3}, {2, 1.1}}
             }; // live, speed. Exemples a changer
 
     private final static int[][] resistance_pourcentage_avoir =
             {
                     {100, 0, 0, 0},
+                    {70, 10, 10, 10},
                     {40, 20, 20, 20},
                     {10, 30, 30, 30}
             }; // NONE, BULLET, ARROW, FIRE. Pourcentage pour avoir une resistance.
