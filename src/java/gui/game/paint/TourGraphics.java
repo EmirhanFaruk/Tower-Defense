@@ -4,8 +4,12 @@ import config.MapConfig;
 import gui.game.GameScreen;
 import model.tour.Tour;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 public class TourGraphics
@@ -34,10 +38,10 @@ public class TourGraphics
             {"TowerSodierLeft1.png","TowerSodierLeft2.png","TowerSodierLeft3.png"},
             {"TowerSodierRight1.png","TowerSodierRight2.png","TowerSodierRight3.png"}};
 
-    private static final ImageIcon[][] towerArcherIm = new ImageIcon[towerArcher.length][towerArcher[0].length];
-    private static final ImageIcon[][] towerCannonIm = new ImageIcon[towerCannon.length][towerCannon[0].length];
-    private static final ImageIcon[][] towerCatapulteIm = new ImageIcon[towerCatapulte.length][towerCatapulte[0].length];
-    private static final ImageIcon[][] towerSoldatIm = new ImageIcon[towerSoldat.length][towerSoldat[0].length];
+    private static BufferedImage[][] towerArcherIm = new BufferedImage[towerArcher.length][towerArcher[0].length];
+    private static BufferedImage[][] towerCannonIm = new BufferedImage[towerCannon.length][towerCannon[0].length];
+    private static BufferedImage[][] towerCatapulteIm = new BufferedImage[towerCatapulte.length][towerCatapulte[0].length];
+    private static BufferedImage[][] towerSoldatIm = new BufferedImage[towerSoldat.length][towerSoldat[0].length];
 
     private static int width , height ;
 
@@ -51,21 +55,25 @@ public class TourGraphics
     }
 
 
-    public static ImageIcon loadImage(String imagePath) {
-        return new ImageIcon(imagePath);
+    public static BufferedImage loadImage(String imagePath) {
+        try {
+            return ImageIO.read(new File(imagePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null; // Gérer l'erreur de chargement de l'image
+        }
     }
 
-    public static void setImages()
-    {
-        ImageIcon[][][] lists = {towerArcherIm, towerCannonIm, towerCatapulteIm, towerSoldatIm};
+    public static void setImages() {
+        BufferedImage[][][] lists = {towerArcherIm, towerCannonIm, towerCatapulteIm, towerSoldatIm};
         String[][][] st_lists = {towerArcher, towerCannon, towerCatapulte, towerSoldat};
-        String fp = path + s + "src" + s + "resources" + s + "images" + s + "Tower" + s;
-        for(int l = 0; l < 4; l++)
-        {
-            for(int i = 0; i < lists[l].length; i++)
-            {
-                for(int j = 0; j < lists[l][0].length; j++)
-                {
+        String baseFp = path + s + "src" + s + "resources" + s + "images" + s + "Tower" + s;
+        String[] towerType = {"Archer", "Cannon", "Catapulte", "Soldat"};
+        for (int l = 0; l < 4; l++) {
+            String fp = baseFp;
+            fp = baseFp + towerType[l]+ s ;
+            for (int i = 0; i < lists[l].length; i++) {
+                for (int j = 0; j < lists[l][0].length; j++) {
                     lists[l][i][j] = loadImage(fp + st_lists[l][i][j]);
                 }
             }
@@ -114,15 +122,17 @@ public class TourGraphics
 
 
 
-    public static ImageIcon getImage(Tour tour, MapConfig mapConfig){
-        int niveau = tour.getLevel() -1 ;
-        switch (towerType(tour))
-        {
-            case "Archer" : return towerArcherIm[goodTowerImage(tour, mapConfig)][niveau];
-            case "Cannon" : return towerCannonIm[goodTowerImage(tour, mapConfig)][niveau];
-            case "Catapulte" : return towerCatapulteIm[goodTowerImage(tour, mapConfig)][niveau];
-            case "Soldat" : return towerSoldatIm[goodTowerImage(tour, mapConfig)][niveau];
-
+    public static BufferedImage getImage(Tour tour, MapConfig mapConfig) {
+        int niveau = tour.getLevel() - 1;
+        switch (towerType(tour)) {
+            case "Archer":
+                return towerArcherIm[goodTowerImage(tour, mapConfig)][niveau];
+            case "Cannon":
+                return towerCannonIm[goodTowerImage(tour, mapConfig)][niveau];
+            case "Catapulte":
+                return towerCatapulteIm[goodTowerImage(tour, mapConfig)][niveau];
+            case "Soldat":
+                return towerSoldatIm[goodTowerImage(tour, mapConfig)][niveau];
         }
         return towerArcherIm[goodTowerImage(tour, mapConfig)][niveau];
     }
@@ -140,9 +150,9 @@ public class TourGraphics
     }
     public static void paint(Graphics2D g, Tour tour, MapConfig mapConfig)
     {
-        Image image = getImage(tour, mapConfig).getImage();
-        int x = tour.getCoordinates().intj() * width;
-        int y = tour.getCoordinates().inti() * height;
+        BufferedImage image = getImage(tour, mapConfig);
+        int x = (int) tour.getCoordinates().j() * width;
+        int y = (int) tour.getCoordinates().i() * height;
         g.drawImage(image, x, y, width, height, null);
     }
 }
