@@ -6,6 +6,9 @@ import model.monster.Monster;
 import model.monster.MonsterSpawner;
 import model.tour.*;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Game
@@ -23,7 +26,7 @@ public class Game
     private String difficulty;
 
     private GameWholeScreen main_panel;
-
+    private Timer messageTimer;
     /**
      * Constructeur de Game. Produire map_config depuis map(path) et
      * @param map path de map
@@ -42,6 +45,14 @@ public class Game
         monsters = new ArrayList<>();
         tours = new ArrayList<>();
         apparitionMonster();
+        messageTimer = new Timer(3000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (main_panel != null) {
+                    main_panel.startMessageTimer();
+                }
+            }
+        });
     }
 
     public void setMap_config(String map)
@@ -149,7 +160,7 @@ public class Game
                 if (main_panel.getMessage_panel() != null)
                 {
                     String message = main_panel.makeMessagePanelMessage() + " " + towerType + " can be put here. x: " + x + ", y: " + y;
-                    main_panel.updateMessage(message);
+                    updateMessage(message);
                 }
             }
         } else {
@@ -158,7 +169,7 @@ public class Game
                 if (main_panel.getMessage_panel() != null)
                 {
                     String message = main_panel.makeMessagePanelMessage() + " " + towerType + " cannot be put here.";
-                    main_panel.updateMessage(message);
+                    updateMessage(message);
                 }
             }
             System.err.println("La tour ne peut pas etre poser.");
@@ -185,15 +196,14 @@ public class Game
                 if (main_panel.getMessage_panel() != null)
                 {
                     String message = main_panel.makeMessagePanelMessage() + " Not enough money for " + towerName + ". Cost: " + towerCost;
-                    main_panel.updateMessage(message);
+                    updateMessage(message);
                 }
             }
             System.err.println("Pas assez d'argent");
         }
     }
 
-    public void upgradeTower(int mouseX, int mouseY)
-    {
+    public void upgradeTower(int mouseX, int mouseY) {
         int y = mouseX / GameScreen.getTile_width();
         int x = mouseY / GameScreen.getTile_height() ;
         for ( Tour tour : tours ){
@@ -217,7 +227,7 @@ public class Game
                         if (main_panel.getMessage_panel() != null)
                         {
                             String message = main_panel.makeMessagePanelMessage() + " Not enough money for upgrade. Cost: " + upgradePrice;
-                            main_panel.updateMessage(message);
+                           updateMessage(message);
                         }
                     }
                     System.err.println("Pas assez d'argent pour upgrade");
@@ -232,13 +242,13 @@ public class Game
                         if ( tour.getLevel()== 3)
                         {
                             String message = main_panel.makeMessagePanelMessage() + " Tower max level";
-                            main_panel.updateMessage(message);
+                            updateMessage(message);
                             System.err.println("Tour upgrade max");
                         }
                         else
                         {
                             String message = main_panel.makeMessagePanelMessage() + " No towers at (" + x + ", " + y + ").";
-                            main_panel.updateMessage(message);
+                            updateMessage(message);
                             System.err.println("Pas de tour a cette endroit");
                         }
                     }
@@ -273,6 +283,14 @@ public class Game
             }
         }
         return null ;
+    }
+    public void updateMessage(String text) {
+        if (main_panel != null) {
+            SwingUtilities.invokeLater(() -> {
+                main_panel.getMessage_panel().setText(text);
+                messageTimer.restart();
+            });
+        }
     }
 
     public MonsterSpawner getMonster_spawner() {return monster_spawner;}
