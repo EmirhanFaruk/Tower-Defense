@@ -146,10 +146,10 @@ public class Game
         int towerCost = findTower(towerName , 1 ).getPrix() ;
         if ( character.getMoney() >=towerCost) {
             switch (towerName) {
-                case "archer" : tours.add(new Archer(1, i, j)); break;
-                case "arme" :tours.add(new Soldat(1 ,  i, j)) ;  break;
-                case "catapulte" : tours.add(new Catapulte(1,  i, j));  break;
-                case "canon" :tours.add(new Canon(1 ,  i, j)) ;  break;
+                case "archer" : tours.add(new Archer(1, j, i)); break;
+                case "arme" :tours.add(new Soldat(1 ,  j, i)) ;  break;
+                case "catapulte" : tours.add(new Catapulte(1,  j, i ));  break;
+                case "canon" :tours.add(new Canon(1 ,   j, i )) ;  break;
             }
             this.character.setMoney(this.character.getMoney() - towerCost );
             System.err.println("Tour acheter") ;
@@ -162,17 +162,17 @@ public class Game
     }
 
     public void upgradeTower(int mouseX, int mouseY){
-        int x = mouseX / GameScreen.getTile_width();
-        int y = mouseY / GameScreen.getTile_height() ;
+        int j = mouseX / GameScreen.getTile_width();
+        int i = mouseY / GameScreen.getTile_height() ;
         for ( Tour tour : tours ){
-            if ( (int ) tour.getCoordinates().i() == x  && ( int ) tour.getCoordinates().j() == y ){
+            if ( (int ) tour.getCoordinates().i() == i  && ( int ) tour.getCoordinates().j() == j ){
                 int upgradePrice = findTower(tour.getName(),tour.getLevel()+1).getPrix() ;
                 if ( this.character.getMoney() >= upgradePrice ) {
                     switch (tour.getName()){
-                        case "arme" : tours.add(new Soldat(tour.getLevel(), x , y )); tours.remove(tour) ;  break;
-                        case "catapulte" : tours.add(new Catapulte(tour.getLevel(), x , y )); tours.remove(tour) ;  break;
-                        case "canon" : tours.add(new Canon(tour.getLevel(), x , y )); tours.remove(tour) ;  break;
-                        case "archer" : tours.add(new Archer(tour.getLevel(), x , y )); tours.remove(tour) ;  break;
+                        case "arme" : tours.add(new Soldat(tour.getLevel(), i , j )); tours.remove(tour) ;  break;
+                        case "catapulte" : tours.add(new Catapulte(tour.getLevel(), i , j )); tours.remove(tour) ;  break;
+                        case "canon" : tours.add(new Canon(tour.getLevel(), i , j )); tours.remove(tour) ;  break;
+                        case "archer" : tours.add(new Archer(tour.getLevel(), i , j )); tours.remove(tour) ;  break;
                     }
                     this.character.setMoney(this.character.getMoney() - upgradePrice);
                 } else {
