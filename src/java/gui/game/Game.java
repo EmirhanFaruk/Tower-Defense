@@ -137,7 +137,7 @@ public class Game
         int x = mouseX / GameScreen.getTile_width();
         int y = mouseY / GameScreen.getTile_height();
         System.out.println("Coordonnées: " + y + ", " + x);
-        if (map_config.getGrid()[y][x].getType() == 0 ) {
+        if (map_config.getGrid()[y][x].getType() == 0 && noTOwerInThisCoordinates(y , x )) {
             switch (towerType) {
                 case "Archer": buyTower("archer" , y, x);break;
                 case "Soldat": buyTower("arme" ,y, x);break;
@@ -192,21 +192,31 @@ public class Game
         }
     }
 
+    public boolean noTOwerInThisCoordinates ( int i , int j){
+        for ( Tour tour : tours){
+            if ( ( int ) tour.getCoordinates().i() == i && ( int ) tour.getCoordinates().j() == j  ){
+                System.err.println("Une tour sur cette coordonnée");
+                return false ;
+            }
+        }
+        return true ;
+    }
+
     public void upgradeTower(int mouseX, int mouseY)
     {
-        int x = mouseX / GameScreen.getTile_width();
-        int y = mouseY / GameScreen.getTile_height() ;
+        int y = mouseX / GameScreen.getTile_width();
+        int x = mouseY / GameScreen.getTile_height() ;
         for ( Tour tour : tours ){
-            if ( (int ) tour.getCoordinates().i() == y  && ( int ) tour.getCoordinates().j() == x ){
+            if ( (int ) tour.getCoordinates().i() == x  && ( int ) tour.getCoordinates().j() == y && tour.getLevel() < 3  ){
                 int upgradePrice = findTower(tour.getName(),tour.getLevel()+1).getPrix() ;
                 if ( this.character.getMoney() >= upgradePrice )
                 {
                     switch (tour.getName())
                     {
-                        case "arme" : tours.add(new Soldat(tour.getLevel(), x , y )); tours.remove(tour); break;
-                        case "catapulte" : tours.add(new Catapulte(tour.getLevel(), x , y )); tours.remove(tour); break;
-                        case "canon" : tours.add(new Canon(tour.getLevel(), x , y )); tours.remove(tour); break;
-                        case "archer" : tours.add(new Archer(tour.getLevel(), x , y )); tours.remove(tour); break;
+                        case "arme" : tours.add(new Soldat(tour.getLevel()+1, x , y )); tours.remove(tour); break;
+                        case "catapulte" : tours.add(new Catapulte(tour.getLevel()+1, x , y )); tours.remove(tour); break;
+                        case "canon" : tours.add(new Canon(tour.getLevel()+1, x , y )); tours.remove(tour); break;
+                        case "archer" : tours.add(new Archer(tour.getLevel()+1, x , y )); tours.remove(tour); break;
                     }
                     this.character.setMoney(this.character.getMoney() - upgradePrice);
                 }
@@ -229,11 +239,21 @@ public class Game
                 {
                     if (main_panel.getMessage_panel() != null)
                     {
-                        String message = main_panel.makeMessagePanelMessage() + " No towers at (" + x + ", " + y + ").";
-                        main_panel.updateMessage(message);
+                        if ( tour.getLevel()== 3)
+                        {
+                            String message = main_panel.makeMessagePanelMessage() + " Tower max level";
+                            main_panel.updateMessage(message);
+                            System.err.println("Tour upgrade max");
+                        }
+                        else
+                        {
+                            String message = main_panel.makeMessagePanelMessage() + " No towers at (" + x + ", " + y + ").";
+                            main_panel.updateMessage(message);
+                            System.err.println("Pas de tour a cette endroit");
+                        }
                     }
                 }
-                System.err.println("Pas de tour a cette endroit");
+
 
             }
         }

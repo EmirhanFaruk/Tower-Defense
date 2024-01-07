@@ -33,6 +33,7 @@ public class GameWholeScreen extends JPanel {
     private Game game;
 
     private GameView frame;
+    private Timer messageTimer;
 
 
     public GameWholeScreen(int width, int height, String map, String difficulty, int wave_count_max, Character character, GameView frame) {
@@ -47,6 +48,12 @@ public class GameWholeScreen extends JPanel {
 
         add(main_panel, BorderLayout.CENTER);
         add(button_panel, BorderLayout.SOUTH);
+        messageTimer = new Timer(3000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateMessage(" "); // Mettez à jour le message avec une chaîne vide ou un espace
+            }
+        });
 
 
     }
@@ -299,6 +306,12 @@ public class GameWholeScreen extends JPanel {
             SwingUtilities.invokeLater(() -> {
                 message_panel.setText(text);
             });
+        }
+    }
+
+    public void startMessageTimer() {
+        if (messageTimer != null) {
+            messageTimer.restart();
         }
     }
 
