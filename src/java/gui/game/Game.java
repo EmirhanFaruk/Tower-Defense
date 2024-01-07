@@ -141,7 +141,7 @@ public class Game
             switch (towerType) {
                 case "Archer": buyTower("archer" , y, x);break;
                 case "Soldat": buyTower("arme" ,y, x);break;
-                case "Cannon": buyTower("canon" , y, x);break;
+                case "Canon": buyTower("canon" , y, x);break;
                 case "Catapulte": buyTower("catapulte" , y, x); break;
             }
             if(main_panel != null)
@@ -153,9 +153,6 @@ public class Game
                 }
             }
         } else {
-            /** TODO
-             *   faire un message pour dire qu'il peut pas poser la tour ici
-             */
             if(main_panel != null)
             {
                 if (main_panel.getMessage_panel() != null)
@@ -183,9 +180,6 @@ public class Game
             this.character.setMoney(this.character.getMoney() - towerCost );
             System.err.println("Tour acheter") ;
         } else {
-            /** TODO
-             *   faire un message pour dire qu'il a pas assez d'argent
-             */
             if(main_panel != null)
             {
                 if (main_panel.getMessage_panel() != null)
@@ -218,9 +212,6 @@ public class Game
                 }
                 else
                 {
-                    /** TODO
-                     *   faire un message pour dire qu'il a pas assez d'argent
-                     */
                     if(main_panel != null)
                     {
                         if (main_panel.getMessage_panel() != null)
@@ -234,9 +225,6 @@ public class Game
             }
             else
             {
-                /** TODO
-                 *   faire un message pour dire qu'il a pas de tour a cette place
-                 */
                 if(main_panel != null)
                 {
                     if (main_panel.getMessage_panel() != null)

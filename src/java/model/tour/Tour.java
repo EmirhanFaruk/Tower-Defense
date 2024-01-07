@@ -66,7 +66,7 @@ public abstract class Tour {
         else
         {
             // If somehow target is not alive then make cible null
-            if(cible.getLive() <= 0)
+            if(cible.getLive() <= 0 || !monsterInRange(cible))
             {
                 cible = null;
             }
@@ -99,6 +99,8 @@ public abstract class Tour {
     }
 
     public abstract void attaquer(ArrayList<Monster> monsters, String difficulty, Character character);
+
+    public int getRange() {return range;}
 
     public int getType() {
         return type;

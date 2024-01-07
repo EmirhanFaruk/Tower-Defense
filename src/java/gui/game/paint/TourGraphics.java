@@ -1,16 +1,13 @@
 package gui.game.paint;
 
 import config.MapConfig;
-import gui.game.GameScreen;
 import model.tour.Tour;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 public class TourGraphics
 {
@@ -239,5 +236,7 @@ public class TourGraphics
         int x = (int) tour.getCoordinates().j() * width;
         int y = (int) tour.getCoordinates().i() * height;
         g.drawImage(image, x, y, width, height, null);
+
+        g.draw(new Rectangle((int) (x + width*0.5 - tour.getRange()*width), (int) (y + height*0.5 - tour.getRange()*height), tour.getRange() * width * 2, tour.getRange() * height * 2));
     }
 }
