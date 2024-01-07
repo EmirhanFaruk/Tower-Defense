@@ -6,7 +6,6 @@ import model.monster.Monster;
 import model.monster.MonsterSpawner;
 import model.tour.*;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class Game
