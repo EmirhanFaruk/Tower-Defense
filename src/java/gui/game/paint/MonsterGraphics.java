@@ -73,12 +73,15 @@ public class MonsterGraphics {
         g.setColor(Color.RED);
         g.fill(health_bar_cover);
         g.draw(health_bar_cover);
-        
+
         double live_perc = monster.getLive() / monster.getMax_live();
         Rectangle health_bar = new Rectangle(x, y , (int) (width * live_perc), height/5);
         g.setColor(Color.GREEN);
         g.fill(health_bar);
         g.draw(health_bar);
 
+        Rectangle health_bar_line = new Rectangle(x, y , width, height/5);
+        g.setColor(Color.BLACK);
+        g.draw(health_bar_line);
     }
 }
