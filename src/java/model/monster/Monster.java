@@ -11,6 +11,7 @@ import java.util.Random;
 public class Monster {
     private final String name ;
     private  double live ;
+    private double max_live;
     private final double speed ;
     private final int money ;
     private final int niveau;
@@ -61,6 +62,7 @@ public class Monster {
         this.pos = pos;
         this.name = name;
         this.live = live * mulp[type][niveau][0];
+        this.max_live = this.live;
         this.speed = speed * mulp[type][niveau][1];
         this.niveau = niveau; // niveau est entre 0-2
         this.money = money;
@@ -86,6 +88,7 @@ public class Monster {
     {
         this.name = name;
         this.live = live * mulp[type][niveau][0];
+        this.max_live = this.live;
         this.speed = speed * mulp[type][niveau][1];
         this.niveau = niveau; // niveau est entre 0-3
         this.money = money;
@@ -180,6 +183,7 @@ public class Monster {
     }
 
     public double getLive() {return live;}
+    public double getMax_live() {return max_live;}
     public double getSpeed(double delta) {return speed * delta;}
     public int getMoney() {return money;}
     public void setLive(double lives) { live = lives ; }
