@@ -96,4 +96,12 @@ public class GameScreen extends JPanel
         updateTours(g2);
         g2.dispose();
     }
+
+    public static int getTile_height() {
+        return tile_height;
+    }
+
+    public static int getTile_width() {
+        return tile_width;
+    }
 }
