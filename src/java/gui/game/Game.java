@@ -7,8 +7,6 @@ import model.monster.MonsterSpawner;
 import model.tour.*;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Game
@@ -26,7 +24,7 @@ public class Game
     private String difficulty;
 
     private GameWholeScreen main_panel;
-    private Timer messageTimer;
+
     /**
      * Constructeur de Game. Produire map_config depuis map(path) et
      * @param map path de map
@@ -45,14 +43,6 @@ public class Game
         monsters = new ArrayList<>();
         tours = new ArrayList<>();
         apparitionMonster();
-        messageTimer = new Timer(3000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (main_panel != null) {
-                    main_panel.startMessageTimer();
-                }
-            }
-        });
     }
 
     public void setMap_config(String map)
@@ -147,7 +137,7 @@ public class Game
     public void placeTower(int mouseX, int mouseY, String towerType) {
         int x = mouseX / GameScreen.getTile_width();
         int y = mouseY / GameScreen.getTile_height();
-        if (map_config.getGrid()[y][x].getType() == 0 ) {
+        if (map_config.getGrid()[y][x].getType() == 0 && noTowerInThisCoordinates(y , x )) {
             switch (towerType) {
                 case "Archer": buyTower("archer" , y, x);break;
                 case "Soldat": buyTower("arme" ,y, x);break;
@@ -160,7 +150,7 @@ public class Game
                 if (main_panel.getMessage_panel() != null)
                 {
                     String message = main_panel.makeMessagePanelMessage() + " " + towerType + " cannot be put here.";
-                    updateMessage(message);
+                    main_panel.updateMessage(message);
                 }
             }
         }
@@ -185,13 +175,23 @@ public class Game
                 if (main_panel.getMessage_panel() != null)
                 {
                     String message = main_panel.makeMessagePanelMessage() + " Not enough money for " + towerName + ". Cost: " + towerCost;
-                    updateMessage(message);
+                    main_panel.updateMessage(message);
                 }
             }
         }
     }
 
-    public void upgradeTower(int mouseX, int mouseY) {
+    public boolean noTowerInThisCoordinates(int i , int j){
+        for ( Tour tour : tours){
+            if ( ( int ) tour.getCoordinates().i() == i && ( int ) tour.getCoordinates().j() == j  ){
+                return false ;
+            }
+        }
+        return true ;
+    }
+
+    public void upgradeTower(int mouseX, int mouseY)
+    {
         int y = mouseX / GameScreen.getTile_width();
         int x = mouseY / GameScreen.getTile_height() ;
         for ( Tour tour : tours ){
@@ -267,6 +267,7 @@ public class Game
         }
         return null ;
     }
+
     public void updateMessage(String text) {
         if (main_panel != null) {
             SwingUtilities.invokeLater(() -> {
