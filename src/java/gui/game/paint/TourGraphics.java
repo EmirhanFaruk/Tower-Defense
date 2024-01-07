@@ -1,17 +1,13 @@
 package gui.game.paint;
 
 import config.MapConfig;
-import gui.game.GameScreen;
 import model.tour.Tour;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 public class TourGraphics
 {
