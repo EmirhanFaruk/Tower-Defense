@@ -23,14 +23,23 @@ public class MonsterPathFinding
     {
         if(monster_path.isEmpty())
         {
-            grid = map_config.getGrid();
-
-            Coordinate debut = findStart();
-
-            monster_path = getListeChemin(debut.intCopy());
+            monster_path = makeNewMonster_path(map_config);
         }
+
         return copy(monster_path);
     }
+
+    public static ArrayList<Coordinate> makeNewMonster_path(MapConfig map_config)
+    {
+        grid = map_config.getGrid();
+
+        Coordinate debut = findStart();
+
+        monster_path = getListeChemin(debut.intCopy());
+
+        return copy(monster_path);
+    }
+
 
     /**
      * Produire une copie dur d'un array

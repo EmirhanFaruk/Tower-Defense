@@ -67,7 +67,7 @@ public class GameView extends JFrame implements Runnable
     }
 
 
-    public void startGame(int width, int height, String map, String difficulty, String mode, String character)
+    public void startGame(String map, String difficulty, String mode, String character)
     {
         int wave_count_max = 4;
         switch (difficulty)
@@ -91,6 +91,7 @@ public class GameView extends JFrame implements Runnable
 
 
 
+        game = null;
         game = new GameWholeScreen(main_panel.getWidth(), main_panel.getHeight(), map, difficulty, wave_count_max, game_character, this);
 
 
@@ -131,7 +132,6 @@ public class GameView extends JFrame implements Runnable
             {
                 end += System.nanoTime() - start;
             }
-
         }
     }
 
@@ -152,39 +152,6 @@ public class GameView extends JFrame implements Runnable
         menu.showMenu();
         running = false;
     }
-
-    /**
-     * Afficher le menu
-     */
-    private void drawMenu()
-    {
-
-    }
-
-    /**
-     * Partie logique de Menu
-     */
-    private void logicMenu()
-    {
-
-    }
-
-    /**
-     * Afficher le jeu
-     */
-    private void drawGame()
-    {
-
-    }
-
-    /**
-     * Partie logique du jeu
-     */
-    private void logicGame()
-    {
-
-    }
-
 
     public GraphicsDevice getDevice()
     {
