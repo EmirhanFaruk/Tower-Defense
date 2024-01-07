@@ -227,7 +227,7 @@ public class Game
                         if (main_panel.getMessage_panel() != null)
                         {
                             String message = main_panel.makeMessagePanelMessage() + " Not enough money for upgrade. Cost: " + upgradePrice;
-                           updateMessage(message);
+                            updateMessage(message);
                         }
                     }
                     System.err.println("Pas assez d'argent pour upgrade");
@@ -299,6 +299,7 @@ public class Game
         return this.character.getLive() <= 0 ;
     }
 
+    public boolean gameWinCondition() {return this.monster_spawner.getInWave();}
 
     public Character getCharacter() {return character;}
 
