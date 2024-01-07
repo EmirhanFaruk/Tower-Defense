@@ -285,7 +285,8 @@ public class Game
         return this.character.getLive() <= 0 ;
     }
 
-    public boolean gameWinCondition() {return this.monster_spawner.getInWave();}
+    public boolean gameWinCondition() {return !this.monster_spawner.getInWave()
+            || monster_spawner.getWave_count_max() == monster_spawner.getWave_count();}
 
     public Character getCharacter() {return character;}
 
