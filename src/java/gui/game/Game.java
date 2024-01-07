@@ -22,14 +22,17 @@ public class Game
 
     private String difficulty;
 
+    private GameWholeScreen main_panel;
+
     /**
      * Constructeur de Game. Produire map_config depuis map(path) et
      * @param map path de map
      * @param difficulty difficulté pour monster_spawner
      * @throws Exception pour map_config
      */
-    public Game(String map, String difficulty, int wave_count_max, Character character)
+    public Game(String map, String difficulty, int wave_count_max, Character character, GameWholeScreen main_panel)
     {
+        this.main_panel = main_panel;
         setMap_config(map);
         this.character = character;
         this.difficulty = difficulty;
@@ -141,11 +144,26 @@ public class Game
                 case "Cannon": buyTower("canon" , y, x);break;
                 case "Catapulte": buyTower("catapulte" , y, x); break;
             }
-            System.err.println("la tour peut etre poser.");
+            if(main_panel != null)
+            {
+                if (main_panel.getMessage_panel() != null)
+                {
+                    String message = main_panel.makeMessagePanelMessage() + " " + towerType + " can be put here. x: " + x + ", y: " + y;
+                    main_panel.updateMessage(message);
+                }
+            }
         } else {
             /** TODO
              *   faire un message pour dire qu'il peut pas poser la tour ici
              */
+            if(main_panel != null)
+            {
+                if (main_panel.getMessage_panel() != null)
+                {
+                    String message = main_panel.makeMessagePanelMessage() + " " + towerType + " cannot be put here.";
+                    main_panel.updateMessage(message);
+                }
+            }
             System.err.println("La tour ne peut pas etre poser.");
         }
     }
@@ -168,6 +186,14 @@ public class Game
             /** TODO
              *   faire un message pour dire qu'il a pas assez d'argent
              */
+            if(main_panel != null)
+            {
+                if (main_panel.getMessage_panel() != null)
+                {
+                    String message = main_panel.makeMessagePanelMessage() + " Not enough money for " + towerName + ". Cost: " + towerCost;
+                    main_panel.updateMessage(message);
+                }
+            }
             System.err.println("Pas assez d'argent");
         }
     }
@@ -195,6 +221,14 @@ public class Game
                     /** TODO
                      *   faire un message pour dire qu'il a pas assez d'argent
                      */
+                    if(main_panel != null)
+                    {
+                        if (main_panel.getMessage_panel() != null)
+                        {
+                            String message = main_panel.makeMessagePanelMessage() + " Not enough money for upgrade. Cost: " + upgradePrice;
+                            main_panel.updateMessage(message);
+                        }
+                    }
                     System.err.println("Pas assez d'argent pour upgrade");
                 }
             }
@@ -202,7 +236,16 @@ public class Game
             {
                 /** TODO
                  *   faire un message pour dire qu'il a pas de tour a cette place
-                 */System.err.println("Pas de tour a cette endroit");
+                 */
+                if(main_panel != null)
+                {
+                    if (main_panel.getMessage_panel() != null)
+                    {
+                        String message = main_panel.makeMessagePanelMessage() + " No towers at (" + x + ", " + y + ").";
+                        main_panel.updateMessage(message);
+                    }
+                }
+                System.err.println("Pas de tour a cette endroit");
 
             }
         }

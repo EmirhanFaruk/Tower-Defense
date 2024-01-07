@@ -39,7 +39,7 @@ public class GameWholeScreen extends JPanel {
         this.frame = frame;
 
         setSize(width, height);
-        game = new Game(map, difficulty, wave_count_max, character);
+        game = new Game(map, difficulty, wave_count_max, character, this);
 
         setLayout(new BorderLayout());
         main_panel = new GameScreen(width, height, this);
@@ -110,6 +110,24 @@ public class GameWholeScreen extends JPanel {
         return res;
     }
 
+    public String makeMessagePanelMessage()
+    {
+        String message = "";
+        Character character = game.getCharacter();
+        int wc = game.getMonster_spawner().getWave_count();
+        message = "Money: " + character.getMoney() + ", Live: " + character.getLive() + ", Wave: " + wc + "/";
+        int wcm = game.getMonster_spawner().getWave_count_max();
+        if(wcm != -1)
+        {
+            message = message + wcm;
+        }
+        else
+        {
+            message = message + "infinite";
+        }
+        return message;
+    }
+
     private JPanel makeMenuPanel() {
         JPanel res = new JPanel();
         // Brown background
@@ -139,18 +157,7 @@ public class GameWholeScreen extends JPanel {
                 }
                 else
                 {
-                    Character character = game.getCharacter();
-                    int wc = game.getMonster_spawner().getWave_count();
-                    message = "Money: " + character.getMoney() + ", Live: " + character.getLive() + ", Wave: " + wc + "/";
-                    int wcm = game.getMonster_spawner().getWave_count_max();
-                    if(wcm != -1)
-                    {
-                        message = message + wcm;
-                    }
-                    else
-                    {
-                        message = message + "infinite";
-                    }
+                    message = makeMessagePanelMessage();
                 }
 
                 message = message + " PAUSED ";
@@ -293,6 +300,11 @@ public class GameWholeScreen extends JPanel {
                 message_panel.setText(text);
             });
         }
+    }
+
+    public JLabel getMessage_panel()
+    {
+        return message_panel;
     }
 
     public Game getGame() {return game;}
