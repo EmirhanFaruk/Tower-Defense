@@ -20,6 +20,8 @@ public class Game
     // Les tours seront encapsulé dans les cellules, cette liste va avoir leurs references
     private ArrayList<Tour> tours;
 
+    private String difficulty;
+
     /**
      * Constructeur de Game. Produire map_config depuis map(path) et
      * @param map path de map
@@ -30,6 +32,7 @@ public class Game
     {
         setMap_config(map);
         this.character = character;
+        this.difficulty = difficulty;
 
         makeMonsterSpawner(difficulty, wave_count_max);
 
@@ -94,7 +97,7 @@ public class Game
     {
         for(Tour tour : tours)
         {
-            tour.attaquer(monsters);
+            tour.attaquer(monsters, difficulty, getCharacter());
         }
     }
 
@@ -107,6 +110,10 @@ public class Game
 
             if (monster.entrerDansBase()) {
                 monster.whenMonsterEnterBase();
+                monstersToRemove.add(monster);
+            }
+            if(monster.isDead())
+            {
                 monstersToRemove.add(monster);
             }
         }
@@ -126,30 +133,34 @@ public class Game
     public void placeTower(int mouseX, int mouseY, String towerType) {
         int x = mouseX / GameScreen.getTile_width();
         int y = mouseY / GameScreen.getTile_height();
+        System.out.println("Coordonnées: " + y + ", " + x);
         if (map_config.getGrid()[y][x].getType() == 0 ) {
             switch (towerType) {
-                case "Archer": buyTower("archer" , x , y );break;
-                case "Soldat": buyTower("arme" , x , y );break;
-                case "Cannon": buyTower("canon" , x , y );break;
-                case " Catapulte": buyTower("catapulte" , x , y ); break;
+                case "Archer": buyTower("archer" , y, x);break;
+                case "Soldat": buyTower("arme" ,y, x);break;
+                case "Cannon": buyTower("canon" , y, x);break;
+                case "Catapulte": buyTower("catapulte" , y, x); break;
             }
-            System.err.println("la tour peut etre poser");
+            System.err.println("la tour peut etre poser.");
         } else {
             /** TODO
              *   faire un message pour dire qu'il peut pas poser la tour ici
              */
-            System.err.println("La tour ne peut pas etre poser");
+            System.err.println("La tour ne peut pas etre poser.");
         }
     }
 
-    public void buyTower (String towerName , int i , int j){
-        int towerCost = findTower(towerName , 1 ).getPrix() ;
-        if ( character.getMoney() >=towerCost) {
-            switch (towerName) {
+    public void buyTower (String towerName , int i , int j)
+    {
+        int towerCost = findTower(towerName, 1 ).getPrix();
+        if ( character.getMoney() >=towerCost)
+        {
+            switch (towerName)
+            {
                 case "archer" : tours.add(new Archer(1, i, j)); break;
-                case "arme" :tours.add(new Soldat(1 ,  i, j)) ;  break;
-                case "catapulte" : tours.add(new Catapulte(1,  i, j));  break;
-                case "canon" :tours.add(new Canon(1 ,  i, j)) ;  break;
+                case "arme" :tours.add(new Soldat(1 , i, j)) ; break;
+                case "catapulte" : tours.add(new Catapulte(1, i, j)); break;
+                case "canon" :tours.add(new Canon(1 , i, j)) ; break;
             }
             this.character.setMoney(this.character.getMoney() - towerCost );
             System.err.println("Tour acheter") ;
@@ -161,27 +172,34 @@ public class Game
         }
     }
 
-    public void upgradeTower(int mouseX, int mouseY){
+    public void upgradeTower(int mouseX, int mouseY)
+    {
         int x = mouseX / GameScreen.getTile_width();
         int y = mouseY / GameScreen.getTile_height() ;
         for ( Tour tour : tours ){
             if ( (int ) tour.getCoordinates().i() == x  && ( int ) tour.getCoordinates().j() == y ){
                 int upgradePrice = findTower(tour.getName(),tour.getLevel()+1).getPrix() ;
-                if ( this.character.getMoney() >= upgradePrice ) {
-                    switch (tour.getName()){
-                        case "arme" : tours.add(new Soldat(tour.getLevel(), x , y )); tours.remove(tour) ;  break;
-                        case "catapulte" : tours.add(new Catapulte(tour.getLevel(), x , y )); tours.remove(tour) ;  break;
-                        case "canon" : tours.add(new Canon(tour.getLevel(), x , y )); tours.remove(tour) ;  break;
-                        case "archer" : tours.add(new Archer(tour.getLevel(), x , y )); tours.remove(tour) ;  break;
+                if ( this.character.getMoney() >= upgradePrice )
+                {
+                    switch (tour.getName())
+                    {
+                        case "arme" : tours.add(new Soldat(tour.getLevel(), x , y )); tours.remove(tour); break;
+                        case "catapulte" : tours.add(new Catapulte(tour.getLevel(), x , y )); tours.remove(tour); break;
+                        case "canon" : tours.add(new Canon(tour.getLevel(), x , y )); tours.remove(tour); break;
+                        case "archer" : tours.add(new Archer(tour.getLevel(), x , y )); tours.remove(tour); break;
                     }
                     this.character.setMoney(this.character.getMoney() - upgradePrice);
-                } else {
+                }
+                else
+                {
                     /** TODO
                      *   faire un message pour dire qu'il a pas assez d'argent
                      */
                     System.err.println("Pas assez d'argent pour upgrade");
                 }
-            } else {
+            }
+            else
+            {
                 /** TODO
                  *   faire un message pour dire qu'il a pas de tour a cette place
                  */System.err.println("Pas de tour a cette endroit");
