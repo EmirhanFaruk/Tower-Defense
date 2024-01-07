@@ -141,7 +141,7 @@ public class Game
             switch (towerType) {
                 case "Archer": buyTower("archer" , y, x);break;
                 case "Soldat": buyTower("arme" ,y, x);break;
-                case "Cannon": buyTower("canon" , y, x);break;
+                case "Canon": buyTower("canon" , y, x);break;
                 case "Catapulte": buyTower("catapulte" , y, x); break;
             }
             if(main_panel != null)
