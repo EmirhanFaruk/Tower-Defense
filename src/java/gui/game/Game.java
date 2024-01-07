@@ -153,9 +153,6 @@ public class Game
                 }
             }
         } else {
-            /** TODO
-             *   faire un message pour dire qu'il peut pas poser la tour ici
-             */
             if(main_panel != null)
             {
                 if (main_panel.getMessage_panel() != null)
@@ -183,9 +180,6 @@ public class Game
             this.character.setMoney(this.character.getMoney() - towerCost );
             System.err.println("Tour acheter") ;
         } else {
-            /** TODO
-             *   faire un message pour dire qu'il a pas assez d'argent
-             */
             if(main_panel != null)
             {
                 if (main_panel.getMessage_panel() != null)
@@ -203,7 +197,7 @@ public class Game
         int x = mouseX / GameScreen.getTile_width();
         int y = mouseY / GameScreen.getTile_height() ;
         for ( Tour tour : tours ){
-            if ( (int ) tour.getCoordinates().i() == x  && ( int ) tour.getCoordinates().j() == y ){
+            if ( (int ) tour.getCoordinates().i() == y  && ( int ) tour.getCoordinates().j() == x ){
                 int upgradePrice = findTower(tour.getName(),tour.getLevel()+1).getPrix() ;
                 if ( this.character.getMoney() >= upgradePrice )
                 {
@@ -218,9 +212,6 @@ public class Game
                 }
                 else
                 {
-                    /** TODO
-                     *   faire un message pour dire qu'il a pas assez d'argent
-                     */
                     if(main_panel != null)
                     {
                         if (main_panel.getMessage_panel() != null)
@@ -234,9 +225,6 @@ public class Game
             }
             else
             {
-                /** TODO
-                 *   faire un message pour dire qu'il a pas de tour a cette place
-                 */
                 if(main_panel != null)
                 {
                     if (main_panel.getMessage_panel() != null)
