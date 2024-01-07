@@ -1,6 +1,7 @@
 package model.tour;
 
 import gui.Coordinate;
+import model.Character;
 import model.monster.Monster;
 
 import java.util.ArrayList;
@@ -72,16 +73,6 @@ public abstract class Tour {
         }
     }
 
-    // une fonction qui attaque les monstres après le cooldown
-    public void attaquer(ArrayList<Monster> monsters) {
-        long currentTime = System.currentTimeMillis();
-        // Vérifier si le cooldown est écoulé
-        if (currentTime - lastAttackTime >= cooldown) {
-            target(monsters); //attaque
-            cible.monsterHurt(degats, "NONE", "EASY");
-            lastAttackTime = currentTime;  // Mettre à jour le temps de la dernière attaque
-        }
-    }
 
     // une fonction qui renvoie true si le montre est à la portée de la tour sinon non
     public boolean monsterInRange (Monster monster){
@@ -107,7 +98,7 @@ public abstract class Tour {
         return level;
     }
 
-    public abstract void attaquer(ArrayList<Monster> monsters, String difficulty);
+    public abstract void attaquer(ArrayList<Monster> monsters, String difficulty, Character character);
 
     public int getType() {
         return type;

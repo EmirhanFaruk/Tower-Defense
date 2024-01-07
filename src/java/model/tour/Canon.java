@@ -1,5 +1,6 @@
 package model.tour;
 
+import model.Character;
 import model.monster.Monster;
 
 import java.util.ArrayList;
@@ -13,16 +14,23 @@ public class Canon extends Tour {
         super("canon" , 40 , 75 , level ,400 , 8 , 5000);
     }
     @Override
-    public void attaquer(ArrayList<Monster> monsters, String difficulty) {
+    public void attaquer(ArrayList<Monster> monsters, String difficulty, Character character)
+    {
         long currentTime = System.currentTimeMillis();
         // Vérifier si le cooldown est écoulé
-        if (currentTime - lastAttackTime >= cooldown) {
+        if (currentTime - lastAttackTime >= cooldown)
+        {
             target(monsters); //attaque
             if(cible != null)
             {
                 cible.monsterHurt(degats, "BULLET", difficulty);
+                if(cible.isDead())
+                {
+                    cible.winMoneyWhenMonsterDead();
+                }
+                lastAttackTime = currentTime;  // Mettre à jour le temps de la dernière attaque
             }
-            lastAttackTime = currentTime;  // Mettre à jour le temps de la dernière attaque
+
         }
     }
 

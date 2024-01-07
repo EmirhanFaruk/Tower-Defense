@@ -97,7 +97,7 @@ public class Game
     {
         for(Tour tour : tours)
         {
-            tour.attaquer(monsters, difficulty);
+            tour.attaquer(monsters, difficulty, getCharacter());
         }
     }
 
