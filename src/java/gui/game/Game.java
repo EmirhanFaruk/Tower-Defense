@@ -197,7 +197,7 @@ public class Game
         int x = mouseX / GameScreen.getTile_width();
         int y = mouseY / GameScreen.getTile_height() ;
         for ( Tour tour : tours ){
-            if ( (int ) tour.getCoordinates().i() == x  && ( int ) tour.getCoordinates().j() == y ){
+            if ( (int ) tour.getCoordinates().i() == y  && ( int ) tour.getCoordinates().j() == x ){
                 int upgradePrice = findTower(tour.getName(),tour.getLevel()+1).getPrix() ;
                 if ( this.character.getMoney() >= upgradePrice )
                 {
