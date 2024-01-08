@@ -14,7 +14,12 @@ public class Soldat extends Tour {
         super( "arme" , 10 , 10 , level ,100 , 6 , 100 );
     }
 
-
+    /**
+     * Une fonction qui attaque un monstre
+     * @param monsters
+     * @param difficulty
+     * @param character
+     */
     @Override
     public void attaquer(ArrayList<Monster> monsters, String difficulty, Character character)
     {
@@ -31,12 +36,13 @@ public class Soldat extends Tour {
                 {
                     cible.winMoneyWhenMonsterDead();
                 }
-                lastAttackTime = currentTime;  // Mettre à jour le temps de la dernière attaque
+                lastAttackTime = currentTime;  // Mets à jour le temps de la dernière attaque
             }
 
         }
     }
 
+    /* getters et setters */
     public int getType() {
         return super.getType();
     }

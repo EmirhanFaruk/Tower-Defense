@@ -13,6 +13,13 @@ public class Canon extends Tour {
     public Canon( int level ) {
         super("canon" , 40 , 75 , level ,400 , 8 , 5000);
     }
+
+    /**
+     * Une fonction qui attaque un monstre
+     * @param monsters
+     * @param difficulty
+     * @param character
+     */
     @Override
     public void attaquer(ArrayList<Monster> monsters, String difficulty, Character character)
     {
@@ -35,6 +42,7 @@ public class Canon extends Tour {
         }
     }
 
+    /* getters et setters */
     public int getType() {
         return super.getType();
     }

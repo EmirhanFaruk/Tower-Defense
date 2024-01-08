@@ -74,7 +74,10 @@ public abstract class Tour {
     }
 
 
-    // une fonction qui renvoie true si le montre est à la portée de la tour sinon non
+    /**
+     * Une fonction qui renvoie true si le montre est à la portée de la tour sinon non
+     */
+
     public boolean monsterInRange (Monster monster){
         return Math.sqrt(
                 Math.pow(monster.getPos().i() - this.coordinates.i(), 2)
@@ -82,35 +85,21 @@ public abstract class Tour {
         // regarde la position de la tour et du montres est dans la portée
     }
 
+    /* getters et setters */
     public String getName() {
         return name;
     }
-
     public int getPrix() {
         return this.prix;
     }
-
-    public int getDegats() {
-        return degats;
-    }
-
     public int getLevel() {
         return level;
     }
-
     public abstract void attaquer(ArrayList<Monster> monsters, String difficulty, Character character);
-
-    public int getRange() {return range;}
-
     public int getType() {
         return type;
     }
-
     public Coordinate getCoordinates() {
         return coordinates;
-    }
-
-    public void setCoordinates(Coordinate coordinates) {
-        this.coordinates = coordinates;
     }
 }

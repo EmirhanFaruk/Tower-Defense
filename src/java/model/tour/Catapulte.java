@@ -14,6 +14,12 @@ public class Catapulte extends Tour {
         super("catapulte", 80, 90 , level , 600 , 7 , 10000 );
     }
 
+    /**
+     * Une fonction qui attaque un monstre
+     * @param monsters
+     * @param difficulty
+     * @param character
+     */
     @Override
     public void attaquer(ArrayList<Monster> monsters, String difficulty, Character character)
     {
@@ -38,6 +44,7 @@ public class Catapulte extends Tour {
         }
     }
 
+    /* getters et setters */
     public int getType() {
         return super.getType();
     }

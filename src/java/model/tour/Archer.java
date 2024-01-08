@@ -13,6 +13,13 @@ public class Archer extends Tour {
     public Archer ( int level ){
         super ( "archer", 15 , 15 , level, 300 , 5 , 1000 );
     }
+
+    /**
+     * Une fonction qui attaque un monstre
+     * @param monsters
+     * @param difficulty
+     * @param character
+     */
     @Override
     public void attaquer(ArrayList<Monster> monsters, String difficulty, Character character)
     {
@@ -34,6 +41,8 @@ public class Archer extends Tour {
 
         }
     }
+
+    /* getters et setters */
     public int getType() {
         return super.getType();
     }
