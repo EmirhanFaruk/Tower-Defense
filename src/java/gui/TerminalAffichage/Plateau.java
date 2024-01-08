@@ -1,12 +1,10 @@
 package gui.TerminalAffichage;
 
-import config.Cellule;
 import config.MapConfig;
 import model.Character;
 import model.Player;
 import model.monster.Monster;
 import model.monster.MonsterSpawner;
-import model.tour.* ;
 
 import java.util.ArrayList;
 
@@ -46,6 +44,12 @@ public class Plateau {
         this.monsterSpawner = new MonsterSpawner(20 , 20 , 10 , 20 ,this.tableau ,this.character) ;
         this.monsters = new ArrayList<>() ;
     }
+
+    /**
+     * Une fonction qui laisse le player choisir son character
+     * @param player
+     * @return Character
+     */
     public Character chooseCharacter(Player player) {
         System.out.print("Voulez choisir un personnage (commandant, artilleur, archer, villageois) ? : ");
         String userInput = player.getScanAnswer().nextLine().replaceAll("\\s", "").toLowerCase();
@@ -64,12 +68,17 @@ public class Plateau {
         }
     }
 
-    // une fonction qui dit si on a perdu ou pas
+    /**
+     * Une fonction qui dit si on a perdu ou pas
+     * @return boolean
+     */
     public boolean GameLose(){
         return character.getLive() <= 0 ;
     }
 
-    // une fonction qui fait l'apparition des monstres
+    /**
+     * Une fonction qui fait l'apparition des monstres
+     */
     public void apparitionMonster(){
         this.monsterSpawner.startWaves();
         if (this.monsterSpawner.getInWave())
@@ -78,7 +87,9 @@ public class Plateau {
         }
     }
 
-    // une fonction qui affiche comment le jeu est à cette instance
+    /**
+     * une fonction qui affiche comment le jeu est à cette instance
+     */
     public void afficheCourant (){
         String[][] tab = tableauWithMonster(tableauCellule());
         System.out.println(" Argent : " +character.getMoney());
@@ -104,7 +115,11 @@ public class Plateau {
         }
     }
 
-    // une fonction qui rajoute a tab ou les monstres sont positionné
+    /**
+     * Une fonction qui rajoute a tab ou les monstres sont positionné
+     * @param tab
+     * @return tab
+     */
     public String[][] tableauWithMonster (String[][] tab){
         apparitionMonster();
         if (this.monsters != null) {
@@ -125,7 +140,10 @@ public class Plateau {
         return tab ;
     }
 
-    // une fonction qui revoie un tableau String de la map
+    /**
+     * Une fonction qui revoie un tableau String de la map
+     * @return
+     */
     public String[][] tableauCellule() {
         String[][] tab = new String[this.height][this.width];
         for (int i = 0; i < this.height; i++) {
@@ -147,14 +165,13 @@ public class Plateau {
     }
 
 
-    // getteurs et setteurs
+    /* getteurs et setteurs */
     public MapConfig getTableau() {
         return tableau;
     }
     public Character getCharacter() {
         return character;
     }
-
     public ArrayList<Monster> getMonsters() {
         return monsters;
     }
