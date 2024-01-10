@@ -1,11 +1,9 @@
-#!/bin/bash
-
-# Create the output directory if it doesn't exist
+# Create the output folder if it doesn't exist
 mkdir -p out
 
-# Compile all Java files within the src directory and its subdirectories
+# Compile all source files in src/java/com and its subfolders
 find src/java/com/ -name "*.java" -print | xargs javac -d out
 
-echo "Compilation completed."
+echo "Compilation finished."
 
 
