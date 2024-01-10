@@ -62,7 +62,7 @@ public class Caro
     {
         String path = System.getProperty("user.dir");
         String s = findSlash(path);
-        String[] img_name_list = {"Grass", "Road", "Water", "Tree", "Base"};
+        String[] img_name_list = {"Grass", "Road", "Tree", "Water", "Base"};
         String full_path = path + s + "src" + s + "resources" + s + "images" + s + "Map" + s + img_name_list[type] + ".png";
         try
         {
