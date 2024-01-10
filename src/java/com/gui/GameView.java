@@ -78,10 +78,10 @@ public class GameView extends JFrame implements Runnable
         Character game_character = new Character("villageois", 200, 5);
         switch (character)
         {
-            case "COMMANDANT": game_character = new Character("commandant", 300, 10); break;
-            case "SOLDAT": game_character = new Character("artilleur", 250, 7); break;
-            case "ARCHER": game_character = new Character("archer", 250, 7); break;
-            case "VILLAGEOIS" : game_character = new Character("villageois", 200, 5); break;
+            case "COMMANDANT": game_character = new Character("commandant", 900, 10); break;
+            case "SOLDAT": game_character = new Character("soldat", 750, 7); break;
+            case "ARCHER": game_character = new Character("archer", 750, 7); break;
+            case "VILLAGEOIS" : game_character = new Character("villageois", 600, 5); break;
         }
 
         game = null;

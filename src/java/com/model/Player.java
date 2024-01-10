@@ -15,7 +15,10 @@ public class Player {
         this.name = scanAnswer.nextLine();
     }
 
-    // Demande si le joueur veut-il jouer ou non
+    /**
+     * Demande si le joueur veut-il jouer ou non
+     * @return
+     */
     public boolean wantPlay() {
         System.out.print("Voulez-vous jouer (oui/non) ? : ");
         // Utilisez le scanner de la classe
@@ -30,7 +33,11 @@ public class Player {
         }
     }
 
-    // Demande au joueur de donner une coordonnée
+    /**
+     *  Demande au joueur de donner une coordonnée
+     * @param mapConfig
+     * @return tab
+     */
     public int[] enterCoordinates(MapConfig mapConfig) {
         System.out.print("Veuillez saisir une coordonnée (exemple : A6) : ");
         // Utilisez le scanner de la classe
@@ -65,8 +72,10 @@ public class Player {
         return enterCoordinates(mapConfig); // Appel récursif pour demander une nouvelle saisie
     }
 
-
-    // Demande si le joueur veut-il effectuer une action
+    /**
+     * Demande si le joueur veut-il effectuer une action
+     * @return bool
+     */
     public boolean requestAction() {
         System.out.print("Voulez-vous poser une tour(oui/non) ? : ");
         // Utilisez le scanner de la classe
@@ -81,7 +90,10 @@ public class Player {
         }
     }
 
-    // Demande quel type de tour veut-il acheter
+    /**
+     * Demande quel type de tour veut-il acheter
+     * @return string
+     */
     public String chooseTowerType(){
         System.out.print("Quelles types de tour voulez-vous acheter ( canon/archer/soldat/catapulte ) ? : ");
         String userInput = scanAnswer.nextLine().replaceAll("\\s", "").toLowerCase();
@@ -94,7 +106,10 @@ public class Player {
         }
     }
 
-    // Demande quel niveau de tour veut-il acheter
+    /**
+     * Demande quel niveau de tour veut-il acheter
+     * @return
+     */
     public int chooseTowerLevel(){
         System.out.print(" Choisissez un niveau entre 1 et 3 pour votre tour : ");
         String userInput = scanAnswer.nextLine().replaceAll("\\s", "").toLowerCase();
@@ -111,9 +126,7 @@ public class Player {
         scanAnswer.close();
     }
 
-    public String getName() {
-        return name;
-    }
+    /* getters et setters */
     public Scanner getScanAnswer() {
         return scanAnswer;
     }

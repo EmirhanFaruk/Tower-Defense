@@ -17,12 +17,12 @@ public class MonsterGraphics {
     private static int width , height ;
     public MonsterGraphics( ) {
     }
-    public static void setWH(int w, int h)
-    {
-        width = w;
-        height = h;
-    }
 
+    /**
+     * Une fonction qui renvoie une image
+     * @param fileName
+     * @return bufferedImage
+     */
     private static BufferedImage loadImage(String fileName) {
         try {
             String imagePath = path + s + "src" + s + "resources" + s + "images" + s + "Monster" + s + fileName;
@@ -33,6 +33,11 @@ public class MonsterGraphics {
         }
     }
 
+    /**
+     * Une fonction qui donne le bon slash
+     * @param p
+     * @return String
+     */
     private static String findSlash(String p) {
         for (int i = 0; i < p.length(); i++) {
             switch (p.charAt(i)) {
@@ -45,6 +50,11 @@ public class MonsterGraphics {
         return "/";
     }
 
+    /**
+     * Donne la bonne image
+     * @param monster
+     * @return
+     */
     public static BufferedImage getImage(Monster monster) {
         int pos = monster.getNiveau();
         switch (monster.getResistance()) {
@@ -82,5 +92,11 @@ public class MonsterGraphics {
         Rectangle health_bar_line = new Rectangle(x + 4, y + 4, width - 4, height/5);
         g.setColor(Color.BLACK);
         g.draw(health_bar_line);
+    }
+    /* getters et setters */
+    public static void setWH(int w, int h)
+    {
+        width = w;
+        height = h;
     }
 }

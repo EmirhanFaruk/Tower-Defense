@@ -45,13 +45,11 @@ public class TourGraphics
     public TourGraphics() {
     }
 
-    public static void setWH(int w, int h)
-    {
-        width = w;
-        height = h;
-    }
-
-
+    /**
+     * Une fonction qui renvoie une image
+     * @param imagePath
+     * @return bufferedImage
+     */
     public static BufferedImage loadImage(String imagePath) {
         try {
             return ImageIO.read(new File(imagePath));
@@ -76,6 +74,12 @@ public class TourGraphics
             }
         }
     }
+
+    /**
+     * Une fonction qui donne le bon type de tour
+     * @param tour
+     * @return
+     */
 
     public static String towerType (Tour tour){
         switch (tour.getName()){
@@ -202,8 +206,12 @@ public class TourGraphics
         return 3;
     }
 
-
-
+    /**
+     * Une fonction qui renvoie une image
+     * @param tour
+     * @param mapConfig
+     * @return bufferedImage
+     */
     public static BufferedImage getImage(Tour tour, MapConfig mapConfig) {
         int niveau = tour.getLevel() - 1;
         switch (towerType(tour)) {
@@ -218,6 +226,12 @@ public class TourGraphics
         }
         return towerArcherIm[goodTowerImage(tour, mapConfig)][niveau];
     }
+
+    /**
+     * Une fonction qui donne le bon slash
+     * @param p
+     * @return String
+     */
     private static String findSlash(String p)
     {
         for(int i = 0; i < p.length(); i++)
@@ -236,5 +250,12 @@ public class TourGraphics
         int x = (int) tour.getCoordinates().j() * width;
         int y = (int) tour.getCoordinates().i() * height;
         g.drawImage(image, x, y, width, height, null);
+    }
+
+    /* getters et setters */
+    public static void setWH(int w, int h)
+    {
+        width = w;
+        height = h;
     }
 }

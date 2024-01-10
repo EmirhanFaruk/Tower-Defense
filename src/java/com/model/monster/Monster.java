@@ -40,7 +40,7 @@ public class Monster {
     private final static double[] resistance_pourcentage =
             { 0 , 0.1 ,0.3 ,0.5 } ;
 
-    private final static String[] res_list = {"NONE", "BULLET", "ARROW", "FIRE"};
+    private final static String[] res_list = {"NONE", "BULLET", "ARROW", "EXPLOSION"};
 
     private String resistance = "";
 
@@ -160,6 +160,9 @@ public class Monster {
         }
     }
 
+    /**
+     * Une fonction qui diminue la vie quand les monstres sont dans la base
+     */
     public void whenMonsterEnterBase()
     {
         if (character != null) {
@@ -169,13 +172,23 @@ public class Monster {
         setLive(0);
     }
 
+    /**
+     * Une fonction qui donne l'argent au character
+     */
     public void winMoneyWhenMonsterDead(){
         character.setMoney(character.getMoney()+getMoney());
     }
 
+    /**
+     * Une fonction qui fait bouger le monstre
+     * @param delta
+     */
     public void moveMonster(double delta) {MonsterPathFinding.moveMonster(this, delta);}
 
-    // une fonction qui retourne un boolean si le montre est rentré dans la base
+    /**
+     *  Une fonction qui retourne un boolean si le montre est rentré dans la base
+     * @return bool
+     */
     public boolean entrerDansBase(){
         // regarde si les coordonnés du monstre est celui où est la base
         return mapConfig.getGrid()[(int) pos.i()][(int) pos.j()].getType() == 4; // renvoie true
@@ -196,28 +209,23 @@ public class Monster {
         return s;
     }
 
+    /* getters et setters */
     public double getLive() {return live;}
     public double getMax_live() {return max_live;}
     public double getSpeed(double delta) {return speed * delta;}
     public int getMoney() {return money;}
     public void setLive(double lives) { live = lives ; }
     public boolean isDead () {return this.live <=0;}
-
     public int getNiveau() {
         return niveau;
     }
-    public String getName() {return name;}
-
     public String getResistance() {
         return resistance;
     }
-
     public ArrayList<Coordinate> getPath() {return path;}
     public void popPath() { if(!path.isEmpty()) path.remove(0);}
-
     public String getDirection() {return direction;}
     public void setDirection(String direction) {this.direction = direction;}
-
     public Coordinate getPos() {return pos;}
     public void setPos(double a, double b) {pos.set(a, b);}
     public void addPos(double a, double b) {pos.add(a, b);}

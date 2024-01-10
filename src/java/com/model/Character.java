@@ -10,27 +10,24 @@ public class Character {
         this.name = name ;
         live = lives ;
         this.degats = degats ;
-        this.money = 10 ;
+        this.money = 30 ;
     }
+
+    /* getters et setters */
 
     public String getName() {
         return name;
     }
+
     public int getLive() {
         return live;
     }
     public int getMoney() {
         return money;
     }
-
     public int getDegats() {
         return degats;
     }
-
-    public void setLive(int live) {
-        this.live = live;
-    }
-
     public void minusLive(int live) {this.live -= live;}
     public void setMoney(int money) {
          this.money = money;
