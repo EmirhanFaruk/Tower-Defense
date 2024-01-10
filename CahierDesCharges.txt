@@ -77,14 +77,17 @@ Parties du Cahier des Charges traitées
 
 2.(Dire les règles générales du jeu + explique le code de manière simple )
 
-
-Premièrement, nous avons fait la version terminale du jeu avec
+3.
+  Premièrement, nous avons fait la version terminale du jeu avec
 les classes primitives Monster.java, Tour.java et Character.java
 sauf les classes MonsterPathFinding.java et MonsterSpawner.java qui sont restée sauf des petits changements.
 Avec ceci, nous avons ajouté quatre autres classes, Jeu.java, Plateau.java, Player.java et TerminalAffichage.java
 nous permettant de pouvoir interagir avec le joueur dans le terminal et respecte l'ancienne version du jeu.
-Deuxièmement, nous allons expliquer pourquoi nous avons besoin de cette classe et l'utilité de la classe.
-Tout d'abord, la classe Jeu.java se consiste de la partie logique du jeu
+  Deuxièmement, nous allons expliquer l'utilité de chaque classe.
+Tout d'abord, la classe Jeu.java se consiste de la partie logique du jeu.
+Ensuite, la classe Plateau.java comporte de l'affichage du jeu dans la console à l'instance.
+Puis, la classe Player.java se consiste de l'interaction entre le joueur et la console.
+Enfin, la classe TerminalAffichage.java comprend le lancer de la version terminal.
 
 
 4.( Expliquer le graphisme de maniere simple dans lequel on explique la logique du gui (claire et conviviale comprenant
@@ -92,7 +95,11 @@ des panneaux, des boutons et des indicateurs de jeu. Affichage du statut du jeu,
 
 
 
+Problèmes connus
 
-Problèmes Connus
+
+Problèmes Rencontrée
+
+Nous avons rencontré
 
 Conclusion
