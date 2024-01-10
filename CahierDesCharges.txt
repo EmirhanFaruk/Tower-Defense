@@ -90,7 +90,7 @@ Puis, la classe Player.java se consiste de l'interaction entre le joueur et la c
 Enfin, la classe TerminalAffichage.java comprend le lancer de la version terminal.
 
 
-4.( Expliquer le graphisme de maniere simple dans lequel on explique la logique du gui (claire et conviviale comprenant
+4.( Expliquer le graphisme de manière simple dans lequel on explique la logique du gui (claire et conviviale comprenant
 des panneaux, des boutons et des indicateurs de jeu. Affichage du statut du jeu, du message, des ressources, etc. ))
 
 
@@ -100,6 +100,21 @@ Problèmes connus
 
 Problèmes Rencontrée
 
-Nous avons rencontré
+Nous avons rencontré un problème lors de la configuration des images des monstres.
+Nous avions voulu utiliser des fichiers .gif pour pouvoir représenter nos 4 monstres avec la classe ImageIcon.
+Nous avions voulu utiliser la classe ImageIcon car sur les différents forums que nous avions visités nous recommandés d'adopter cette classe.
+Mais cela n'a pas voulu fonctionner, nous ne voyons pas les images des monstres lorsque ont lancé le jeu.
+Alors, nous avons essayé de comprendre pourquoi cela ne voulait pas fonctionner avec des débug.
+Néanmoins, nous rencontrions toujours le même quand bien même que nous savions que nos monstres se déplacé dans notre carte.
+Apres cela nous donc du changer nos fichiers .gif en utilisant des fichiers .png pour pouvoir enfin faire afficher nos monstres avec la classe BufferedImage.
+
+Extension
+- Ajouter des images pour les personnages ce qui permettra de mieux visualiser les personnages avec une option de skin.
+- Ajouter différents thèmes pour différents événements. Par exemple, ajouter un thème Noël dans lequel l'herbe, les arbres,
+l'eau et les tours pourraient recouverte de neige ou bien un thème Halloween avec les arbres avec des oranges, des chauves-souris, etc.
+- Embellir le pause avec un boutton reprendre et un boutton quitter la partie
+- Embellir le game over avec un boutton restart et un boutton return menu.
+
+
 
 Conclusion
