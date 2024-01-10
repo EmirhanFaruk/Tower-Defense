@@ -17,13 +17,13 @@ public abstract class Tour {
     protected long lastAttackTime;  // Temps de la dernière attaque
     protected final long cooldown;   // Temps de recharge en millisecondes
     protected Monster cible;
-    private final static int[][] mulp= { { 1 } , { 2 } , { 3 } };
+    private final static double[][] mulp= { { 1 } , { 1.7 } , { 2.3 } };
 
     public Tour ( String name , int prix , int degats , int level , int x , int y , int range , int type ,  long time ){
         this.name = name ;
         this.level = level ;
-        this.prix = prix * mulp[getLevel()-1][0] ;
-        this.degats = degats *  mulp[getLevel()-1][0] ;
+        this.prix =( int ) (prix * mulp[getLevel()-1][0]) ;
+        this.degats = ( int ) (degats *  mulp[getLevel()-1][0] ) ;
         this.coordinates = new Coordinate( x , y ) ;
         this.range =  range ;
         this.type = type ;
@@ -34,8 +34,8 @@ public abstract class Tour {
     public Tour ( String name , int prix , int degats , int level , int range , int type , long time  ){
         this.name = name ;
         this.level = level ;
-        this.prix = prix * mulp[getLevel()-1][0] ;
-        this.degats = degats *  mulp[getLevel()-1][0] ;
+        this.prix =  ( int ) (prix * mulp[getLevel()-1][0] );
+        this.degats = ( int ) (degats *  mulp[getLevel()-1][0] );
         this.range =  range ;
         this.type = type ;
         this.cooldown = time ;
@@ -89,7 +89,11 @@ public abstract class Tour {
     public String getName() {
         return name;
     }
-    public int getPrix() {
+    public int getPrix(Character character ) {
+
+        if(character.getName().equals("villageois")) {
+            return this.prix/2;
+        }
         return this.prix;
     }
     public int getLevel() {

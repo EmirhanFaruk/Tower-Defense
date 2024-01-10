@@ -10,10 +10,15 @@ public class Character {
         this.name = name ;
         live = lives ;
         this.degats = degats ;
-        this.money = 10 ;
+        this.money = 30 ;
     }
 
     /* getters et setters */
+
+    public String getName() {
+        return name;
+    }
+
     public int getLive() {
         return live;
     }

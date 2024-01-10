@@ -57,10 +57,10 @@ public class Plateau {
             case "commandant":
                 return new Character("commandant", 300, 10);
             case "artilleur":
-                return new Character("artilleur", 250, 7);
+                return new Character("soldat", 250, 7);
             case "archer":
                 return new Character("archer", 250, 7);
-            case " villageois" :
+            case "villageois" :
                 return new Character("villageois", 200, 5) ;
             default:
                 System.out.println("Le personnage n'existe pas.");

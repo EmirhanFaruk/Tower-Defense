@@ -110,8 +110,8 @@ public class Jeu {
                     String towerType = player.chooseTowerType(); // demande quelle tour le player veut-il achetez
                     int towerLevel = player.chooseTowerLevel();
                     Tour selectTower =  findTower(towerType , towerLevel) ;
-                    if (selectTower != null && character.getMoney() >= selectTower.getPrix()) {
-                        character.setMoney(character.getMoney() - selectTower.getPrix()); // Réduire l'argent du character au prix de la tour
+                    if (selectTower != null && character.getMoney() >= selectTower.getPrix(this.character)) {
+                        character.setMoney(character.getMoney() - selectTower.getPrix(this.character)); // Réduire l'argent du character au prix de la tour
                         int[] val =player.enterCoordinates(plateau.getTableau()); // demande au player de donner une coordonnée
                         this.plateau.getTableau().getGrid()[val[0]][val[1]]=new Cellule(false , selectTower.getType()) ; //place la tour à la position que le player a demandée
                         addTower(towerType,towerLevel,val[0],val[1]);
