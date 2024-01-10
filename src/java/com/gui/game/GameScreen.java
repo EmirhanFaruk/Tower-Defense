@@ -1,9 +1,9 @@
-package gui.game;
+package com.gui.game;
 
 import com.config.Cellule;
 import com.config.MapConfig;
-import gui.Coordinate;
-import gui.game.paint.*;
+import com.gui.Coordinate;
+import com.gui.game.paint.*;
 import com.model.tour.Tour;
 import com.model.monster.Monster;
 

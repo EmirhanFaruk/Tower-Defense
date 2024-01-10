@@ -1,6 +1,6 @@
-package gui.game.paint;
+package com.gui.game.paint;
 
-import gui.Coordinate;
+import com.gui.Coordinate;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

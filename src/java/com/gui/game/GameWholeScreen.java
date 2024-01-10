@@ -1,6 +1,6 @@
-package gui.game;
+package com.gui.game;
 
-import gui.GameView;
+import com.gui.GameView;
 import com.model.Character;
 
 import javax.swing.*;

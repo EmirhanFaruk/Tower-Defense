@@ -1,6 +1,6 @@
 package com.model.tour;
 
-import gui.Coordinate;
+import com.gui.Coordinate;
 import com.model.Character;
 import com.model.monster.Monster;
 

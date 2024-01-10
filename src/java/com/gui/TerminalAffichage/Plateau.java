@@ -1,4 +1,4 @@
-package gui.TerminalAffichage;
+package com.gui.TerminalAffichage;
 
 import com.config.MapConfig;
 import com.model.Character;

@@ -1,4 +1,4 @@
-package gui.game;
+package com.gui.game;
 
 import com.config.MapConfig;
 import com.model.Character;

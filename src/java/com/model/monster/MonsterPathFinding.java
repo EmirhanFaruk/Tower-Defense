@@ -2,7 +2,7 @@ package com.model.monster;
 
 import com.config.Cellule;
 import com.config.MapConfig;
-import gui.Coordinate;
+import com.gui.Coordinate;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package gui.game.paint;
+package com.gui.game.paint;
 import com.model.monster.Monster;
 
 import javax.imageio.ImageIO;
@@ -93,7 +93,6 @@ public class MonsterGraphics {
         g.setColor(Color.BLACK);
         g.draw(health_bar_line);
     }
-
     /* getters et setters */
     public static void setWH(int w, int h)
     {

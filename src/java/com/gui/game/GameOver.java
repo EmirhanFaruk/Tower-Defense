@@ -1,4 +1,4 @@
-package gui.game;
+package com.gui.game;
 public class GameOver {
 
     private boolean gameEnded;

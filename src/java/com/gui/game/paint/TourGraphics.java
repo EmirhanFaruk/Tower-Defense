@@ -1,4 +1,4 @@
-package gui.game.paint;
+package com.gui.game.paint;
 
 import com.config.MapConfig;
 import com.model.tour.Tour;

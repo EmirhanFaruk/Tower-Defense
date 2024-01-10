@@ -1,6 +1,6 @@
-package gui.mainmenu;
+package com.gui.mainmenu;
 
-import gui.GameView;
+import com.gui.GameView;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

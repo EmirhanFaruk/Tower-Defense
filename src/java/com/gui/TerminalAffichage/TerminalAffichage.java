@@ -1,4 +1,4 @@
-package gui.TerminalAffichage;
+package com.gui.TerminalAffichage;
 
 import com.model.Player ;
 

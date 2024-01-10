@@ -26,7 +26,7 @@ public class GameView extends JFrame implements Runnable
 
     private final String main_menu_screen_s = "MAIN MENU", ingame_screen_s = "INGAME";
 
-    private gui.mainmenu.Menu menu;
+    private Menu menu;
     private GameWholeScreen game;
 
     private Thread game_thread;

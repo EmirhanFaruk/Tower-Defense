@@ -1,7 +1,7 @@
 package com.model.monster;
 
 import com.config.MapConfig;
-import gui.Coordinate;
+import com.gui.Coordinate;
 import com.model.Character;
 
 import java.util.ArrayList;
