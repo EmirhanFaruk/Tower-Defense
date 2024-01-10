@@ -2,7 +2,6 @@ package com.gui.TerminalAffichage;
 
 import com.config.MapConfig;
 import com.model.Character;
-import com.model.Player;
 import com.model.monster.Monster;
 import com.model.monster.MonsterSpawner;
 
