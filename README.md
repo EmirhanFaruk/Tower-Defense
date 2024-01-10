@@ -23,6 +23,7 @@ Après chaque vague de monstres le niveau sera de plus en plus difficiles alors 
 ## Les personnages
 ### 1. Villageois
 Le villageois permet de diminuer les prix des tours par deux.
+
 ### 2. Archer 
 L'archer permet d'augmenter les dégâts des tours d'archer de 20%.
 
@@ -38,14 +39,42 @@ Le commandant permet de doubler la vitesse d'attaque.
 
 ## Les tours
 ### 1. La tour soldat
-Le Soldat est votre première ligne de défense. Il est rapide et équipé d'une mitrailleuse légère, idéal pour éliminer les ennemis faibles en début de partie.
+Le Soldat est votre première ligne de défense. 
+Il est rapide et équipé d'une arme légère, idéal pour éliminer les ennemis faibles en début de partie. 
+Les balles du soldat infligent également des dégâts supplémentaires si le personnage est un soldat.
+
+**Prix  et puissance d'attaques :**
+- Niveau 1 : 10 pièces et 10 puissances d'attaques
+- Niveau 2 : 17 pièces et 17 puissances d'attaques 
+- Niveau 3 : 22 pièces et 22 puissances d'attaques
 
 ### 2. La tour archer
+L'Archer excelle dans les attaques à distance. 
+Il peut tirer des flèches rapides sur les ennemis. 
+Les flèches de l'Archer infligent également des dégâts supplémentaires si le personnage est un archer.
+
+**Prix et puissance d'attaques :**
+- Niveau 1 : 15 pièces et 15 puissances d'attaques
+- Niveau 2 : 26 pièces et 26 puissances d'attaques
+- Niveau 3 : 33 pièces et 33 puissances d'attaques
 
 ### 3. La tour canon
+Le Canon est une tour lourde qui tire des projectiles puissants.
+Il peut être amélioré pour augmenter sa puissance.
 
-## 4. La tour catapulte
+**Prix et puissance d'attaques :**
+- Niveau 1 : 40 pièces et 15 puissances d'attaques
+- Niveau 2 :  pièces et 26 puissances d'attaques
+- Niveau 3 : 33 pièces et 33 puissances d'attaques
+- 
+### 4. La tour catapulte
+La Catapulte est une tour de siège puissante qui inflige des dégâts.
+Elle attaque deux fois à chaque tir, et peut être améliorée pour augmenter sa puissance d'attaque.
 
+**Prix et puissance d'attaques :**
+- Niveau 1 : 15 pièces et 15 puissances d'attaques
+- Niveau 2 : 26 pièces et 26 puissances d'attaques
+- Niveau 3 : 33 pièces et 33 puissances d'attaques
 
 **A vous de jouer**
 
