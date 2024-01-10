@@ -34,7 +34,7 @@ public class Canon extends Tour {
             target(monsters); //attaque
             if(cible != null)
             {
-                double augmenteDegats= 1 + (double) character.getDegats() / 10 ;
+                double augmenteDegats= 1 + (double) character.getDegats() / 100 ;
                 cible.monsterHurt(degats * augmenteDegats, "BULLET", difficulty);
                 if(cible.isDead())
                 {

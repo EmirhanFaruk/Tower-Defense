@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 public class Archer extends Tour {
     public Archer( int level, int x, int y ) {
-        super( "archer", 15 , 15 , level, x, y, 3 , 5 , 1500 );
+        super( "archer", 15 , 15 , level, x, y, 3 , 5 , 1000 );
     }
 
     public Archer ( int level ){
-        super ( "archer", 15 , 15 , level, 300 , 5 , 1500 );
+        super ( "archer", 15 , 15 , level, 300 , 5 , 1000 );
     }
 
     /**

@@ -41,7 +41,7 @@ public class Monster {
     private final static double[] resistance_pourcentage =
             { 0 , 0.1 ,0.3 ,0.5 } ;
 
-    private final static String[] res_list = {"NONE", "BULLET", "ARROW", "FIRE"};
+    private final static String[] res_list = {"NONE", "BULLET", "ARROW", "EXPLOSION"};
 
     private String resistance = "";
 
