@@ -60,21 +60,21 @@ Les flèches de l'Archer infligent également des dégâts supplémentaires si l
 
 ### 3. La tour canon
 Le Canon est une tour lourde qui tire des projectiles puissants.
-Il peut être amélioré pour augmenter sa puissance.
+Elle peut être améliorée pour augmenter sa puissance.
 
 **Prix et puissance d'attaques :**
-- Niveau 1 : 40 pièces et 15 puissances d'attaques
-- Niveau 2 :  pièces et 26 puissances d'attaques
-- Niveau 3 : 33 pièces et 33 puissances d'attaques
+- Niveau 1 : 40 pièces et 250 puissances d'attaques
+- Niveau 2 : 68 pièces et 425 puissances d'attaques
+- Niveau 3 : 88 pièces et 550 puissances d'attaques
 - 
 ### 4. La tour catapulte
 La Catapulte est une tour de siège puissante qui inflige des dégâts.
 Elle attaque deux fois à chaque tir, et peut être améliorée pour augmenter sa puissance d'attaque.
 
 **Prix et puissance d'attaques :**
-- Niveau 1 : 15 pièces et 15 puissances d'attaques
-- Niveau 2 : 26 pièces et 26 puissances d'attaques
-- Niveau 3 : 33 pièces et 33 puissances d'attaques
+- Niveau 1 : 80 pièces et 400 puissances d'attaques
+- Niveau 2 : 136 pièces et 680 puissances d'attaques
+- Niveau 3 : 176 pièces et 880 puissances d'attaques
 
 **A vous de jouer**
 
