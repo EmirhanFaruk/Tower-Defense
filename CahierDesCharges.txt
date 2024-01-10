@@ -57,12 +57,42 @@ Un écran game over :
 12-Graphisme et Animations 
 
 
-
-
-
-
 A ajouter s'il y a tu temps qui reste:
 -Un mechanique de sauvegarde
 -Ameliorisation des tours
 -Debloquage des tours/monstres
--Ajouter le niveu de difficulté
+-Ajouter le niveau de difficulté
+
+
+Rapport sur le Projet Tower Defense
+Introduction
+Ce rapport vise à fournir un aperçu des aspects du cahier des charges qui ont été traités lors du développement du jeu de Tower Defense.
+Nous discuterons également des problèmes connus et des pistes d'extensions envisagées pour améliorer le jeu.
+
+Parties du Cahier des Charges traitées
+1. ( Expliquer les jpanels et le jframe afin de decrire l'environnement du jeu ( le menu )
+( — choisir le niveau de difficulté (facile, moyen ou difficile) ;
+  — choisir le tableau de jeu (chemins ou décors différents) ;
+  — choisir le mode de jeu (normal ou marathon).))
+
+2.(Dire les règles générales du jeu + explique le code de manière simple )
+
+
+Premièrement, nous avons fait la version terminale du jeu avec
+les classes primitives Monster.java, Tour.java et Character.java
+sauf les classes MonsterPathFinding.java et MonsterSpawner.java qui sont restée sauf des petits changements.
+Avec ceci, nous avons ajouté quatre autres classes, Jeu.java, Plateau.java, Player.java et TerminalAffichage.java
+nous permettant de pouvoir interagir avec le joueur dans le terminal et respecte l'ancienne version du jeu.
+Deuxièmement, nous allons expliquer pourquoi nous avons besoin de cette classe et l'utilité de la classe.
+Tout d'abord, la classe Jeu.java se consiste de la partie logique du jeu
+
+
+4.( Expliquer le graphisme de maniere simple dans lequel on explique la logique du gui (claire et conviviale comprenant
+des panneaux, des boutons et des indicateurs de jeu. Affichage du statut du jeu, du message, des ressources, etc. ))
+
+
+
+
+Problèmes Connus
+
+Conclusion
