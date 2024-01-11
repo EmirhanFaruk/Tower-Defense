@@ -1,1 +1,0 @@
-java -cp out com.gui.App
