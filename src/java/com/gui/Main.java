@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Main
 {
     JFrame frame;
-    public Main(int width, int height) throws Exception {
-        frame = new GameView(width, height);
+    public Main() throws Exception {
+        frame = new GameView(800, 500);
     }
 }
