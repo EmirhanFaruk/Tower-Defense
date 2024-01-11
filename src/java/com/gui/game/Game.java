@@ -193,7 +193,8 @@ public class Game
     {
         int y = mouseX / GameScreen.getTile_width();
         int x = mouseY / GameScreen.getTile_height() ;
-        for ( Tour tour : tours ){
+        for ( int i  = 0 ; i < tours.size() ; i++ ) {
+            Tour tour = tours.get(i) ;
             if ( (int ) tour.getCoordinates().i() == x  && ( int ) tour.getCoordinates().j() == y && tour.getLevel() < 3  ){
                 int upgradePrice = findTower(tour.getName(),tour.getLevel()+1).getPrix(character) ;
                 if ( this.character.getMoney() >= upgradePrice )
@@ -206,6 +207,7 @@ public class Game
                         case "archer" : tours.add(new Archer(tour.getLevel()+1, x, y)); tours.remove(tour); break;
                     }
                     this.character.setMoney(this.character.getMoney() - upgradePrice);
+                    break;
                 }
                 else
                 {
@@ -217,6 +219,7 @@ public class Game
                             updateMessage(message);
                         }
                     }
+                    break;
                 }
             }
             else
@@ -229,6 +232,7 @@ public class Game
                         {
                             String message = main_panel.makeMessagePanelMessage() + " Tower max level";
                             updateMessage(message);
+                            break;
                         }
                         else
                         {

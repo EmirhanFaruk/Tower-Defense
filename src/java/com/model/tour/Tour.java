@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public abstract class Tour {
     private final String name ;
-    private final int prix ;
-    protected final int degats ;
+    private int prix ;
+    protected int degats ;
     private int level ; // il y a que 3 niveaux
     private Coordinate coordinates ;
     private int range ; // la portée de la tour
@@ -85,6 +85,13 @@ public abstract class Tour {
         // regarde la position de la tour et du montres est dans la portée
     }
 
+    public void upgrade(){
+        setLevel(level++);
+        this.prix =( int ) (prix * mulp[getLevel()-1][0]) ;
+        this.degats = ( int ) (degats *  mulp[getLevel()-1][0] ) ;
+        if (level == 3 ) range++ ;
+    }
+
     /* getters et setters */
     public String getName() {
         return name;
@@ -105,5 +112,13 @@ public abstract class Tour {
     }
     public Coordinate getCoordinates() {
         return coordinates;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void setRange(int range) {
+        this.range = range;
     }
 }

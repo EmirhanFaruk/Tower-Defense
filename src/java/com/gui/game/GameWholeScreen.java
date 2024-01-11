@@ -193,7 +193,7 @@ public class GameWholeScreen extends JPanel {
                     public void actionPerformed(ActionEvent e) {
                         main_panel.addMouseListener(new MouseAdapter() {
                             @Override
-                            public void mouseClicked(MouseEvent e) {
+                            public void mousePressed(MouseEvent e) {
                                 int mouseX = e.getX();
                                 int mouseY = e.getY();
                                 game.placeTower( mouseX , mouseY , choice );
@@ -208,7 +208,7 @@ public class GameWholeScreen extends JPanel {
                     public void actionPerformed(ActionEvent e) {
                         main_panel.addMouseListener(new MouseAdapter() {
                             @Override
-                            public void mouseClicked(MouseEvent e) {
+                            public void mousePressed(MouseEvent e) {
                                 int mouseX = e.getX();
                                 int mouseY = e.getY();
                                 game.upgradeTower(mouseX , mouseY);
