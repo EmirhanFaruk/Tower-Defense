@@ -64,7 +64,7 @@ public class MonsterGraphics {
                 return monsterBlueImage[pos];
             case "ARROW":
                 return monsterGreenImage[pos];
-            case "FIRE":
+            case "EXPLOSION":
                 return monsterRedImage[pos];
             default:
                 return null;

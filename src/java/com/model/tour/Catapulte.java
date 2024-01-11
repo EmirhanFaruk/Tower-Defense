@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Catapulte extends Tour {
     public Catapulte(int level, int x, int y) {
-        super("catapulte", 80, 400 , level , x , y , 5 , 7 , 15000 );
+        super("catapulte", 80, 400 , level , x , y , 5 , 7 , 5000 );
     }
 
     public Catapulte(int level ) {
