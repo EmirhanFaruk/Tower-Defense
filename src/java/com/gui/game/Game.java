@@ -225,7 +225,7 @@ public class Game
                 {
                     if (main_panel.getMessage_panel() != null)
                     {
-                        if ( tour.getLevel()== 3)
+                        if ( (int ) tour.getCoordinates().i() == x  && ( int ) tour.getCoordinates().j() == y &&  tour.getLevel()== 3)
                         {
                             String message = main_panel.makeMessagePanelMessage() + " Tower max level";
                             updateMessage(message);
