@@ -207,6 +207,7 @@ public class Game
                         case "archer" : tours.add(new Archer(tour.getLevel()+1, x, y)); tours.remove(tour); break;
                     }
                     this.character.setMoney(this.character.getMoney() - upgradePrice);
+                    break;
                 }
                 else
                 {
@@ -218,6 +219,7 @@ public class Game
                             updateMessage(message);
                         }
                     }
+                    break;
                 }
             }
             else
@@ -226,10 +228,11 @@ public class Game
                 {
                     if (main_panel.getMessage_panel() != null)
                     {
-                        if ( tour.getLevel()== 3)
+                        if ( (int ) tour.getCoordinates().i() == x  && ( int ) tour.getCoordinates().j() == y && tour.getLevel()== 3)
                         {
                             String message = main_panel.makeMessagePanelMessage() + " Tower max level";
                             updateMessage(message);
+                            break;
                         }
                         else
                         {
