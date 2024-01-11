@@ -115,6 +115,8 @@ l'eau et les tours pourraient recouverte de neige ou bien un thème Halloween av
 - Embellir le pause avec un boutton reprendre et un boutton quitter la partie
 - Embellir le game over avec un boutton restart et un boutton return menu.
 
-
+mkdir -p out
+find src/java/com/ -name "*.java" -print | xargs javac -d out
+java -cp out com.gui.App
 
 Conclusion
